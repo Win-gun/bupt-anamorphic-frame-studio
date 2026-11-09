@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "blender": "3.4.1",
+  "engine": "CYCLES",
+  "materials": [
+    {
+      "name": "Autumn mineral \u00b7 ceiling",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.8199999928474426,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 cut",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.6499999761581421,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 facade",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.8199999928474426,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 floor",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.7400000095367432,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 left",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.8199999928474426,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 rear",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.8799999952316284,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    },
+    {
+      "name": "Autumn mineral \u00b7 right",
+      "shared_coordinates": true,
+      "linked_base_color_and_bump": true,
+      "roughness": 0.8199999928474426,
+      "bump_distance_m": 0.0002500000118743628,
+      "noise_scale": 185.0
+    }
+  ],
+  "lights": [
+    {
+      "name": "Autumn \u00b7 autumn_left",
+      "power_w": 95.0,
+      "size_m": 2.700000047683716
+    },
+    {
+      "name": "Autumn \u00b7 ceiling",
+      "power_w": 180.0,
+      "size_m": 4.2144389152526855
+    },
+    {
+      "name": "Autumn \u00b7 facade",
+      "power_w": 850.0,
+      "size_m": 16.862668991088867
+    },
+    {
+      "name": "Autumn \u00b7 rear_wash",
+      "power_w": 55.0,
+      "size_m": 3.5
+    },
+    {
+      "name": "Autumn \u00b7 smoky_right",
+      "power_w": 85.0,
+      "size_m": 2.700000047683716
+    },
+    {
+      "name": "Autumn \u00b7 stage_floor",
+      "power_w": 45.0,
+      "size_m": 2.4000000953674316
+    }
+  ],
+  "actual_saved_emitter_surfaces_outside_solids": true,
+  "original_poster_full_uv": true,
+  "source_poster_emission_unchanged": true,
+  "opening_bevel_m": 0.025,
+  "panel_bevel_m": 0.006
+}

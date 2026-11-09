@@ -4,6 +4,7 @@ Run: Blender -b --python studio/blender_render.py -- --config C --poster P --out
 import argparse
 import json
 import math
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -216,13 +217,24 @@ def main():
     scene = bpy.context.scene
     scene.render.engine = "BLENDER_EEVEE"
     scene.eevee.taa_render_samples = r.get("samples", 16)
-    if r.get("engine") == "CYCLES":
+    autumn = config["frame"]["template"] == "autumn_resonance_cube"
+    art_engine = config.get("autumn", {}).get("engine", "auto")
+    use_cycles = r.get("engine") == "CYCLES" or (
+        autumn
+        and (
+            art_engine == "cycles"
+            or (
+                art_engine == "auto"
+                and (r.get("quality") == "high" or r.get("animation", False))
+            )
+        )
+    )
+    if use_cycles:
         scene.render.engine = "CYCLES"
         scene.cycles.device = "CPU"
         scene.cycles.samples = r.get("samples", 16)
         scene.cycles.use_denoising = True
     scene.view_settings.view_transform = "Standard"
-    scene.view_settings.look = "None"
     scene.view_settings.look = "None"
     scene.view_settings.exposure = 0
     scene.view_settings.gamma = 1
@@ -319,6 +331,7 @@ def main():
         "glass_layers",
         "embedded_cube",
         "embedded_cube_architecture",
+        "autumn_resonance_cube",
     )
     dynamics = {
         "moving_objects": [
@@ -335,7 +348,10 @@ def main():
         scene.frame_start = 1
         scene.frame_end = count
         displacement = min(0.5, artwork["composition"]["depth"] * 0.055)
-        if artwork["template"] == "embedded_cube_architecture":
+        if artwork["template"] in (
+            "embedded_cube_architecture",
+            "autumn_resonance_cube",
+        ):
             cavity = artwork["architectural_geometry"]
             displacement = min(
                 displacement,
@@ -360,11 +376,66 @@ def main():
                 (count, 0),
             )
         )
-        for frame, amount in poses:
-            root.location = normal * amount
-            if is_aurora:
-                root.location += Vector(artwork["composition"]["up"]) * amount * 0.08
-            root.keyframe_insert(data_path="location", frame=frame)
+        autumn_states, geometry_checks = [], []
+        if autumn:
+            from studio.autumn_motion import (
+                motion_state,
+                translation,
+                validate_geometry,
+                checkpoints,
+            )
+
+            # Preflight the complete solid assembly before spending time rendering.
+            lights = exhibition.get("lights") or [
+                ob for ob in target_objects if ob.type == "LIGHT"
+            ]
+            if len(lights) != 6:
+                raise ValueError(
+                    "Autumn motion requires exactly six actual exhibition lights"
+                )
+            base_energies = [ob.data.energy for ob in lights]
+            for fi in range(count):
+                state = motion_state(fi / count * 7.5)
+                state["actual_time_s"] = fi / scene.render.fps
+                offset = translation(state, artwork["composition"])
+                geometry = validate_geometry(
+                    config,
+                    artwork["composition"],
+                    artwork["architectural_geometry"],
+                    offset,
+                )
+                if not geometry["passed"]:
+                    raise ValueError(
+                        "Unsafe Autumn solid motion at frame %d: %s" % (fi, geometry)
+                    )
+                autumn_states.append(state)
+                geometry_checks.append(geometry)
+                root.location = Vector(offset)
+                root.keyframe_insert(data_path="location", frame=fi + 1)
+                for light, base in zip(lights, base_energies):
+                    light.data.energy = base * state["light_factor"]
+                    light.data.keyframe_insert(data_path="energy", frame=fi + 1)
+            # Every sampled pose is explicit; LINEAR avoids Bezier overshoot and
+            # reproduces analytic safety exactly at all rendered frame times.
+            for animated in [root, *(light.data for light in lights)]:
+                for curve in animated.animation_data.action.fcurves:
+                    for point in curve.keyframe_points:
+                        point.interpolation = "LINEAR"
+            check_frames = set(checkpoints(count))
+        else:
+            for frame, amount in poses:
+                root.location = normal * amount
+                if is_aurora:
+                    root.location += (
+                        Vector(artwork["composition"]["up"]) * amount * 0.08
+                    )
+                root.keyframe_insert(data_path="location", frame=frame)
+            check_frames = {
+                0,
+                count // 2,
+                count - 1,
+                round((count - 1) * (0.65 if is_aurora else 0.35)),
+            }
         # Blender's Bezier interpolation gives a smooth forward/back excursion.
         frames_dir = out / "frames"
         frames_dir.mkdir(exist_ok=True)
@@ -372,7 +443,34 @@ def main():
         dynamic_checks = []
         for fi in range(count):
             scene.frame_set(fi + 1)
-            if r.get("light_sweep", False):
+            if autumn:
+                expected_offset = translation(autumn_states[fi], artwork["composition"])
+                if not np.allclose(
+                    np.array(root.location), expected_offset, atol=1e-6, rtol=0
+                ):
+                    raise ValueError(
+                        "Autumn evaluated root differs from preflight at frame %d" % fi
+                    )
+                geometry_checks[fi] = validate_geometry(
+                    config,
+                    artwork["composition"],
+                    artwork["architectural_geometry"],
+                    list(root.location),
+                )
+                expected_energies = (
+                    np.array(base_energies) * autumn_states[fi]["light_factor"]
+                )
+                if not geometry_checks[fi]["passed"] or not np.allclose(
+                    [light.data.energy for light in lights],
+                    expected_energies,
+                    atol=1e-4,
+                    rtol=1e-6,
+                ):
+                    raise ValueError(
+                        "Autumn evaluated geometry/light keyframes failed at frame %d"
+                        % fi
+                    )
+            if r.get("light_sweep", False) and not autumn:
                 phase = (
                     min(1.0, fi / max(1, count - 1) / 0.65)
                     if is_aurora
@@ -390,6 +488,12 @@ def main():
                         data_path="location", frame=fi + 1
                     )
             render(scene, out / "motion-source.png")
+            if autumn:
+                # Direct scene views are honest preview assets, distinct from
+                # inverse-projected LED atlases and sampled LED re-renders.
+                shutil.copyfile(
+                    out / "motion-source.png", frames_dir / ("view_%04d.png" % fi)
+                )
             motion = read_pixels(out / "motion-source.png")
             motion_atlas, _ = inverse_project(motion, camera, config, aw, ah)
             save_pixels(frames_dir / ("led_%04d.png" % fi), motion_atlas)
@@ -399,14 +503,21 @@ def main():
                     "blender_frame": fi + 1,
                     "translation_m": list(root.location),
                     "path": "frames/led_%04d.png" % fi,
+                    **(
+                        {
+                            "scene_view_path": "frames/view_%04d.png" % fi,
+                            "motion": autumn_states[fi],
+                            "geometry": geometry_checks[fi],
+                            "light_energies_w": [
+                                float(light.data.energy) for light in lights
+                            ],
+                        }
+                        if autumn
+                        else {}
+                    ),
                 }
             )
-            if fi in {
-                0,
-                count // 2,
-                count - 1,
-                round((count - 1) * (0.65 if is_aurora else 0.35)),
-            }:
+            if fi in check_frames:
                 # Independently re-render the actual curved screen at endpoint and midpoint poses.
                 for ob in target_objects:
                     if ob.type != "CAMERA":
@@ -455,6 +566,37 @@ def main():
         }
         dynamics["verification"] = dynamic_checks
         dynamics["passed"] = all(item["passed"] for item in dynamic_checks)
+        if autumn:
+            dynamics["timing"] = dict(
+                nominal_timeline_s=7.5,
+                actual_duration_s=count / scene.render.fps,
+                fps=scene.render.fps,
+                frame_count=count,
+                sample_time="actual: index / fps; nominal reference: index / count * 7.5",
+                interpolation="LINEAR sampled smoothstep/sine-squared",
+                stages_s=[0, 1.5, 3.5, 5, 7.5],
+                forward_displacement_m=0.20,
+                temporary_up_peak_m=0.05,
+                nominal_final_hold_seconds=2.5,
+                finish_hold=True,
+                actual_hold_frames=count - math.ceil(count * 5 / 7.5),
+                light_reveal=True,
+                light_energy_start_factor=0.55,
+                light_energy_end_factor=1.0,
+                moving_light_positions=False,
+            )
+            dynamics["verification_summary"] = dict(
+                geometry_checks=len(geometry_checks),
+                actual_source_renders=count,
+                actual_inverse_projected_atlases=count,
+                independent_led_rerenders=len(dynamic_checks),
+                independent_poster_silhouettes=len(dynamic_checks),
+                independent_check_frames=sorted(check_frames),
+                note="All frames have solid-envelope geometry and actual 3D source renders; independent LED camera and coverage checks are sampled.",
+            )
+            dynamics["passed"] = bool(
+                dynamics["passed"] and all(g["passed"] for g in geometry_checks)
+            )
         scene.frame_set(1)
         exhibition["key_light"].location = sweep_origin
         screen.data.materials[0] = original_mat

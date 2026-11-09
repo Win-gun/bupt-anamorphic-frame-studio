@@ -1,0 +1,49 @@
+ffmpeg version 8.1.1 Copyright (c) 2000-2026 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.6.4.2)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/8.1.1 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags= --enable-ffplay --enable-gpl --enable-libsvtav1 --enable-libopus --enable-libx264 --enable-libmp3lame --enable-libdav1d --enable-libvmaf --enable-libvpx --enable-libx265 --enable-openssl --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      60. 26.101 / 60. 26.101
+  libavcodec     62. 28.101 / 62. 28.101
+  libavformat    62. 12.101 / 62. 12.101
+  libavdevice    62.  3.101 / 62.  3.101
+  libavfilter    11. 14.101 / 11. 14.101
+  libswscale      9.  5.101 /  9.  5.101
+  libswresample   6.  3.101 /  6.  3.101
+Input #0, image2, from 'examples/autumn-resonance/motion-smoke/frames/led_%04d.png':
+  Duration: 00:00:00.50, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgb24(pc, gbr/unknown/unknown), 546x390 [SAR 2835:2835 DAR 7:5], 12 fps, 12 tbr, 12 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x126f09880] using SAR=1/1
+[libx264 @ 0x126f09880] using cpu capabilities: ARMv8 NEON DotProd
+[libx264 @ 0x126f09880] profile High, level 2.2, 4:2:0, 8-bit
+[libx264 @ 0x126f09880] 264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=12 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'examples/autumn-resonance/motion-smoke/led.mp4':
+  Metadata:
+    encoder         : Lavf62.12.101
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, bt709/bt709/iec61966-2-1, progressive), 546x390 [SAR 1:1 DAR 7:5], q=2-31, 12 fps, 12288 tbn
+    Metadata:
+      encoder         : Lavc62.28.101 libx264
+    Side data:
+      CPB properties: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[mp4 @ 0x127a04300] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 0x126f09280] video:25KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 3.875413%
+frame=    6 fps=0.0 q=-1.0 Lsize=      25KiB time=00:00:00.33 bitrate= 625.9kbits/s speed=7.02x elapsed=0:00:00.04
+[libx264 @ 0x126f09880] frame I:1     Avg QP:21.14  size: 14094
+[libx264 @ 0x126f09880] frame P:2     Avg QP:19.35  size:  2772
+[libx264 @ 0x126f09880] frame B:3     Avg QP:23.07  size:  1593
+[libx264 @ 0x126f09880] consecutive B-frames: 33.3%  0.0%  0.0% 66.7%
+[libx264 @ 0x126f09880] mb I  I16..4: 23.0% 62.5% 14.5%
+[libx264 @ 0x126f09880] mb P  I16..4:  7.8% 22.6%  3.0%  P16..4: 11.3%  6.0%  3.7%  0.0%  0.0%    skip:45.7%
+[libx264 @ 0x126f09880] mb B  I16..4:  1.9%  1.3%  0.0%  B16..8: 34.9%  8.6%  0.5%  direct: 3.3%  skip:49.6%  L0:17.7% L1:75.4% BI: 6.9%
+[libx264 @ 0x126f09880] 8x8 transform intra:63.3% inter:71.6%
+[libx264 @ 0x126f09880] coded y,uvDC,uvAC intra: 42.5% 49.8% 24.7% inter: 11.0% 7.8% 0.5%
+[libx264 @ 0x126f09880] i16 v,h,dc,p: 24% 37% 12% 27%
+[libx264 @ 0x126f09880] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 25% 34% 17%  4%  4%  4%  4%  3%  6%
+[libx264 @ 0x126f09880] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 18% 40% 12%  4%  6%  4%  5%  4%  6%
+[libx264 @ 0x126f09880] i8c dc,h,v,p: 53% 26% 18%  3%
+[libx264 @ 0x126f09880] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x126f09880] ref P L0: 92.8%  0.3%  6.9%
+[libx264 @ 0x126f09880] ref B L0: 94.0%  6.0%
+[libx264 @ 0x126f09880] ref B L1: 90.2%  9.8%
+[libx264 @ 0x126f09880] kb/s:390.67

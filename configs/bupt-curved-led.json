@@ -133,5 +133,19 @@
     "facade_margin_m": 1.2,
     "poster_scale": 0.82,
     "poster_depth_fraction": 0.62
+  },
+  "autumn": {
+    "variant": "balanced",
+    "texture_strength_m": 0.00025,
+    "gradient_strength": 0.28,
+    "light_intensity": 1,
+    "softness": 0.8,
+    "shadow_strength": 0.65,
+    "ambient": 0.35,
+    "edge_highlight": 0.18,
+    "poster_depth_fraction": 0.7,
+    "opening_bevel_m": 0.025,
+    "panel_bevel_m": 0.006,
+    "engine": "auto"
   }
 }

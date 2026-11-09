@@ -6,6 +6,30 @@
 
 [三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
 
+## 新增：Autumn Resonance Cube · 秋韵光影舱
+
+独立专属美术预设 `autumn_resonance_cube`，复用楼体开孔、五面实体内舱和北邮曲面映射。新增共享空间坐标下的矿物微水泥节点材质、宽柔渐变、六组真实 Area 灯及后壁软影；原图保持完整 UV 和色彩。Aurora 仍为启动默认，全部旧模板保留。
+
+![三种秋韵建筑配色 · 真实 Cycles 渲染](examples/autumn-resonance/variants-comparison.png)
+
+[最终完整场景](examples/autumn-resonance/final/scene.png) · [4368×3120 LED展开](examples/autumn-resonance/final/atlas.png) · [最佳点模拟](examples/autumn-resonance/final/simulation.png) · [可编辑 Blender](examples/autumn-resonance/final/scene.blend) · [优化前后对比](examples/autumn-resonance/before-after.png) · [验收报告](examples/autumn-resonance/acceptance.md)
+
+界面选择“秋韵光影舱”，可调整 Balanced/Warm/Cool、纹理强度（mm）、光照/柔和度、舱内位置、阴影、环境及边缘高光。专业参数含渐变、真实倒角和引擎。`auto` 使用 Eevee 进行静态快速构图，使用 Cycles 进行高质量静态及秋韵动态；最终美术参考使用实际验证的 **Blender 3.4.1 Cycles CPU**。较新版本尚未完成整套兼容验收。
+
+[7.5秒真实三维场景动画](examples/autumn-resonance/motion-preview/target.mp4) 与 [LED播放动画](examples/autumn-resonance/motion-preview/led.mp4) 均为546×390、24fps、180帧预览。每帧真实渲染/反投影/实体安全检查，7个检查点另做独立物理屏回贴；最后60帧位置与灯光固定。场景视图视频不冒充独立回贴模拟。
+
+独立配置见 [`configs/autumn-resonance.json`](configs/autumn-resonance.json)。可通过界面“导入 JSON”加载，也可从仓库根目录运行：
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 \
+  --python studio/blender_render.py -- \
+  --config configs/autumn-resonance.json \
+  --poster examples/v2/jiqi-qiuyun/original.png \
+  --output outputs/autumn-local
+```
+
+此配置输出默认全尺寸静态；本轮128采样正式参考的完整参数另存于 `examples/autumn-resonance/final-config.json`。墙厚0.32m、舱深3m、海报开口后2.1m及P3/90°等均为未校准演示参数。材质、灯光与动画证据位于独立目录，旧版本验收未覆盖。
+
 ## 新增：Embedded Cube · 楼体内嵌立方体
 
 保留全部已有样式，新增独立模板`embedded_cube_architecture`。连续建筑墙体中挖出真实展示舱，具有墙厚、顶/底/左右壁和后壁，无传统边框、玻璃盖或舞台底座。默认推荐B舱内悬浮，也可选择A后壁展示。
@@ -18,7 +42,7 @@
 
 ## 本地启动
 
-需要 Python 3.9+、Node.js 20.19+、FFmpeg/ffprobe。已实际验证 macOS Apple Silicon、Blender **3.4.1 EEVEE**；其他 Blender 大版本的 PBR/EEVEE API 尚未兼容验证。
+需要 Python 3.9+、Node.js 20.19+、FFmpeg/ffprobe。已实际验证 macOS Apple Silicon、Blender **3.4.1 EEVEE / Cycles CPU**；其他 Blender 大版本的 PBR/EEVEE API 尚未兼容验证。
 
 ```sh
 git clone https://github.com/Win-gun/bupt-anamorphic-frame-studio.git

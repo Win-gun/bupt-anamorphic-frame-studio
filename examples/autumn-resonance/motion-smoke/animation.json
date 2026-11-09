@@ -1,0 +1,509 @@
+{
+  "moving_objects": [
+    "Poster backing \u00b7 25 mm",
+    "Original poster \u00b7 complete unmodified rectangle"
+  ],
+  "static_architecture": true,
+  "enabled": true,
+  "light_sweep": false,
+  "frames": [
+    {
+      "index": 0,
+      "blender_frame": 1,
+      "translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "frames/led_0000.png",
+      "scene_view_path": "frames/view_0000.png",
+      "motion": {
+        "time_s": 0.0,
+        "forward_m": 0.0,
+        "up_m": 0.0,
+        "light_factor": 0.55,
+        "stage": "light_reveal",
+        "actual_time_s": 0.0
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.29854447319043503,
+            -0.27698632373613247
+          ],
+          [
+            -0.2990063112869651,
+            -0.2774148121122598
+          ],
+          [
+            -0.2985444731904349,
+            0.3652147851483162
+          ],
+          [
+            -0.29900631128696514,
+            0.36577975993882245
+          ],
+          [
+            0.5157222243588877,
+            -0.2769863237361325
+          ],
+          [
+            0.5165200290138886,
+            -0.2774148121122599
+          ],
+          [
+            0.5157222243588875,
+            0.36521478514831623
+          ],
+          [
+            0.5165200290138886,
+            0.3657797599388224
+          ]
+        ],
+        "camera_depth_min_m": 16.160667311417853,
+        "opening_margin_ndc": 0.14644569764160636,
+        "physical_side_clearance_m": 0.9117819523147501,
+        "front_distance_m": 2.099999999999999,
+        "front_safety_clearance_m": 1.699999999999999,
+        "rear_clearance_m": 0.875,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        99.0,
+        52.25,
+        46.75,
+        24.75,
+        30.25,
+        467.5
+      ]
+    },
+    {
+      "index": 1,
+      "blender_frame": 2,
+      "translation_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "path": "frames/led_0001.png",
+      "scene_view_path": "frames/view_0001.png",
+      "motion": {
+        "time_s": 1.25,
+        "forward_m": 0.0,
+        "up_m": 0.0,
+        "light_factor": 0.9666666666666668,
+        "stage": "light_reveal",
+        "actual_time_s": 0.08333333333333333
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.29854447319043503,
+            -0.27698632373613247
+          ],
+          [
+            -0.2990063112869651,
+            -0.2774148121122598
+          ],
+          [
+            -0.2985444731904349,
+            0.3652147851483162
+          ],
+          [
+            -0.29900631128696514,
+            0.36577975993882245
+          ],
+          [
+            0.5157222243588877,
+            -0.2769863237361325
+          ],
+          [
+            0.5165200290138886,
+            -0.2774148121122599
+          ],
+          [
+            0.5157222243588875,
+            0.36521478514831623
+          ],
+          [
+            0.5165200290138886,
+            0.3657797599388224
+          ]
+        ],
+        "camera_depth_min_m": 16.160667311417853,
+        "opening_margin_ndc": 0.14644569764160636,
+        "physical_side_clearance_m": 0.9117819523147501,
+        "front_distance_m": 2.099999999999999,
+        "front_safety_clearance_m": 1.699999999999999,
+        "rear_clearance_m": 0.875,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        174.0,
+        91.83333587646484,
+        82.16666412353516,
+        43.5,
+        53.16666793823242,
+        821.6666870117188
+      ]
+    },
+    {
+      "index": 2,
+      "blender_frame": 3,
+      "translation_m": [
+        -0.014002800919115543,
+        -0.09801960736513138,
+        0.014002800919115543
+      ],
+      "path": "frames/led_0002.png",
+      "scene_view_path": "frames/view_0002.png",
+      "motion": {
+        "time_s": 2.5,
+        "forward_m": 0.1,
+        "up_m": 0.0,
+        "light_factor": 1.0,
+        "stage": "forward",
+        "actual_time_s": 0.16666666666666666
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.3004004389379339,
+            -0.2787082686534563
+          ],
+          [
+            -0.30086804161150404,
+            -0.27914210534167555
+          ],
+          [
+            -0.300400438937934,
+            0.3674852211872094
+          ],
+          [
+            -0.300868041611504,
+            0.3680572478877434
+          ],
+          [
+            0.5189283222104761,
+            -0.2787082686534564
+          ],
+          [
+            0.5197360849145346,
+            -0.27914210534167566
+          ],
+          [
+            0.5189283222104761,
+            0.3674852211872094
+          ],
+          [
+            0.5197360849145344,
+            0.3680572478877433
+          ]
+        ],
+        "camera_depth_min_m": 16.060667309941977,
+        "opening_margin_ndc": 0.14458396731706746,
+        "physical_side_clearance_m": 0.9117819521830413,
+        "front_distance_m": 1.999999998524123,
+        "front_safety_clearance_m": 1.599999998524123,
+        "rear_clearance_m": 0.9750000014758764,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        180.0,
+        95.0,
+        85.0,
+        45.0,
+        55.0,
+        850.0
+      ]
+    },
+    {
+      "index": 3,
+      "blender_frame": 4,
+      "translation_m": [
+        -0.02775806561112404,
+        -0.19430644810199738,
+        0.040382444858551025
+      ],
+      "path": "frames/led_0003.png",
+      "scene_view_path": "frames/view_0003.png",
+      "motion": {
+        "time_s": 3.75,
+        "forward_m": 0.2,
+        "up_m": 0.012499999999999997,
+        "light_factor": 1.0,
+        "stage": "breath",
+        "actual_time_s": 0.25
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.3022796250815087,
+            -0.27873337413354504
+          ],
+          [
+            -0.30275310093793967,
+            -0.27916996830689755
+          ],
+          [
+            -0.3022796250815087,
+            0.37150244583096026
+          ],
+          [
+            -0.30275310093793967,
+            0.3720843488906144
+          ],
+          [
+            0.5221745317643034,
+            -0.278733374133545
+          ],
+          [
+            0.5229924401283451,
+            -0.27916996830689755
+          ],
+          [
+            0.5221745317643032,
+            0.37150244583096026
+          ],
+          [
+            0.5229924401283451,
+            0.37208434889061454
+          ]
+        ],
+        "camera_depth_min_m": 15.960667316812419,
+        "opening_margin_ndc": 0.14269890799063184,
+        "physical_side_clearance_m": 0.9117819507342437,
+        "front_distance_m": 1.9000000053945665,
+        "front_safety_clearance_m": 1.5000000053945663,
+        "rear_clearance_m": 1.0749999946054334,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        180.0,
+        95.0,
+        85.0,
+        45.0,
+        55.0,
+        850.0
+      ]
+    },
+    {
+      "index": 4,
+      "blender_frame": 5,
+      "translation_m": [
+        -0.028005601838231087,
+        -0.19603921473026276,
+        0.028005601838231087
+      ],
+      "path": "frames/led_0004.png",
+      "scene_view_path": "frames/view_0004.png",
+      "motion": {
+        "time_s": 5.0,
+        "forward_m": 0.2,
+        "up_m": 0.0,
+        "light_factor": 1.0,
+        "stage": "stable_hold",
+        "actual_time_s": 0.3333333333333333
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.30227962505827166,
+            -0.28045175718118454
+          ],
+          [
+            -0.3027531009149139,
+            -0.28089104294499534
+          ],
+          [
+            -0.3022796250582717,
+            0.3697840631228173
+          ],
+          [
+            -0.30275310091491386,
+            0.37036327459307744
+          ],
+          [
+            0.5221745322179984,
+            -0.28045175718118465
+          ],
+          [
+            0.5229924405831784,
+            -0.28089104294499534
+          ],
+          [
+            0.5221745322179984,
+            0.3697840631228173
+          ],
+          [
+            0.5229924405831784,
+            0.3703632745930775
+          ]
+        ],
+        "camera_depth_min_m": 15.9606673084661,
+        "opening_margin_ndc": 0.1426989080136576,
+        "physical_side_clearance_m": 0.9117819520513324,
+        "front_distance_m": 1.8999999970482466,
+        "front_safety_clearance_m": 1.4999999970482465,
+        "rear_clearance_m": 1.075000002951753,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        180.0,
+        95.0,
+        85.0,
+        45.0,
+        55.0,
+        850.0
+      ]
+    },
+    {
+      "index": 5,
+      "blender_frame": 6,
+      "translation_m": [
+        -0.028005601838231087,
+        -0.19603921473026276,
+        0.028005601838231087
+      ],
+      "path": "frames/led_0005.png",
+      "scene_view_path": "frames/view_0005.png",
+      "motion": {
+        "time_s": 6.25,
+        "forward_m": 0.2,
+        "up_m": 0.0,
+        "light_factor": 1.0,
+        "stage": "stable_hold",
+        "actual_time_s": 0.4166666666666667
+      },
+      "geometry": {
+        "passed": true,
+        "projected_corners_ndc": [
+          [
+            -0.30227962505827166,
+            -0.28045175718118454
+          ],
+          [
+            -0.3027531009149139,
+            -0.28089104294499534
+          ],
+          [
+            -0.3022796250582717,
+            0.3697840631228173
+          ],
+          [
+            -0.30275310091491386,
+            0.37036327459307744
+          ],
+          [
+            0.5221745322179984,
+            -0.28045175718118465
+          ],
+          [
+            0.5229924405831784,
+            -0.28089104294499534
+          ],
+          [
+            0.5221745322179984,
+            0.3697840631228173
+          ],
+          [
+            0.5229924405831784,
+            0.3703632745930775
+          ]
+        ],
+        "camera_depth_min_m": 15.9606673084661,
+        "opening_margin_ndc": 0.1426989080136576,
+        "physical_side_clearance_m": 0.9117819520513324,
+        "front_distance_m": 1.8999999970482466,
+        "front_safety_clearance_m": 1.4999999970482465,
+        "rear_clearance_m": 1.075000002951753,
+        "panel_envelope_m": 0.025
+      },
+      "light_energies_w": [
+        180.0,
+        95.0,
+        85.0,
+        45.0,
+        55.0,
+        850.0
+      ]
+    }
+  ],
+  "timing": {
+    "nominal_timeline_s": 7.5,
+    "actual_duration_s": 0.5,
+    "fps": 12,
+    "frame_count": 6,
+    "sample_time": "actual: index / fps; nominal reference: index / count * 7.5",
+    "interpolation": "LINEAR sampled smoothstep/sine-squared",
+    "stages_s": [
+      0,
+      1.5,
+      3.5,
+      5,
+      7.5
+    ],
+    "forward_displacement_m": 0.2,
+    "temporary_up_peak_m": 0.05,
+    "nominal_final_hold_seconds": 2.5,
+    "finish_hold": true,
+    "actual_hold_frames": 2,
+    "light_reveal": true,
+    "light_energy_start_factor": 0.55,
+    "light_energy_end_factor": 1.0,
+    "moving_light_positions": false
+  },
+  "verification": [
+    {
+      "frame": 0,
+      "screen_mae_srgb": 0.006850053556263447,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 1,
+      "screen_mae_srgb": 0.007069442421197891,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 3,
+      "screen_mae_srgb": 0.007286796811968088,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 4,
+      "screen_mae_srgb": 0.007196909748017788,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 5,
+      "screen_mae_srgb": 0.00719684362411499,
+      "poster_coverage": 1.0,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "verification_summary": {
+    "geometry_checks": 6,
+    "actual_source_renders": 6,
+    "actual_inverse_projected_atlases": 6,
+    "independent_led_rerenders": 5,
+    "independent_poster_silhouettes": 5,
+    "independent_check_frames": [
+      0,
+      1,
+      3,
+      4,
+      5
+    ],
+    "note": "All frames have solid-envelope geometry and actual 3D source renders; independent LED camera and coverage checks are sampled."
+  }
+}

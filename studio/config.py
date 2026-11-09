@@ -68,6 +68,7 @@ class Frame(StrictModel):
         "glass_layers",
         "embedded_cube",
         "embedded_cube_architecture",
+        "autumn_resonance_cube",
         "cinema",
         "deep",
         "float",
@@ -201,6 +202,31 @@ class Cube(StrictModel):
         return self
 
 
+class Autumn(StrictModel):
+    """Exclusive art controls; legacy presets never consume these values."""
+
+    variant: Literal["balanced", "warm", "cool"] = PRESET["autumn"]["variant"]
+    texture_strength_m: float = Field(
+        PRESET["autumn"]["texture_strength_m"], ge=0, le=0.0004
+    )
+    gradient_strength: float = Field(
+        PRESET["autumn"]["gradient_strength"], ge=0, le=0.6
+    )
+    light_intensity: float = Field(PRESET["autumn"]["light_intensity"], ge=0.1, le=3)
+    softness: float = Field(PRESET["autumn"]["softness"], ge=0.1, le=1)
+    shadow_strength: float = Field(PRESET["autumn"]["shadow_strength"], ge=0, le=1)
+    ambient: float = Field(PRESET["autumn"]["ambient"], ge=0.05, le=1.5)
+    edge_highlight: float = Field(PRESET["autumn"]["edge_highlight"], ge=0, le=1)
+    poster_depth_fraction: float = Field(
+        PRESET["autumn"]["poster_depth_fraction"], ge=0.35, le=0.8
+    )
+    opening_bevel_m: float = Field(
+        PRESET["autumn"]["opening_bevel_m"], ge=0.005, le=0.05
+    )
+    panel_bevel_m: float = Field(PRESET["autumn"]["panel_bevel_m"], ge=0.001, le=0.006)
+    engine: Literal["auto", "eevee", "cycles"] = PRESET["autumn"]["engine"]
+
+
 class Config(StrictModel):
     screen: Screen = Field(default_factory=Screen)
     camera: Camera = Field(default_factory=Camera)
@@ -210,15 +236,23 @@ class Config(StrictModel):
     lighting: Lighting = Field(default_factory=Lighting)
     panel: Panel = Field(default_factory=Panel)
     cube: Cube = Field(default_factory=Cube)
+    autumn: Autumn = Field(default_factory=Autumn)
 
     @model_validator(mode="after")
     def check_spatial_limits(self):
+        if self.frame.template == "autumn_resonance_cube":
+            distance = self.cube.depth_m * self.autumn.poster_depth_fraction
+            if distance <= self.cube.wall_thickness_m + 0.08:
+                raise ValueError("秋韵海报需位于墙体切口之后")
+            if self.autumn.opening_bevel_m >= self.cube.wall_thickness_m / 2:
+                raise ValueError("开口倒角须小于墙体厚度的一半")
         if self.frame.template in (
             "aurora_float",
             "soft_depth",
             "glass_layers",
             "embedded_cube",
             "embedded_cube_architecture",
+            "autumn_resonance_cube",
         ):
             return self
         inward_offset = self.frame.position[2] if self.frame.layout != "manual" else 0

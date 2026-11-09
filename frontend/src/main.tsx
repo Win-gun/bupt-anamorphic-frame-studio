@@ -67,6 +67,20 @@ type Config = {
     poster_scale: number;
     poster_depth_fraction: number;
   };
+  autumn: {
+    variant: string;
+    texture_strength_m: number;
+    gradient_strength: number;
+    light_intensity: number;
+    softness: number;
+    shadow_strength: number;
+    ambient: number;
+    edge_highlight: number;
+    poster_depth_fraction: number;
+    opening_bevel_m: number;
+    panel_bevel_m: number;
+    engine: string;
+  };
   panel: {
     thickness_m: number;
     corner_radius_m: number;
@@ -238,8 +252,8 @@ function App() {
           quality: "quick",
           animation: true,
           video: true,
-          duration: 2,
-          fps: 12,
+          duration: config.frame.template === "autumn_resonance_cube" ? 7.5 : 2,
+          fps: config.frame.template === "autumn_resonance_cube" ? 24 : 12,
         });
       if (mode === "formal") config.render.scale = 1;
       data.append("config", JSON.stringify(config));
@@ -322,6 +336,7 @@ function App() {
         )}
       </div>
     );
+  const isAutumn = c.frame.template === "autumn_resonance_cube";
   const isArchitecture = c.frame.template === "embedded_cube_architecture";
   const isLegacy = ["cinema", "deep", "float", "glass"].includes(
     c.frame.template,
@@ -371,6 +386,7 @@ function App() {
           </div>
           <div className="templates">
             {[
+              ["autumn_resonance_cube", "秋韵光影舱", "Autumn Resonance Cube"],
               ["aurora_float", "极光悬浮", "柔和空间"],
               ["soft_depth", "柔光纵深", "轻柔层次"],
               ["glass_layers", "玻璃叠层", "通透质感"],
@@ -387,7 +403,26 @@ function App() {
                   "template " + (c.frame.template === id ? "selected" : "")
                 }
                 onClick={() => {
-                  if (id === "embedded_cube_architecture")
+                  if (id === "autumn_resonance_cube")
+                    setC({
+                      ...c,
+                      frame: {
+                        ...c.frame,
+                        template: id,
+                        layout: "auto_fit",
+                        position: [0, 0, 0],
+                      },
+                      cube: {
+                        ...c.cube,
+                        layout: "floating",
+                        depth_m: 3,
+                        wall_thickness_m: 0.32,
+                        opening_scale: 0.94,
+                        poster_scale: 0.82,
+                      },
+                      render: { ...c.render, light_sweep: false },
+                    });
+                  else if (id === "embedded_cube_architecture")
                     setC({
                       ...c,
                       frame: {
@@ -400,7 +435,7 @@ function App() {
                   else set("frame", "template", id);
                 }}
               >
-                <span className={"frameicon f" + i}>
+                <span className={"frameicon f" + (id === "autumn_resonance_cube" ? 3 : i - 1)}>
                   <i />
                 </span>
                 <span>
@@ -485,7 +520,7 @@ function App() {
               )}
             </details>
           )}
-          {!isLegacy && !isArchitecture && (
+          {!isLegacy && !isArchitecture && !isAutumn && (
             <>
               <div className="sectionlabel">
                 <span>空间色彩</span>
@@ -628,7 +663,7 @@ function App() {
               )}
             </>
           )}
-          {professional && !isLegacy && !isArchitecture && (
+          {professional && !isLegacy && !isArchitecture && !isAutumn && (
             <details>
               <summary>图片布局 / LAYOUT</summary>
               <label className="field">
@@ -667,6 +702,101 @@ function App() {
               经典样式保留原有材质与灯光。切换专业模式可调整画框参数。
             </p>
           )}
+          {isAutumn && (
+            <details open>
+              <summary>秋韵光影 / AUTUMN</summary>
+              <label className="field">
+                色调
+                <select
+                  value={c.autumn.variant}
+                  onChange={(e) => set("autumn", "variant", e.target.value)}
+                >
+                  <option value="balanced">平衡</option>
+                  <option value="warm">暖调</option>
+                  <option value="cool">冷调</option>
+                </select>
+              </label>
+              <div className="double">
+                {n(
+                  "光照强度",
+                  c.autumn.light_intensity,
+                  (v) => set("autumn", "light_intensity", v),
+                  0.05,
+                )}
+                {n(
+                  "光线柔和度",
+                  c.autumn.softness,
+                  (v) => set("autumn", "softness", v),
+                  0.05,
+                )}
+                {n(
+                  "纹理强度 mm",
+                  c.autumn.texture_strength_m * 1000,
+                  (v) => set("autumn", "texture_strength_m", v / 1000),
+                  0.05,
+                )}
+                {n(
+                  "舱内位置比例",
+                  c.autumn.poster_depth_fraction,
+                  (v) => set("autumn", "poster_depth_fraction", v),
+                  0.05,
+                )}
+                {n(
+                  "阴影强度",
+                  c.autumn.shadow_strength,
+                  (v) => set("autumn", "shadow_strength", v),
+                  0.05,
+                )}
+                {n(
+                  "环境光",
+                  c.autumn.ambient,
+                  (v) => set("autumn", "ambient", v),
+                  0.05,
+                )}
+                {n(
+                  "边缘高光",
+                  c.autumn.edge_highlight,
+                  (v) => set("autumn", "edge_highlight", v),
+                  0.05,
+                )}
+              </div>
+              <details>
+                <summary>高级参数</summary>
+                <div className="double">
+                  {n(
+                    "渐变强度",
+                    c.autumn.gradient_strength,
+                    (v) => set("autumn", "gradient_strength", v),
+                    0.05,
+                  )}
+                  {n(
+                    "开口倒角 m",
+                    c.autumn.opening_bevel_m,
+                    (v) => set("autumn", "opening_bevel_m", v),
+                    0.001,
+                  )}
+                  {n(
+                    "面板倒角 m",
+                    c.autumn.panel_bevel_m,
+                    (v) => set("autumn", "panel_bevel_m", v),
+                    0.001,
+                  )}
+                </div>
+                <label className="field">
+                  渲染引擎
+                  <select
+                    value={c.autumn.engine}
+                    onChange={(e) => set("autumn", "engine", e.target.value)}
+                  >
+                    <option value="auto">自动（静态快览 Eevee）</option>
+                    <option value="eevee">Eevee</option>
+                    <option value="cycles">Cycles</option>
+                  </select>
+                </label>
+                <p className="muted">自动模式下，高质量及秋韵动态使用 Cycles。</p>
+              </details>
+            </details>
+          )}
           <details open>
             <summary>{isLegacy ? "作品大小" : "作品与光线"}</summary>
             <div className="double">
@@ -676,7 +806,7 @@ function App() {
                 (v) => set("frame", "scale", v),
                 0.05,
               )}
-              {!isLegacy && (
+              {!isLegacy && !isAutumn && (
                 <>
                   {!isArchitecture && (
                     <>
@@ -1221,6 +1351,7 @@ function App() {
                 />{" "}
                 动画
               </label>
+              {!isAutumn && (
               <label className="check">
                 <input
                   type="checkbox"
@@ -1243,6 +1374,7 @@ function App() {
                 />{" "}
                 边缘扫光（启用三维序列）
               </label>
+              )}
             </>
           )}
           <button
@@ -1276,7 +1408,7 @@ function App() {
             }
             onClick={() => submit("motion")}
           >
-            动态测试 · 低清2秒
+            {isAutumn ? "动态测试 · 低清7.5秒" : "动态测试 · 低清2秒"}
           </button>
           <button
             className="render"

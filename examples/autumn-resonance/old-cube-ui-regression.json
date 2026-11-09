@@ -1,0 +1,12 @@
+{
+  "oldLightCube": true,
+  "defaultFloating": true,
+  "noInactiveAuroraControls": true,
+  "backWallSelectable": true,
+  "actualJob": true,
+  "template": true,
+  "posterCoverage": 1,
+  "imageLoaded": true,
+  "mobileNoOverflow": true,
+  "errors": []
+}

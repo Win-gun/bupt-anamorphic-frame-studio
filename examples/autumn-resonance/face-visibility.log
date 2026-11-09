@@ -1,0 +1,28 @@
+Blender 3.4.1 (hash 55485cb379f7 built 2022-12-20 00:48:52)
+Read prefs: /Users/apple/Library/Application Support/Blender/3.4/config/userpref.blend
+Read blend: examples/autumn-resonance/variants/balanced/scene.blend
+帧号:1 | 内存:33.47M (峰值 34.60M) | 时间:00:00.82 | Syncing 摄像机
+帧号:1 | 内存:33.47M (峰值 34.60M) | 时间:00:00.82 | Syncing Embedded Cube · poster assembly
+帧号:1 | 内存:33.47M (峰值 34.60M) | 时间:00:00.82 | Syncing Building facade · continuous sol
+帧号:1 | 内存:33.54M (峰值 34.60M) | 时间:00:01.16 | Syncing Excavated room · LEFT wall
+帧号:1 | 内存:33.55M (峰值 34.60M) | 时间:00:01.16 | Syncing Excavated room · RIGHT wall
+帧号:1 | 内存:33.56M (峰值 34.60M) | 时间:00:01.16 | Syncing Excavated room · CEILING
+帧号:1 | 内存:33.57M (峰值 34.60M) | 时间:00:01.16 | Syncing Excavated room · FLOOR
+帧号:1 | 内存:33.58M (峰值 34.60M) | 时间:00:01.16 | Syncing Excavated room · REAR wall
+帧号:1 | 内存:33.59M (峰值 34.60M) | 时间:00:01.16 | Syncing Poster backing · 25 mm
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Original poster · complete unmod
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · shared mineral coordina
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · ceiling
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · autumn_left
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · smoky_right
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · stage_floor
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · rear_wash
+帧号:1 | 内存:33.62M (峰值 34.60M) | 时间:00:01.16 | Syncing Autumn · facade
+帧号:1 | 内存:33.60M (峰值 34.60M) | 时间:00:01.16 | Rendering 1 / 16 samples
+帧号:1 | 内存:33.55M (峰值 34.60M) | 时间:00:01.32 | Rendering 16 / 16 samples
+Saved: 'examples/autumn-resonance/variants/balanced/face-visibility.png'
+ Time: 00:01.39 (Saving: 00:00.06)
+
+FACE_VISIBILITY balanced {"method": "Independent unlit ID render of saved solid meshes; poster remains black depth occluder", "pixels": {"LEFT": 13800, "RIGHT": 21286, "CEILING": 19020, "FLOOR": 15720, "REAR": 62201}, "visible_faces": 5, "threshold_pixels": 50, "all_five_visible": true, "rgb_ids": {"LEFT": [1, 0, 0], "RIGHT": [0, 1, 0], "CEILING": [0, 0, 1], "FLOOR": [1, 1, 0], "REAR": [1, 0, 1]}, "render_resolution": [1092, 780]}
+
+Blender quit

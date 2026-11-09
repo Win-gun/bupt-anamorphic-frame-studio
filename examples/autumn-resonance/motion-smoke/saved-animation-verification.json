@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "source": "Reopened saved scene.blend, evaluated animation at every saved frame",
+  "frames_checked": 6,
+  "all_static_object_matrices_fixed": true,
+  "actual_moving_objects": [
+    "Original poster \u00b7 complete unmodified rectangle",
+    "Poster backing \u00b7 25 mm"
+  ],
+  "actual_lights": 6,
+  "all_keyframe_counts_match": true,
+  "all_keyframe_interpolation": "LINEAR",
+  "start_light_factor": 0.55,
+  "hold_frames": 2,
+  "hold_root_and_lights_identical": true,
+  "saved_frame_on_open": 1
+}

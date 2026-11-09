@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "render_engine": "Blender 3.4.1 CYCLES",
+  "poster_original_pixels": [
+    4535,
+    2551
+  ],
+  "timing": {
+    "nominal_timeline_s": 7.5,
+    "actual_duration_s": 0.5,
+    "fps": 12,
+    "frame_count": 6,
+    "sample_time": "actual: index / fps; nominal reference: index / count * 7.5",
+    "interpolation": "LINEAR sampled smoothstep/sine-squared",
+    "stages_s": [
+      0,
+      1.5,
+      3.5,
+      5,
+      7.5
+    ],
+    "forward_displacement_m": 0.2,
+    "temporary_up_peak_m": 0.05,
+    "nominal_final_hold_seconds": 2.5,
+    "finish_hold": true,
+    "actual_hold_frames": 2,
+    "light_reveal": true,
+    "light_energy_start_factor": 0.55,
+    "light_energy_end_factor": 1.0,
+    "moving_light_positions": false
+  },
+  "verification": {
+    "geometry_checks": 6,
+    "actual_source_renders": 6,
+    "actual_inverse_projected_atlases": 6,
+    "independent_led_rerenders": 5,
+    "independent_poster_silhouettes": 5,
+    "independent_check_frames": [
+      0,
+      1,
+      3,
+      4,
+      5
+    ],
+    "note": "All frames have solid-envelope geometry and actual 3D source renders; independent LED camera and coverage checks are sampled."
+  },
+  "numeric_checks": [
+    {
+      "frame": 0,
+      "screen_mae_srgb": 0.006850053556263447,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 1,
+      "screen_mae_srgb": 0.007069442421197891,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 3,
+      "screen_mae_srgb": 0.007286796811968088,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 4,
+      "screen_mae_srgb": 0.007196909748017788,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 5,
+      "screen_mae_srgb": 0.00719684362411499,
+      "poster_coverage": 1.0,
+      "passed": true
+    }
+  ],
+  "all_frame_geometry_passed": true,
+  "min_front_clearance_m": 1.4999999970482465,
+  "min_rear_clearance_m": 0.875,
+  "min_opening_margin_ndc": 0.14269890799063184,
+  "hold_frames": 2,
+  "hold_transform_light_fixed": true,
+  "hold_unique_png_hashes": {
+    "view": 2,
+    "led": 2
+  },
+  "videos": {
+    "led.mp4": {
+      "frames": 6,
+      "width": 546,
+      "height": 390,
+      "duration_s": 0.5,
+      "fps": "12/1",
+      "color_range": "tv",
+      "color_space": "bt709"
+    },
+    "target.mp4": {
+      "frames": 6,
+      "width": 546,
+      "height": 390,
+      "duration_s": 0.5,
+      "fps": "12/1",
+      "color_range": "tv",
+      "color_space": "bt709"
+    }
+  },
+  "labels": {
+    "led.mp4": "Inverse-projected LED canvas animation",
+    "target.mp4": "3D scene animation; direct source camera view, not independently re-rendered LED simulation"
+  },
+  "elapsed_render_seconds": 8.343417882919312,
+  "limitations": [
+    "Preview uses eight Cycles samples per actual 3D frame at 1/8 nominal pixel resolution.",
+    "Independent LED camera and coverage checks are sampled checkpoints; all-frame geometry safety is analytic.",
+    "Nominal screen geometry is not field calibration."
+  ]
+}

@@ -120,7 +120,7 @@ def facade_mesh(width, height, margin, wall):
     return vertices, faces
 
 
-def build_exhibition(config, poster, composition, textured_material):
+def build_exhibition(config, poster, composition, textured_material, postbuild=None):
     import bpy
     from mathutils import Vector
 
@@ -409,6 +409,12 @@ def build_exhibition(config, poster, composition, textured_material):
         ambient_strength=world.inputs["Strength"].default_value,
         controls=config.get("lighting", {}),
     )
-    return dict(
+    result = dict(
         root=root, objects=objects, poster_object=artwork, key_light=key, report=report
     )
+    if postbuild is not None:
+        postbuild(
+            result,
+            dict(plan=plan, point=point, lights=[key, side, floor, facade_light]),
+        )
+    return result

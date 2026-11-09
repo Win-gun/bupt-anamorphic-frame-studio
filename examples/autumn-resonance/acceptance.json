@@ -1,0 +1,226 @@
+{
+  "baseline_commit": "8c239fc00978588dc9d6c75f96f32a25dea0a588",
+  "default_template": "aurora_float",
+  "new_template": "autumn_resonance_cube",
+  "source_poster": {
+    "path": "examples/v2/jiqi-qiuyun/original.png",
+    "pixels": [
+      4535,
+      2551
+    ],
+    "sha256": "2e2508328ccbc61aeb02a78058644bd248a9f40a2f1956e361260905aa140094"
+  },
+  "preserved": {
+    "studio/geometry.py": {
+      "unchanged_from_baseline": true,
+      "sha256": "c5ac65f3cf5b8a2d389736c6fe19b3f48e17c3c7a13d0c43781b66a54cd207b2"
+    },
+    "studio/aurora_scene.py": {
+      "unchanged_from_baseline": true,
+      "sha256": "0dc58ad4d1c10ff557aa09e57d392a429bd1980eba773ac06a86ddb2f841a2eb"
+    },
+    "studio/legacy_scene_design.py": {
+      "unchanged_from_baseline": true,
+      "sha256": "3e34ebc6ebfab667059580117ba195916ea754270593a739bd11337467356d1c"
+    },
+    "examples/v2/jiqi-qiuyun/original.png": {
+      "unchanged_from_baseline": true,
+      "sha256": "2e2508328ccbc61aeb02a78058644bd248a9f40a2f1956e361260905aa140094"
+    }
+  },
+  "final": {
+    "engine": "Blender 3.4.1 CYCLES",
+    "pixels": [
+      4368,
+      3120
+    ],
+    "samples": 128,
+    "metrics": {
+      "mae_srgb": 0.001875292044132948,
+      "full_mask_mae_srgb": 0.0018768443260341883,
+      "interior_mae_srgb": 0.001875292044132948,
+      "foreground_mae_srgb": 0.005890612956136465,
+      "foreground_coverage": 1.0,
+      "foreground_pixels": 1773445,
+      "rmse_srgb": 0.009636527455679743,
+      "psnr_db": 40.32158873797795,
+      "p95_absolute_error": 0.00784313678741455,
+      "mask_pixels": 6422140,
+      "visible_screen_fraction": 0.47203797137691367,
+      "valid_atlas_fraction": 0.9998955838499107
+    },
+    "elapsed_seconds": 609.5399689674377
+  },
+  "variants": {
+    "balanced": {
+      "engine": "Blender 3.4.1 CYCLES",
+      "pixels": [
+        1092,
+        780
+      ],
+      "samples": 64,
+      "metrics": {
+        "mae_srgb": 0.004729173611849546,
+        "full_mask_mae_srgb": 0.004716761410236359,
+        "interior_mae_srgb": 0.004729173611849546,
+        "foreground_mae_srgb": 0.01498523447662592,
+        "foreground_coverage": 1.0,
+        "foreground_pixels": 110307,
+        "rmse_srgb": 0.016332887284157747,
+        "psnr_db": 35.73874070117903,
+        "p95_absolute_error": 0.027450978755950928,
+        "mask_pixels": 397912,
+        "visible_screen_fraction": 0.4703531511223819,
+        "valid_atlas_fraction": 0.9998966845120691
+      }
+    },
+    "warm": {
+      "engine": "Blender 3.4.1 CYCLES",
+      "pixels": [
+        1092,
+        780
+      ],
+      "samples": 64,
+      "metrics": {
+        "mae_srgb": 0.004743432160466909,
+        "full_mask_mae_srgb": 0.004731726832687855,
+        "interior_mae_srgb": 0.004743432160466909,
+        "foreground_mae_srgb": 0.015001838095486164,
+        "foreground_coverage": 1.0,
+        "foreground_pixels": 110307,
+        "rmse_srgb": 0.016356759093507436,
+        "psnr_db": 35.72605485343785,
+        "p95_absolute_error": 0.027450978755950928,
+        "mask_pixels": 397912,
+        "visible_screen_fraction": 0.4703531511223819,
+        "valid_atlas_fraction": 0.9998966845120691
+      }
+    },
+    "cool": {
+      "engine": "Blender 3.4.1 CYCLES",
+      "pixels": [
+        1092,
+        780
+      ],
+      "samples": 64,
+      "metrics": {
+        "mae_srgb": 0.004707958083599806,
+        "full_mask_mae_srgb": 0.004692024551331997,
+        "interior_mae_srgb": 0.004707958083599806,
+        "foreground_mae_srgb": 0.014944400638341904,
+        "foreground_coverage": 1.0,
+        "foreground_pixels": 110307,
+        "rmse_srgb": 0.016282052082693465,
+        "psnr_db": 35.76581720757663,
+        "p95_absolute_error": 0.027450978755950928,
+        "mask_pixels": 397912,
+        "visible_screen_fraction": 0.4703531511223819,
+        "valid_atlas_fraction": 0.9998966845120691
+      }
+    }
+  },
+  "motion": {
+    "timing": {
+      "nominal_timeline_s": 7.5,
+      "actual_duration_s": 7.5,
+      "fps": 24,
+      "frame_count": 180,
+      "sample_time": "actual: index / fps; nominal reference: index / count * 7.5",
+      "interpolation": "LINEAR sampled smoothstep/sine-squared",
+      "stages_s": [
+        0,
+        1.5,
+        3.5,
+        5,
+        7.5
+      ],
+      "forward_displacement_m": 0.2,
+      "temporary_up_peak_m": 0.05,
+      "nominal_final_hold_seconds": 2.5,
+      "finish_hold": true,
+      "actual_hold_frames": 60,
+      "light_reveal": true,
+      "light_energy_start_factor": 0.55,
+      "light_energy_end_factor": 1.0,
+      "moving_light_positions": false
+    },
+    "verification": {
+      "geometry_checks": 180,
+      "actual_source_renders": 180,
+      "actual_inverse_projected_atlases": 180,
+      "independent_led_rerenders": 7,
+      "independent_poster_silhouettes": 7,
+      "independent_check_frames": [
+        0,
+        36,
+        84,
+        102,
+        120,
+        150,
+        179
+      ],
+      "note": "All frames have solid-envelope geometry and actual 3D source renders; independent LED camera and coverage checks are sampled."
+    },
+    "passed": true
+  },
+  "tests": {
+    "command": "RUN_BLENDER_TESTS=1 .venv/bin/python -m pytest -q",
+    "passed": 139,
+    "skipped": 0,
+    "frontend_build": "PASS",
+    "browser": "PASS",
+    "real_upload_render_job": "7fc080e43eaa42f2b4be9ff9b3010510",
+    "controls_actual_blender_bindings": 11,
+    "auto_quick_animation_api_job": "808ec5da2b964c928a18c9522fdb2403",
+    "auto_quick_animation_engine": "Blender 3.4.1 CYCLES",
+    "auto_quick_animation_encoded": "/outputs/808ec5da2b964c928a18c9522fdb2403/led.mp4",
+    "old_cube_real_browser_upload_render_regression": "PASS"
+  },
+  "five_face_visibility": {
+    "method": "Independent unlit ID render of saved solid meshes; poster remains black depth occluder",
+    "pixels": {
+      "LEFT": 13800,
+      "RIGHT": 21286,
+      "CEILING": 19020,
+      "FLOOR": 15720,
+      "REAR": 62201
+    },
+    "visible_faces": 5,
+    "threshold_pixels": 50,
+    "all_five_visible": true,
+    "rgb_ids": {
+      "LEFT": [
+        1,
+        0,
+        0
+      ],
+      "RIGHT": [
+        0,
+        1,
+        0
+      ],
+      "CEILING": [
+        0,
+        0,
+        1
+      ],
+      "FLOOR": [
+        1,
+        1,
+        0
+      ],
+      "REAR": [
+        1,
+        0,
+        1
+      ]
+    },
+    "render_resolution": [
+      1092,
+      780
+    ]
+  },
+  "artistic_review": "AGENT_ACTUAL_IMAGES_REVIEWED; NOT_USER_AESTHETIC_APPROVAL",
+  "calibration": "NOMINAL_UNCALIBRATED",
+  "tested_blender": "3.4.1 CPU Cycles / EEVEE"
+}

@@ -1,16 +1,27 @@
 """Render independent visibility evidence from the saved actual scene geometry.
 All materials become unlit IDs, while the original poster remains an occluder.
 """
-import sys, json
+import sys, json, argparse
 from pathlib import Path
 import bpy
 import numpy as np
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--directory", type=Path, action="append", help="Probe a saved scene without overwriting earlier evidence")
+parser.add_argument("--scale", type=float, default=1.0)
+args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else [])
+if not 0 < args.scale <= 1:
+    parser.error("scale must be in (0,1]")
 base = Path(__file__).resolve().parents[1] / "examples/embedded-cube"
-for layout in ("floating", "back_wall"):
-    directory = base / layout
+directories = args.directory or [base / "floating", base / "back_wall"]
+for directory in directories:
+    layout = directory.name
     bpy.ops.wm.open_mainfile(filepath=str(directory / "scene.blend"))
     scene = bpy.context.scene
+    # Unlit IDs measure raster visibility only, independent of art lighting/GI.
+    scene.render.engine = "BLENDER_EEVEE"
+    scene.eevee.taa_render_samples = 16
+    scene.render.resolution_percentage = round(100 * args.scale)
     scene.view_settings.view_transform = "Standard"
     scene.view_settings.look = "None"
     scene.view_settings.exposure = 0

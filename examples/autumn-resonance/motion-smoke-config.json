@@ -1,0 +1,117 @@
+{
+  "screen": {
+    "pixels": [
+      2704,
+      416,
+      1248
+    ],
+    "height_px": 3120,
+    "pitch_mm": 3.0,
+    "angle_deg": 90.0,
+    "radius_m": null,
+    "calibrated": false,
+    "curvature": "concave",
+    "yaw_deg": 0.0
+  },
+  "camera": {
+    "position": [
+      -2.0,
+      -14.0,
+      2.0
+    ],
+    "target": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fov_deg": 65.0
+  },
+  "frame": {
+    "template": "autumn_resonance_cube",
+    "layout": "auto_fit",
+    "material": "gold",
+    "scale": 0.86,
+    "virtual_depth_m": 0.0,
+    "width_m": 5.0,
+    "height_m": 6.0,
+    "depth_m": 0.65,
+    "border_m": 0.18,
+    "position": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "color": "#b8945c",
+    "edge_light": true,
+    "portal_depth_m": 3.0
+  },
+  "render": {
+    "scale": 0.125,
+    "quality": "high",
+    "samples": 8,
+    "video": true,
+    "animation": true,
+    "light_sweep": false,
+    "duration": 0.5,
+    "fps": 12
+  },
+  "appearance": {
+    "palette": "aurora",
+    "gradient_type": "dual",
+    "colors": [
+      "#656C88",
+      "#9388A7",
+      "#B8A9B9",
+      "#D6B9AC",
+      "#E2D9DA"
+    ],
+    "stops": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "direction_deg": 25.0,
+    "transition": 0.5,
+    "brightness": 1.0,
+    "saturation": 0.72,
+    "noise_strength": 0.006
+  },
+  "lighting": {
+    "intensity": 1.0,
+    "softness": 0.8,
+    "glow": 0.025,
+    "ambient": 0.5,
+    "shadow_softness": 0.8
+  },
+  "panel": {
+    "thickness_m": 0.035,
+    "corner_radius_m": 0.035,
+    "float_distance_m": 0.85,
+    "reflection": 0.025
+  },
+  "cube": {
+    "layout": "floating",
+    "depth_m": 3.0,
+    "wall_thickness_m": 0.32,
+    "opening_scale": 0.94,
+    "facade_margin_m": 1.2,
+    "poster_scale": 0.82,
+    "poster_depth_fraction": 0.62
+  },
+  "autumn": {
+    "variant": "balanced",
+    "texture_strength_m": 0.00025,
+    "gradient_strength": 0.28,
+    "light_intensity": 1.0,
+    "softness": 0.8,
+    "shadow_strength": 0.65,
+    "ambient": 0.35,
+    "edge_highlight": 0.18,
+    "poster_depth_fraction": 0.7,
+    "opening_bevel_m": 0.025,
+    "panel_bevel_m": 0.006,
+    "engine": "cycles"
+  }
+}

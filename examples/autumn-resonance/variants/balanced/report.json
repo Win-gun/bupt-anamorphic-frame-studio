@@ -1,0 +1,653 @@
+{
+  "passed": true,
+  "engine": "Blender 3.4.1 CYCLES",
+  "method": "3D physical continuous surface, perspective inverse projection, bilinear texture sampling, analytic front-face and self-occlusion tests, independent Blender camera re-render",
+  "physical": {
+    "left": 8.112,
+    "arc": 1.248,
+    "right": 3.744,
+    "angle": 1.5707963267948966,
+    "radius": 0.7945014759147415,
+    "height": 9.36,
+    "length": 13.104,
+    "x_shift": -3.658749262042629
+  },
+  "atlas_pixels": [
+    1092,
+    780
+  ],
+  "nominal_atlas_pixels": [
+    4368,
+    3120
+  ],
+  "scale": 0.25,
+  "calibration_status": "NOMINAL_UNCALIBRATED",
+  "metrics": {
+    "mae_srgb": 0.004729173611849546,
+    "full_mask_mae_srgb": 0.004716761410236359,
+    "interior_mae_srgb": 0.004729173611849546,
+    "foreground_mae_srgb": 0.01498523447662592,
+    "foreground_coverage": 1.0,
+    "foreground_pixels": 110307,
+    "rmse_srgb": 0.016332887284157747,
+    "psnr_db": 35.73874070117903,
+    "p95_absolute_error": 0.027450978755950928,
+    "mask_pixels": 397912,
+    "visible_screen_fraction": 0.4703531511223819,
+    "valid_atlas_fraction": 0.9998966845120691
+  },
+  "verification": {
+    "criterion": "composition opening must be within the visible screen; interior and artwork mean absolute sRGB error <= 0.04; >=98% independently rendered artwork silhouette covered by visible screen",
+    "threshold_mae": 0.04,
+    "opening_safe": true,
+    "pass": true
+  },
+  "limitations": [
+    "Nominal geometry is not field calibration; measured camera pose, lens distortion and LED transfer response are required on site.",
+    "Pixels outside the camera frustum or occluded/back-facing physical surface are black.",
+    "Comparison excludes a one-pixel raster boundary; texture resampling and finite curved mesh tessellation contribute remaining error."
+  ],
+  "coordinate_system": {
+    "units": "metres",
+    "up": "Z",
+    "curvature": "concave",
+    "yaw_deg": 0.0,
+    "physical_surface": "studio.geometry.surface_point; centered X bounds; yaw about Z",
+    "virtual_frame_basis": {
+      "layout": "auto_fit",
+      "center": [
+        1.377830847394052,
+        1.7273121424251108,
+        0.058766882387212005
+      ],
+      "right": [
+        0.9899494936611665,
+        -0.1414213562373095,
+        0.0
+      ],
+      "up": [
+        0.019802950859533486,
+        0.13862065601673437,
+        0.9901475429766742
+      ],
+      "normal": [
+        -0.14002800840280097,
+        -0.9801960588196068,
+        0.14002800840280097
+      ],
+      "stage_center": [
+        1.0837720297481699,
+        -0.33109958109606336,
+        0.352825700033094
+      ],
+      "static_depth": 14.060667311417856,
+      "main_frame_offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stage_width": 10.219799470163887,
+      "stage_height": 6.8131996467759235,
+      "stage_outer_width": 12.176782347429311,
+      "stage_outer_height": 13.446446845067673,
+      "width": 8.380235565534386,
+      "height": 4.713997999488031,
+      "width_m": 8.380235565534386,
+      "height_m": 4.713997999488031,
+      "depth": 16.160667311417853,
+      "outer_width": 12.176782347429311,
+      "outer_height": 13.44644684506767,
+      "opening_ndc": [
+        -0.29822927130619237,
+        -0.27632695613917796,
+        0.5157429890331159,
+        0.3646919039657405
+      ],
+      "screen_bbox_ndc": [
+        -0.53125,
+        -1.0,
+        0.8046875,
+        0.9140625
+      ],
+      "uv_crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "opening_safe": true,
+        "projected_width_fraction": 0.6092891773300085,
+        "visible_mask_pixels": 30974,
+        "mask_resolution": 256
+      }
+    }
+  },
+  "artwork": {
+    "template": "autumn_resonance_cube",
+    "material": "matte_mineral_microcement",
+    "poster_original_pixels": [
+      4535,
+      2551
+    ],
+    "poster_display_metres": [
+      8.380235565534386,
+      4.713997999488031
+    ],
+    "poster_aspect_preserved": true,
+    "source_aspect": 1.777734221873775,
+    "display_aspect": 1.7777342218737748,
+    "uv_crop": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "effective_frame_position": [
+      1.377830847394052,
+      1.7273121424251108,
+      0.058766882387212005
+    ],
+    "composition": {
+      "layout": "auto_fit",
+      "center": [
+        1.377830847394052,
+        1.7273121424251108,
+        0.058766882387212005
+      ],
+      "right": [
+        0.9899494936611665,
+        -0.1414213562373095,
+        0.0
+      ],
+      "up": [
+        0.019802950859533486,
+        0.13862065601673437,
+        0.9901475429766742
+      ],
+      "normal": [
+        -0.14002800840280097,
+        -0.9801960588196068,
+        0.14002800840280097
+      ],
+      "stage_center": [
+        1.0837720297481699,
+        -0.33109958109606336,
+        0.352825700033094
+      ],
+      "static_depth": 14.060667311417856,
+      "main_frame_offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stage_width": 10.219799470163887,
+      "stage_height": 6.8131996467759235,
+      "stage_outer_width": 12.176782347429311,
+      "stage_outer_height": 13.446446845067673,
+      "width": 8.380235565534386,
+      "height": 4.713997999488031,
+      "width_m": 8.380235565534386,
+      "height_m": 4.713997999488031,
+      "depth": 16.160667311417853,
+      "outer_width": 12.176782347429311,
+      "outer_height": 13.44644684506767,
+      "opening_ndc": [
+        -0.29822927130619237,
+        -0.27632695613917796,
+        0.5157429890331159,
+        0.3646919039657405
+      ],
+      "screen_bbox_ndc": [
+        -0.53125,
+        -1.0,
+        0.8046875,
+        0.9140625
+      ],
+      "uv_crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "opening_safe": true,
+        "projected_width_fraction": 0.6092891773300085,
+        "visible_mask_pixels": 30974,
+        "mask_resolution": 256
+      }
+    },
+    "continuous_ring_count": 0,
+    "profile_stations": 0,
+    "profile_faces": 0,
+    "mesh_count": 8,
+    "human_visual_judgment": "PENDING",
+    "architectural_geometry": {
+      "style": "building_facade_excavated_room",
+      "layout": "floating",
+      "opening_width_m": 10.219799470163887,
+      "opening_height_m": 6.8131996467759235,
+      "opening_ndc": [
+        -0.4454520089285715,
+        -0.481640625,
+        0.6954520089285715,
+        0.5832031249999999
+      ],
+      "opening_safe": true,
+      "wall_thickness_m": 0.32,
+      "cavity_depth_m": 3.0,
+      "poster_distance_from_front_m": 2.0999999999999996,
+      "poster_gap_to_rear_wall_m": 0.9000000000000004,
+      "solid_interior_walls": 5,
+      "excavated_reveals": 4,
+      "continuous_facade": true,
+      "facade_margin_m": 6.167437380031968,
+      "opening_chamfer_m": 0.025,
+      "front_plane_center": [
+        1.0837720297481699,
+        -0.33109958109606336,
+        0.352825700033094
+      ],
+      "interior_faces": [
+        "left",
+        "right",
+        "ceiling",
+        "floor",
+        "rear"
+      ],
+      "panel_bevel_m": 0.006,
+      "panel_slab_thickness_m": 0.024,
+      "panel_surface_gap_m": 0.001,
+      "panel_total_envelope_m": 0.025
+    },
+    "lighting": {
+      "lights": [
+        {
+          "name": "ceiling",
+          "position": [
+            0,
+            1.2263759364196662,
+            -1.1400000000000001
+          ],
+          "target": [
+            0,
+            1.2263759364196662,
+            -3.0
+          ],
+          "energy_w": 180.0,
+          "diameter_m": 4.214438818457859,
+          "color_hex": "#F1DED0",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "autumn_left",
+          "position": [
+            -2.8615438516458886,
+            1.3626399293551847,
+            -0.8699999999999999
+          ],
+          "target": [
+            -2.8615438516458886,
+            0.6813199646775924,
+            -3.0
+          ],
+          "energy_w": 95.0,
+          "diameter_m": 2.7,
+          "color_hex": "#E9AC7F",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "smoky_right",
+          "position": [
+            2.8615438516458886,
+            0.4087919788065554,
+            -0.8999999999999999
+          ],
+          "target": [
+            2.8615438516458886,
+            0,
+            -3.0
+          ],
+          "energy_w": 85.0,
+          "diameter_m": 2.7,
+          "color_hex": "#B5B6DA",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "stage_floor",
+          "position": [
+            0,
+            -2.1802238869682955,
+            -0.8400000000000001
+          ],
+          "target": [
+            0,
+            -1.7032999116939809,
+            -3.0
+          ],
+          "energy_w": 45.0,
+          "diameter_m": 2.4,
+          "color_hex": "#DAB8C9",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "rear_wash",
+          "position": [
+            0,
+            0.8175839576131108,
+            -1.2000000000000002
+          ],
+          "target": [
+            0,
+            0.8175839576131108,
+            -3.0
+          ],
+          "energy_w": 55.0,
+          "diameter_m": 3.5,
+          "color_hex": "#DDD0DC",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "facade",
+          "position": [
+            -2.0439598940327772,
+            2.043959894032777,
+            7
+          ],
+          "target": [
+            -2.0439598940327772,
+            2.043959894032777,
+            0
+          ],
+          "energy_w": 850.0,
+          "diameter_m": 16.862669125770413,
+          "color_hex": "#E5E6ED",
+          "entire_emitter_inside_free_space": true
+        }
+      ],
+      "ambient_strength": 0.34299999475479126,
+      "real_area_shadows": true
+    },
+    "autumn": {
+      "settings": {
+        "variant": "balanced",
+        "texture_strength_m": 0.00025,
+        "gradient_strength": 0.28,
+        "light_intensity": 1.0,
+        "softness": 0.8,
+        "shadow_strength": 0.65,
+        "ambient": 0.35,
+        "edge_highlight": 0.18,
+        "poster_depth_fraction": 0.7,
+        "opening_bevel_m": 0.025,
+        "panel_bevel_m": 0.006,
+        "engine": "cycles"
+      },
+      "palette": {
+        "facade": "#858D9A",
+        "ceiling": "#B8B5C0",
+        "left": "#8F86A1",
+        "right": "#8491A4",
+        "rear": "#A79BAA",
+        "floor": "#777C8D",
+        "cut": "#B5A9B8"
+      },
+      "variant": {
+        "tint": "#B5A9B8",
+        "warm": 1.0,
+        "cool": 1.0,
+        "ceiling": "#F1DED0"
+      },
+      "lights": [
+        {
+          "name": "ceiling",
+          "position": [
+            0,
+            1.2263759364196662,
+            -1.1400000000000001
+          ],
+          "target": [
+            0,
+            1.2263759364196662,
+            -3.0
+          ],
+          "energy_w": 180.0,
+          "diameter_m": 4.214438818457859,
+          "color_hex": "#F1DED0",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "autumn_left",
+          "position": [
+            -2.8615438516458886,
+            1.3626399293551847,
+            -0.8699999999999999
+          ],
+          "target": [
+            -2.8615438516458886,
+            0.6813199646775924,
+            -3.0
+          ],
+          "energy_w": 95.0,
+          "diameter_m": 2.7,
+          "color_hex": "#E9AC7F",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "smoky_right",
+          "position": [
+            2.8615438516458886,
+            0.4087919788065554,
+            -0.8999999999999999
+          ],
+          "target": [
+            2.8615438516458886,
+            0,
+            -3.0
+          ],
+          "energy_w": 85.0,
+          "diameter_m": 2.7,
+          "color_hex": "#B5B6DA",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "stage_floor",
+          "position": [
+            0,
+            -2.1802238869682955,
+            -0.8400000000000001
+          ],
+          "target": [
+            0,
+            -1.7032999116939809,
+            -3.0
+          ],
+          "energy_w": 45.0,
+          "diameter_m": 2.4,
+          "color_hex": "#DAB8C9",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "rear_wash",
+          "position": [
+            0,
+            0.8175839576131108,
+            -1.2000000000000002
+          ],
+          "target": [
+            0,
+            0.8175839576131108,
+            -3.0
+          ],
+          "energy_w": 55.0,
+          "diameter_m": 3.5,
+          "color_hex": "#DDD0DC",
+          "entire_emitter_inside_free_space": true
+        },
+        {
+          "name": "facade",
+          "position": [
+            -2.0439598940327772,
+            2.043959894032777,
+            7
+          ],
+          "target": [
+            -2.0439598940327772,
+            2.043959894032777,
+            0
+          ],
+          "energy_w": 850.0,
+          "diameter_m": 16.862669125770413,
+          "color_hex": "#E5E6ED",
+          "entire_emitter_inside_free_space": true
+        }
+      ],
+      "poster_light_link": "artistic approximation of three source-poster light regions"
+    },
+    "material_nodes": {
+      "shared_coordinate_object": "Autumn · shared mineral coordinates",
+      "noise_scale_per_m": 185,
+      "noise_detail": 2,
+      "bump_strength": 0.3,
+      "bump_distance_m": 0.00025,
+      "roughness": {
+        "walls": 0.82,
+        "rear": 0.88,
+        "floor": 0.74,
+        "cut": 0.65
+      },
+      "metallic": 0,
+      "specular": 0.18,
+      "source_poster_shader": "unchanged original full-UV emission"
+    }
+  },
+  "dynamics": {
+    "moving_objects": [
+      "Poster backing · 25 mm",
+      "Original poster · complete unmodified rectangle"
+    ],
+    "static_architecture": true,
+    "enabled": false,
+    "light_sweep": false,
+    "frames": []
+  },
+  "model_export": "EXPORTED_VIRTUAL_EXHIBITION_MESHES",
+  "elapsed_seconds": 21.269352912902832,
+  "config": {
+    "screen": {
+      "pixels": [
+        2704,
+        416,
+        1248
+      ],
+      "height_px": 3120,
+      "pitch_mm": 3.0,
+      "angle_deg": 90.0,
+      "radius_m": null,
+      "calibrated": false,
+      "curvature": "concave",
+      "yaw_deg": 0.0
+    },
+    "camera": {
+      "position": [
+        -2.0,
+        -14.0,
+        2.0
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fov_deg": 65.0
+    },
+    "frame": {
+      "template": "autumn_resonance_cube",
+      "layout": "auto_fit",
+      "material": "gold",
+      "scale": 0.86,
+      "virtual_depth_m": 0.0,
+      "width_m": 5.0,
+      "height_m": 6.0,
+      "depth_m": 0.65,
+      "border_m": 0.18,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "color": "#b8945c",
+      "edge_light": true,
+      "portal_depth_m": 3.0
+    },
+    "render": {
+      "scale": 0.25,
+      "quality": "high",
+      "samples": 64,
+      "video": false,
+      "animation": false,
+      "light_sweep": false,
+      "duration": 3.0,
+      "fps": 24
+    },
+    "appearance": {
+      "palette": "aurora",
+      "gradient_type": "dual",
+      "colors": [
+        "#656C88",
+        "#9388A7",
+        "#B8A9B9",
+        "#D6B9AC",
+        "#E2D9DA"
+      ],
+      "stops": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "direction_deg": 25.0,
+      "transition": 0.5,
+      "brightness": 1.0,
+      "saturation": 0.72,
+      "noise_strength": 0.006
+    },
+    "lighting": {
+      "intensity": 1.0,
+      "softness": 0.8,
+      "glow": 0.025,
+      "ambient": 0.5,
+      "shadow_softness": 0.8
+    },
+    "panel": {
+      "thickness_m": 0.035,
+      "corner_radius_m": 0.035,
+      "float_distance_m": 0.85,
+      "reflection": 0.025
+    },
+    "cube": {
+      "layout": "floating",
+      "depth_m": 3.0,
+      "wall_thickness_m": 0.32,
+      "opening_scale": 0.94,
+      "facade_margin_m": 1.2,
+      "poster_scale": 0.82,
+      "poster_depth_fraction": 0.62
+    },
+    "autumn": {
+      "variant": "balanced",
+      "texture_strength_m": 0.00025,
+      "gradient_strength": 0.28,
+      "light_intensity": 1.0,
+      "softness": 0.8,
+      "shadow_strength": 0.65,
+      "ambient": 0.35,
+      "edge_highlight": 0.18,
+      "poster_depth_fraction": 0.7,
+      "opening_bevel_m": 0.025,
+      "panel_bevel_m": 0.006,
+      "engine": "cycles"
+    }
+  }
+}
