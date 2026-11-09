@@ -318,6 +318,7 @@ def main():
         "soft_depth",
         "glass_layers",
         "embedded_cube",
+        "embedded_cube_architecture",
     )
     dynamics = {
         "moving_objects": [
@@ -334,6 +335,17 @@ def main():
         scene.frame_start = 1
         scene.frame_end = count
         displacement = min(0.5, artwork["composition"]["depth"] * 0.055)
+        if artwork["template"] == "embedded_cube_architecture":
+            cavity = artwork["architectural_geometry"]
+            displacement = min(
+                displacement,
+                max(
+                    0,
+                    cavity["poster_distance_from_front_m"]
+                    - cavity["wall_thickness_m"]
+                    - 0.08,
+                ),
+            )
         poses = (
             (
                 (1, 0),

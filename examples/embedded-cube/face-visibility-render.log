@@ -1,0 +1,48 @@
+Blender 3.4.1 (hash 55485cb379f7 built 2022-12-20 00:48:52)
+Read prefs: /Users/apple/Library/Application Support/Blender/3.4/config/userpref.blend
+Read blend: /Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/floating/scene.blend
+帧号:1 | 内存:32.99M (峰值 34.12M) | 时间:00:00.67 | Syncing 摄像机
+帧号:1 | 内存:32.99M (峰值 34.12M) | 时间:00:00.67 | Syncing Embedded Cube · poster assembly
+帧号:1 | 内存:32.99M (峰值 34.12M) | 时间:00:00.67 | Syncing Building facade · continuous sol
+帧号:1 | 内存:33.04M (峰值 34.12M) | 时间:00:01.00 | Syncing Excavated room · LEFT wall
+帧号:1 | 内存:33.05M (峰值 34.12M) | 时间:00:01.00 | Syncing Excavated room · RIGHT wall
+帧号:1 | 内存:33.06M (峰值 34.12M) | 时间:00:01.00 | Syncing Excavated room · CEILING
+帧号:1 | 内存:33.07M (峰值 34.12M) | 时间:00:01.00 | Syncing Excavated room · FLOOR
+帧号:1 | 内存:33.08M (峰值 34.12M) | 时间:00:01.00 | Syncing Excavated room · REAR wall
+帧号:1 | 内存:33.09M (峰值 34.12M) | 时间:00:01.00 | Syncing Poster backing · 25 mm
+帧号:1 | 内存:33.11M (峰值 34.12M) | 时间:00:01.00 | Syncing Original poster · complete unmod
+帧号:1 | 内存:33.11M (峰值 34.12M) | 时间:00:01.00 | Syncing Room ceiling · soft recessed was
+帧号:1 | 内存:33.11M (峰值 34.12M) | 时间:00:01.00 | Syncing Room left · broad blue bounce
+帧号:1 | 内存:33.11M (峰值 34.12M) | 时间:00:01.00 | Syncing Room floor · subtle reflected li
+帧号:1 | 内存:33.11M (峰值 34.12M) | 时间:00:01.00 | Syncing Building facade · broad daylight
+帧号:1 | 内存:33.10M (峰值 34.12M) | 时间:00:01.00 | Rendering 1 / 32 samples
+帧号:1 | 内存:33.07M (峰值 34.12M) | 时间:00:01.15 | Rendering 26 / 32 samples
+帧号:1 | 内存:33.07M (峰值 34.12M) | 时间:00:01.17 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/floating/face-visibility.png'
+ Time: 00:01.22 (Saving: 00:00.04)
+
+Read blend: /Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/scene.blend
+帧号:1 | 内存:32.97M (峰值 33.00M) | 时间:00:00.00 | Syncing 摄像机
+帧号:1 | 内存:32.97M (峰值 33.00M) | 时间:00:00.00 | Syncing Embedded Cube · poster assembly
+帧号:1 | 内存:32.97M (峰值 33.00M) | 时间:00:00.00 | Syncing Building facade · continuous sol
+帧号:1 | 内存:33.02M (峰值 33.09M) | 时间:00:00.00 | Syncing Excavated room · LEFT wall
+帧号:1 | 内存:33.03M (峰值 33.09M) | 时间:00:00.00 | Syncing Excavated room · RIGHT wall
+帧号:1 | 内存:33.04M (峰值 33.09M) | 时间:00:00.00 | Syncing Excavated room · CEILING
+帧号:1 | 内存:33.05M (峰值 33.09M) | 时间:00:00.00 | Syncing Excavated room · FLOOR
+帧号:1 | 内存:33.06M (峰值 33.09M) | 时间:00:00.00 | Syncing Excavated room · REAR wall
+帧号:1 | 内存:33.07M (峰值 33.09M) | 时间:00:00.00 | Syncing Poster backing · 25 mm
+帧号:1 | 内存:33.09M (峰值 33.12M) | 时间:00:00.00 | Syncing Original poster · complete unmod
+帧号:1 | 内存:33.09M (峰值 33.12M) | 时间:00:00.00 | Syncing Room ceiling · soft recessed was
+帧号:1 | 内存:33.09M (峰值 33.12M) | 时间:00:00.00 | Syncing Room left · broad blue bounce
+帧号:1 | 内存:33.09M (峰值 33.12M) | 时间:00:00.00 | Syncing Room floor · subtle reflected li
+帧号:1 | 内存:33.09M (峰值 33.12M) | 时间:00:00.00 | Syncing Building facade · broad daylight
+帧号:1 | 内存:33.07M (峰值 33.12M) | 时间:00:00.00 | Rendering 1 / 32 samples
+帧号:1 | 内存:33.04M (峰值 33.12M) | 时间:00:00.11 | Rendering 26 / 32 samples
+帧号:1 | 内存:33.04M (峰值 33.12M) | 时间:00:00.13 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/face-visibility.png'
+ Time: 00:00.15 (Saving: 00:00.01)
+
+FACE_VISIBILITY floating {"method": "Independent unlit ID render of saved solid meshes; poster remains black depth occluder", "pixels": {"LEFT": 13798, "RIGHT": 21247, "CEILING": 19008, "FLOOR": 15114, "REAR": 69859}, "visible_faces": 5, "threshold_pixels": 50, "all_five_visible": true, "rgb_ids": {"LEFT": [1, 0, 0], "RIGHT": [0, 1, 0], "CEILING": [0, 0, 1], "FLOOR": [1, 1, 0], "REAR": [1, 0, 1]}, "render_resolution": [1092, 780]}
+FACE_VISIBILITY back_wall {"method": "Independent unlit ID render of saved solid meshes; poster remains black depth occluder", "pixels": {"LEFT": 13798, "RIGHT": 21247, "CEILING": 19008, "FLOOR": 15114, "REAR": 82710}, "visible_faces": 5, "threshold_pixels": 50, "all_five_visible": true, "rgb_ids": {"LEFT": [1, 0, 0], "RIGHT": [0, 1, 0], "CEILING": [0, 0, 1], "FLOOR": [1, 1, 0], "REAR": [1, 0, 1]}, "render_resolution": [1092, 780]}
+
+Blender quit

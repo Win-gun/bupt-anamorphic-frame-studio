@@ -58,6 +58,15 @@ type Config = {
     ambient: number;
     shadow_softness: number;
   };
+  cube: {
+    layout: string;
+    depth_m: number;
+    wall_thickness_m: number;
+    opening_scale: number;
+    facade_margin_m: number;
+    poster_scale: number;
+    poster_depth_fraction: number;
+  };
   panel: {
     thickness_m: number;
     corner_radius_m: number;
@@ -313,6 +322,7 @@ function App() {
         )}
       </div>
     );
+  const isArchitecture = c.frame.template === "embedded_cube_architecture";
   const isLegacy = ["cinema", "deep", "float", "glass"].includes(
     c.frame.template,
   );
@@ -364,14 +374,31 @@ function App() {
               ["aurora_float", "极光悬浮", "柔和空间"],
               ["soft_depth", "柔光纵深", "轻柔层次"],
               ["glass_layers", "玻璃叠层", "通透质感"],
-              ["embedded_cube", "嵌入立方", "几何空间"],
+              [
+                "embedded_cube_architecture",
+                "楼体内嵌立方体",
+                "Embedded Cube · 建筑切口",
+              ],
+              ["embedded_cube", "嵌入立方（原版）", "保留 V3 轻型版本"],
             ].map(([id, name, desc], i) => (
               <button
                 key={id}
                 className={
                   "template " + (c.frame.template === id ? "selected" : "")
                 }
-                onClick={() => set("frame", "template", id)}
+                onClick={() => {
+                  if (id === "embedded_cube_architecture")
+                    setC({
+                      ...c,
+                      frame: {
+                        ...c.frame,
+                        template: id,
+                        layout: "auto_fit",
+                        position: [0, 0, 0],
+                      },
+                    });
+                  else set("frame", "template", id);
+                }}
               >
                 <span className={"frameicon f" + i}>
                   <i />
@@ -404,7 +431,61 @@ function App() {
               ))}
             </div>
           </details>
-          {!isLegacy && (
+          {c.frame.template === "embedded_cube_architecture" && (
+            <details open>
+              <summary>Embedded Cube · 建筑空间</summary>
+              <label className="field">
+                海报布局
+                <select
+                  value={c.cube.layout}
+                  onChange={(e) => set("cube", "layout", e.target.value)}
+                >
+                  <option value="floating">方案 B · 舱内悬浮（推荐）</option>
+                  <option value="back_wall">方案 A · 后壁展示</option>
+                </select>
+              </label>
+              <p className="muted">
+                整片建筑立面中的真实挖空空间，保留开口、墙厚及五个内部面。
+              </p>
+              <div className="double">
+                {n("空间深度 m", c.cube.depth_m, (v) =>
+                  set("cube", "depth_m", v),
+                )}
+                {n(
+                  "墙体厚度 m",
+                  c.cube.wall_thickness_m,
+                  (v) => set("cube", "wall_thickness_m", v),
+                  0.02,
+                )}
+                {n(
+                  "海报占用",
+                  c.cube.poster_scale,
+                  (v) => set("cube", "poster_scale", v),
+                  0.02,
+                )}
+              </div>
+              {professional && (
+                <div className="double">
+                  {n(
+                    "开口占用",
+                    c.cube.opening_scale,
+                    (v) => set("cube", "opening_scale", v),
+                    0.01,
+                  )}
+                  {n("立面延伸 m", c.cube.facade_margin_m, (v) =>
+                    set("cube", "facade_margin_m", v),
+                  )}
+                  {n(
+                    "舱内位置比例",
+                    c.cube.poster_depth_fraction,
+                    (v) => set("cube", "poster_depth_fraction", v),
+                    0.02,
+                  )}
+                </div>
+              )}
+            </details>
+          )}
+          {!isLegacy && !isArchitecture && (
             <>
               <div className="sectionlabel">
                 <span>空间色彩</span>
@@ -547,7 +628,7 @@ function App() {
               )}
             </>
           )}
-          {professional && !isLegacy && (
+          {professional && !isLegacy && !isArchitecture && (
             <details>
               <summary>图片布局 / LAYOUT</summary>
               <label className="field">
@@ -597,17 +678,21 @@ function App() {
               )}
               {!isLegacy && (
                 <>
-                  {n(
-                    "悬浮距离 m",
-                    c.panel.float_distance_m,
-                    (v) => set("panel", "float_distance_m", v),
-                    0.05,
-                  )}
-                  {n(
-                    "面板厚度 m",
-                    c.panel.thickness_m,
-                    (v) => set("panel", "thickness_m", v),
-                    0.005,
+                  {!isArchitecture && (
+                    <>
+                      {n(
+                        "悬浮距离 m",
+                        c.panel.float_distance_m,
+                        (v) => set("panel", "float_distance_m", v),
+                        0.05,
+                      )}
+                      {n(
+                        "面板厚度 m",
+                        c.panel.thickness_m,
+                        (v) => set("panel", "thickness_m", v),
+                        0.005,
+                      )}
+                    </>
                   )}
                   {(
                     [
@@ -617,9 +702,16 @@ function App() {
                       ["ambient", "环境光"],
                       ["shadow_softness", "阴影柔和度"],
                     ] as const
-                  ).map(([k, label]) =>
-                    n(label, c.lighting[k], (v) => set("lighting", k, v), 0.05),
-                  )}
+                  )
+                    .filter(([k]) => !isArchitecture || k !== "glow")
+                    .map(([k, label]) =>
+                      n(
+                        label,
+                        c.lighting[k],
+                        (v) => set("lighting", k, v),
+                        0.05,
+                      ),
+                    )}
                 </>
               )}
             </div>

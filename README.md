@@ -6,6 +6,16 @@
 
 [三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
 
+## 新增：Embedded Cube · 楼体内嵌立方体
+
+保留全部已有样式，新增独立模板`embedded_cube_architecture`。连续建筑墙体中挖出真实展示舱，具有墙厚、顶/底/左右壁和后壁，无传统边框、玻璃盖或舞台底座。默认推荐B舱内悬浮，也可选择A后壁展示。
+
+![后壁展示与舱内悬浮真实对比](examples/embedded-cube/layout-comparison.png)
+
+[方案B全尺寸展开](examples/embedded-cube/floating-full/atlas.png) · [最佳点模拟](examples/embedded-cube/floating-full/simulation.png) · [可编辑Blender](examples/embedded-cube/floating-full/scene.blend) · [方案A输出](examples/embedded-cube/back-wall-full/) · [验收与五面可见性证据](examples/embedded-cube/acceptance.md)
+
+界面提供空间深度、墙厚、海报占用和A/B布局；专业模式可调开口占用与舱内位置。建筑固定灰紫/雾蓝/暖灰材质，隐藏不适用的Aurora渐变控件。全局默认风格不变，旧轻型内嵌版本仍可选择。
+
 ## 本地启动
 
 需要 Python 3.9+、Node.js 20.19+、FFmpeg/ffprobe。已实际验证 macOS Apple Silicon、Blender **3.4.1 EEVEE**；其他 Blender 大版本的 PBR/EEVEE API 尚未兼容验证。
@@ -26,7 +36,8 @@ cd bupt-anamorphic-frame-studio
 | **Aurora Float · 极光悬浮**（默认） | 无传统外框的薄面板，连续弧形渐变后景，宽软真实投影 |
 | Soft Depth · 柔光纵深 | 单一连续曲面构成的浅凹空间，平滑侧面/上下转折 |
 | Glass Layers · 轻透叠层 | 两片错位磨砂薄板位于海报后方，原海报不覆玻璃 |
-| Embedded Cube · 楼体内嵌立方体 | 实体侧壁、顶部与底部组成挖空体积，海报置于内部 |
+| Embedded Cube V3 · 轻型内嵌（保留） | 原有轻型挖空结构，继续保留 |
+| **Embedded Cube · 楼体内嵌立方体（新增）** | 连续建筑立面的厚墙切口与五面内舱，支持后壁展示/舱内悬浮 |
 
 V2 的 Cinema、悬浮画框、玻璃展柜完整保留在 **Legacy** 中，原实现单独归档为 `studio/legacy_scene_design.py`，并有实际回归。V1/V2 样例仍在原 `examples/` 目录，V2 使用说明见 [历史说明](docs/v2-readme.md)。
 

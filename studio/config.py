@@ -67,6 +67,7 @@ class Frame(StrictModel):
         "soft_depth",
         "glass_layers",
         "embedded_cube",
+        "embedded_cube_architecture",
         "cinema",
         "deep",
         "float",
@@ -176,6 +177,30 @@ class Panel(StrictModel):
     reflection: float = Field(P["reflection"], ge=0, le=0.15)
 
 
+class Cube(StrictModel):
+    layout: Literal["floating", "back_wall"] = PRESET["cube"]["layout"]
+    depth_m: float = Field(PRESET["cube"]["depth_m"], ge=1, le=6)
+    wall_thickness_m: float = Field(PRESET["cube"]["wall_thickness_m"], ge=0.12, le=0.8)
+    opening_scale: float = Field(PRESET["cube"]["opening_scale"], ge=0.5, le=0.97)
+    facade_margin_m: float = Field(PRESET["cube"]["facade_margin_m"], ge=0.5, le=4)
+    poster_scale: float = Field(PRESET["cube"]["poster_scale"], ge=0.5, le=0.85)
+    poster_depth_fraction: float = Field(
+        PRESET["cube"]["poster_depth_fraction"], ge=0.35, le=0.8
+    )
+
+    @model_validator(mode="after")
+    def check_cavity(self):
+        if self.wall_thickness_m >= self.depth_m * 0.45:
+            raise ValueError("墙体厚度必须小于空间深度的45%，保留真实舱内空间")
+        if (
+            self.layout == "floating"
+            and self.depth_m * self.poster_depth_fraction
+            <= self.wall_thickness_m + 0.08
+        ):
+            raise ValueError("悬浮海报需要位于墙体切口之后，请增加舱内位置比例或空间深度")
+        return self
+
+
 class Config(StrictModel):
     screen: Screen = Field(default_factory=Screen)
     camera: Camera = Field(default_factory=Camera)
@@ -184,6 +209,7 @@ class Config(StrictModel):
     appearance: Appearance = Field(default_factory=Appearance)
     lighting: Lighting = Field(default_factory=Lighting)
     panel: Panel = Field(default_factory=Panel)
+    cube: Cube = Field(default_factory=Cube)
 
     @model_validator(mode="after")
     def check_spatial_limits(self):
@@ -192,6 +218,7 @@ class Config(StrictModel):
             "soft_depth",
             "glass_layers",
             "embedded_cube",
+            "embedded_cube_architecture",
         ):
             return self
         inward_offset = self.frame.position[2] if self.frame.layout != "manual" else 0

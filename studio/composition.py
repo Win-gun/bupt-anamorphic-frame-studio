@@ -211,7 +211,13 @@ def solve_composition(config, poster_size, resolution=256):
     inward_extent = -main_frame_offset[2] + rear_extent
     if (
         frame.get("template", "cinema")
-        not in ("aurora_float", "soft_depth", "glass_layers", "embedded_cube")
+        not in (
+            "aurora_float",
+            "soft_depth",
+            "glass_layers",
+            "embedded_cube",
+            "embedded_cube_architecture",
+        )
         and inward_extent >= frame.get("portal_depth_m", 3) - 0.1
     ):
         raise ValueError("画框或背部结构进入空间后墙；请减少纵深/向内偏移，或增大空间深度")

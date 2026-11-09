@@ -124,5 +124,14 @@
     "corner_radius_m": 0.035,
     "float_distance_m": 0.85,
     "reflection": 0.025
+  },
+  "cube": {
+    "layout": "floating",
+    "depth_m": 3,
+    "wall_thickness_m": 0.32,
+    "opening_scale": 0.94,
+    "facade_margin_m": 1.2,
+    "poster_scale": 0.82,
+    "poster_depth_fraction": 0.62
   }
 }

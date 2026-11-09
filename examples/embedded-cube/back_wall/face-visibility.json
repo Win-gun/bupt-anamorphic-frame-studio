@@ -1,0 +1,44 @@
+{
+  "method": "Independent unlit ID render of saved solid meshes; poster remains black depth occluder",
+  "pixels": {
+    "LEFT": 13798,
+    "RIGHT": 21247,
+    "CEILING": 19008,
+    "FLOOR": 15114,
+    "REAR": 73256
+  },
+  "visible_faces": 5,
+  "threshold_pixels": 50,
+  "all_five_visible": true,
+  "rgb_ids": {
+    "LEFT": [
+      1,
+      0,
+      0
+    ],
+    "RIGHT": [
+      0,
+      1,
+      0
+    ],
+    "CEILING": [
+      0,
+      0,
+      1
+    ],
+    "FLOOR": [
+      1,
+      1,
+      0
+    ],
+    "REAR": [
+      1,
+      0,
+      1
+    ]
+  },
+  "render_resolution": [
+    1092,
+    780
+  ]
+}

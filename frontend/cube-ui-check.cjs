@@ -1,0 +1,28 @@
+const {chromium}=require('@playwright/test');
+const path=require('path'),fs=require('fs');
+(async()=>{
+ const base=process.env.BASE_URL||'http://127.0.0.1:8000';
+ const out=path.resolve(__dirname,'../examples/embedded-cube');
+ const browser=await chromium.launch({channel:'chrome',headless:true});
+ const page=await browser.newPage({viewport:{width:1600,height:1000}}),errors=[];
+ page.on('pageerror',e=>errors.push(String(e)));
+ await page.goto(base);await page.getByRole('button',{name:/楼体内嵌立方体/}).waitFor();
+ const checks={oldLightCube:await page.getByRole('button',{name:/嵌入立方（原版）/}).count()===1};
+ await page.getByRole('button',{name:/楼体内嵌立方体/}).click();
+ const layout=page.getByLabel('海报布局');checks.defaultFloating=(await layout.inputValue())==='floating';
+ checks.noInactiveAuroraControls=await page.getByText('悬浮距离 m',{exact:true}).count()===0;
+ await layout.selectOption('back_wall');checks.backWallSelectable=(await layout.inputValue())==='back_wall';await layout.selectOption('floating');
+ await page.locator('input[type=file][accept="image/*"]').setInputFiles(path.resolve(__dirname,'../examples/v2/jiqi-qiuyun/original.png'));
+ const response=page.waitForResponse(r=>r.url().endsWith('/api/jobs')&&r.request().method()==='POST');
+ await page.getByRole('button',{name:'快速预览',exact:true}).click();const created=await (await response).json();
+ await page.locator('.downloads a').first().waitFor({timeout:180000});
+ const job=await(await page.request.get(base+'/api/jobs/'+created.id)).json();
+ checks.actualJob=job.status==='completed';checks.template=job.metrics.artwork.template==='embedded_cube_architecture';
+ checks.posterCoverage=job.metrics.metrics.foreground_coverage;
+ await page.locator('.viewport img').waitFor();checks.imageLoaded=await page.locator('.viewport img').evaluate(i=>i.complete&&i.naturalWidth>0);
+ await page.screenshot({path:path.join(out,'ui-desktop.png'),fullPage:true});
+ await page.setViewportSize({width:390,height:844});checks.mobileNoOverflow=await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth);
+ await page.screenshot({path:path.join(out,'ui-mobile.png'),fullPage:true});
+ checks.errors=errors;fs.writeFileSync(path.join(out,'ui-check.json'),JSON.stringify(checks,null,2));console.log(JSON.stringify(checks,null,2));
+ await browser.close();if(Object.values(checks).some(v=>v===false)||errors.length)process.exit(1);
+})().catch(e=>{console.error(e);process.exit(1)});

@@ -17,6 +17,11 @@ def build_exhibition(config, poster, composition, textured_material):
             from .legacy_scene_design import build_exhibition as build
         except ImportError:
             from legacy_scene_design import build_exhibition as build
+    elif template == "embedded_cube_architecture":
+        try:
+            from .embedded_cube_scene import build_exhibition as build
+        except ImportError:
+            from embedded_cube_scene import build_exhibition as build
     elif template in AURORA_TEMPLATES:
         try:
             from .aurora_scene import build_exhibition as build

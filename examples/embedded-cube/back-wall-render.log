@@ -1,0 +1,77 @@
+Blender 3.4.1 (hash 55485cb379f7 built 2022-12-20 00:48:52)
+Read prefs: /Users/apple/Library/Application Support/Blender/3.4/config/userpref.blend
+帧号:1 | 内存:69.54M (峰值 70.67M) | 时间:00:00.67 | Syncing 摄像机
+帧号:1 | 内存:69.54M (峰值 70.67M) | 时间:00:00.67 | Syncing Embedded Cube · poster assembly
+帧号:1 | 内存:69.55M (峰值 70.67M) | 时间:00:00.68 | Syncing Building facade · continuous sol
+帧号:1 | 内存:69.60M (峰值 70.67M) | 时间:00:01.03 | Syncing Excavated room · LEFT wall
+帧号:1 | 内存:69.61M (峰值 70.67M) | 时间:00:01.03 | Syncing Excavated room · RIGHT wall
+帧号:1 | 内存:69.62M (峰值 70.67M) | 时间:00:01.03 | Syncing Excavated room · CEILING
+帧号:1 | 内存:69.62M (峰值 70.67M) | 时间:00:01.03 | Syncing Excavated room · FLOOR
+帧号:1 | 内存:69.63M (峰值 70.67M) | 时间:00:01.03 | Syncing Excavated room · REAR wall
+帧号:1 | 内存:69.65M (峰值 70.67M) | 时间:00:01.32 | Syncing Poster backing · 25 mm
+帧号:1 | 内存:69.67M (峰值 70.67M) | 时间:00:01.32 | Syncing Original poster · complete unmod
+帧号:1 | 内存:113.82M (峰值 157.95M) | 时间:00:01.67 | Syncing Room ceiling · soft recessed was
+帧号:1 | 内存:113.82M (峰值 157.95M) | 时间:00:01.67 | Syncing Room left · broad blue bounce
+帧号:1 | 内存:113.82M (峰值 157.95M) | 时间:00:01.67 | Syncing Room floor · subtle reflected li
+帧号:1 | 内存:113.82M (峰值 157.95M) | 时间:00:01.67 | Syncing Building facade · broad daylight
+帧号:1 | 内存:113.80M (峰值 157.95M) | 时间:00:01.67 | Rendering 1 / 32 samples
+帧号:1 | 内存:113.77M (峰值 157.95M) | 时间:00:01.86 | Rendering 26 / 32 samples
+帧号:1 | 内存:113.77M (峰值 157.95M) | 时间:00:01.88 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/scene.png'
+ Time: 00:01.95 (Saving: 00:00.05)
+
+帧号:1 | 内存:113.16M (峰值 113.19M) | 时间:00:00.00 | Syncing 摄像机
+帧号:1 | 内存:113.16M (峰值 113.19M) | 时间:00:00.00 | Syncing Embedded Cube · poster assembly
+帧号:1 | 内存:113.17M (峰值 113.19M) | 时间:00:00.00 | Syncing Original poster · complete unmod
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.20 | Syncing Room ceiling · soft recessed was
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.20 | Syncing Room left · broad blue bounce
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.20 | Syncing Room floor · subtle reflected li
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.20 | Syncing Building facade · broad daylight
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.20 | Rendering 1 / 32 samples
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.30 | Rendering 26 / 32 samples
+帧号:1 | 内存:113.17M (峰值 113.51M) | 时间:00:00.32 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/poster_mask.png'
+ Time: 00:00.34 (Saving: 00:00.01)
+
+帧号:1 | 内存:113.24M (峰值 113.27M) | 时间:00:00.00 | Syncing 摄像机
+帧号:1 | 内存:113.25M (峰值 113.27M) | 时间:00:00.00 | Syncing Physical LED · planar arc planar
+帧号:1 | 内存:116.53M (峰值 119.76M) | 时间:00:00.01 | Rendering 1 / 32 samples
+帧号:1 | 内存:116.51M (峰值 119.76M) | 时间:00:00.07 | Rendering 26 / 32 samples
+帧号:1 | 内存:116.51M (峰值 119.76M) | 时间:00:00.08 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/simulation.png'
+ Time: 00:00.11 (Saving: 00:00.02)
+
+帧号:1 | 内存:116.50M (峰值 116.53M) | 时间:00:00.00 | Syncing 摄像机
+帧号:1 | 内存:116.51M (峰值 116.53M) | 时间:00:00.00 | Syncing Physical LED · planar arc planar
+帧号:1 | 内存:116.52M (峰值 116.54M) | 时间:00:00.00 | Rendering 1 / 32 samples
+帧号:1 | 内存:116.51M (峰值 116.54M) | 时间:00:00.05 | Rendering 26 / 32 samples
+帧号:1 | 内存:116.51M (峰值 116.54M) | 时间:00:00.06 | Rendering 32 / 32 samples
+Saved: '/Users/apple/Documents/dev/Codex/BUPT Anamorphic Frame Studio/examples/embedded-cube/back_wall/mask.png'
+ Time: 00:00.09 (Saving: 00:00.01)
+
+信息: 文件总数 3 | 更改 3 项 | 失败 0 项
+13:55:55 | INFO: Draco mesh compression is available, use library at /Applications/Blender.app/Contents/Resources/3.4/python/lib/python3.10/site-packages/libextern_draco.dylib
+13:55:55 | INFO: Starting glTF 2.0 export
+13:55:55 | INFO: Extracting primitive: Original poster · complete unmodified rectangle
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Poster backing · 25 mm
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Building facade · continuous solid wall with excavated opening
+13:55:55 | INFO: Primitives created: 2
+13:55:55 | INFO: Extracting primitive: Excavated room · LEFT wall
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Excavated room · RIGHT wall
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Excavated room · CEILING
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Excavated room · FLOOR
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Extracting primitive: Excavated room · REAR wall
+13:55:55 | INFO: Primitives created: 1
+13:55:55 | INFO: Finished glTF 2.0 export in 0.024151086807250977 s
+
+信息: 已打包 3 个文件
+信息: 已保存 "scene.blend"
+RENDER_REPORT {"mae_srgb": 0.004446340259164572, "full_mask_mae_srgb": 0.0044658128172159195, "interior_mae_srgb": 0.004446340259164572, "foreground_mae_srgb": 0.016008814796805382, "foreground_coverage": 1.0, "foreground_pixels": 90224, "rmse_srgb": 0.014932383336537552, "psnr_db": 36.51741739231883, "p95_absolute_error": 0.027450978755950928, "mask_pixels": 397935, "visible_screen_fraction": 0.47037076171691555, "valid_atlas_fraction": 0.9998966845120691}
+
+Blender quit
