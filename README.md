@@ -77,7 +77,7 @@ BASE_URL=http://127.0.0.1:8000 npm --prefix frontend run test:ui
   --config configs/bupt-demo.json --poster examples/v2/poster-16x9.png --output outputs/manual
 ```
 
-测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。现场照片和用户原图均未在本次验证中取得。
+测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。收尾补查旧上传任务后找到4535×2551的「计启秋韵」图，并另行完成正式输出验证，记录为 `examples/v2/user-poster-validation.json`；真实海报生成物保留在本地 `outputs/28f54a4536b141d4a2143192f48b4353/`。现场照片仍未取得。
 
 ## 交付文件
 

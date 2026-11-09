@@ -261,8 +261,40 @@
   "visual_review": {
     "reviewer": "assistant image inspection plus independent agent image inspection",
     "human_approval": "PENDING",
-    "source_poster": "1536x864 original raster fixture; NOT user event artwork",
+    "source_poster": "Standard1536x864fixture plus recovered actual4535x2551eventposter",
     "site_photos": "NOT PROVIDED",
     "site_calibration": "UNVERIFIED"
+  },
+  "actual_user_poster": {
+    "source": "Recovered previous local upload outputs/95f4d6d7068248ceb9d49972901203b4/original.png",
+    "source_pixels": [
+      4535,
+      2551
+    ],
+    "title": "计启秋韵",
+    "output_job": "28f54a4536b141d4a2143192f48b4353",
+    "atlas_pixels": [
+      4368,
+      3120
+    ],
+    "passed": true,
+    "metrics": {
+      "mae_srgb": 0.004836530424654484,
+      "full_mask_mae_srgb": 0.004834273364394903,
+      "interior_mae_srgb": 0.004836530424654484,
+      "foreground_mae_srgb": 0.004940112587064505,
+      "foreground_coverage": 1.0,
+      "foreground_pixels": 3283344,
+      "rmse_srgb": 0.01834166822534589,
+      "psnr_db": 34.73122333175659,
+      "p95_absolute_error": 0.027450978755950928,
+      "mask_pixels": 6422204,
+      "visible_screen_fraction": 0.47204215389311543,
+      "valid_atlas_fraction": 0.9998955838499107
+    },
+    "poster_aspect_preserved": true,
+    "opening_safe": true,
+    "visual_review": "Actual image opened: title, college mark, figures and edges preserved; gold frame and aubergine stage visible",
+    "assets_location": "Local outputs directory; not part of committed test-fixture assets"
   }
 }
