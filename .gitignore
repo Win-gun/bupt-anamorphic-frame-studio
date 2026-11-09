@@ -8,3 +8,6 @@ outputs/*
 *.blend1
 .DS_Store
 *.tsbuildinfo
+
+# Worktree-local dependency link
+/.venv

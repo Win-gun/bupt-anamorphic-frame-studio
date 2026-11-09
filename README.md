@@ -1,12 +1,14 @@
-# BUPT Anamorphic Frame Studio
+# BUPT Anamorphic Frame Studio · V2
 
-本地海报 → Blender 厚度画框 → 连续平面/圆弧/平面投影 → LED 展开画布 → 观察点回贴验证。
+本地运行的曲面 LED 裸眼 3D 海报工具。原海报作为原始纹理保留，不进行 AI 重绘。FastAPI + Blender Python + React/TypeScript + FFmpeg。
 
-**默认未校准。** 2704 + 416 + 1248 × 3120 是播放像素规格，不是米。P3、90° 是演示假设，不能作为现场交付依据。必须实测像素间距、转角/半径、观察点及屏幕朝向。
+![同一16:9海报的V1/V2真实渲染对比](examples/v2/v1-v2-comparison.png)
 
-## 安装与启动（macOS Apple Silicon）
+默认模板 **Cinema Portal · 电影级空间画框**：真实墙体、顶面、地台与分层金属画框；另外提供悬浮展台与玻璃展柜。可编辑 `.blend`、同源 GLB、LED 展开、回贴模拟与报告均可下载。
 
-需要 Python 3.9+、Node.js 20.19+、Blender 3.4+、FFmpeg/ffprobe。已在本机 Blender 3.4.1、Python 3.9.6、Node 20.20.2 下实测；其他 Blender 主版本需重新运行验收。
+## 安装与启动
+
+已实测 macOS Apple Silicon、Python 3.9.6、Blender **3.4.1** EEVEE、Node 20.20.2、FFmpeg 8.1.1。Blender 其他大版本尚未兼容验证（EEVEE/PBR API 有差异）。
 
 ```sh
 git clone https://github.com/Win-gun/bupt-anamorphic-frame-studio.git
@@ -15,67 +17,75 @@ cd bupt-anamorphic-frame-studio
 ./scripts/start.sh
 ```
 
-打开 http://127.0.0.1:8000 。首次构建后，前后端由一个本地服务提供。开发前端可运行 `npm --prefix frontend run dev`，由 Vite 代理 API。只监听 loopback；不要直接暴露到公网。
+打开 http://127.0.0.1:8000 。Blender 默认 `/Applications/Blender.app/Contents/MacOS/Blender`，可设置 `BLENDER_BIN`；FFmpeg 与 ffprobe 须在 PATH。安装脚本使用锁定 Python/npm 依赖，优先使用已安装的 Homebrew Node 20，不修改主机链接。只监听本机。
 
-Blender 默认路径 `/Applications/Blender.app/Contents/MacOS/Blender`，也支持 `BLENDER_BIN=/绝对路径/Blender ./scripts/start.sh`。Node 26 在此主机缺少动态库；安装脚本优先使用已安装的 `/opt/homebrew/opt/node@20/bin`，不修改系统链接。
+开发前端：`npm --prefix frontend run dev`（代理 API 至8000）。
 
-## 使用
+## 北邮默认预设
 
-1. 上传 PNG/JPEG/WebP 海报，EXIF 朝向归一化、透明区域以白底合成；不使用生成式 AI，不裁剪、不拉伸海报。
-2. 选择深邃画框、悬浮画框或玻璃展柜。设置画框外尺寸、边框、深度、位置、颜色。海报按原比例 contain 到内部开口。
-3. 输入屏幕与相机参数。圆弧半径留空时按弧长和角度求解；指定半径时必须与像素间距/416 像素弧长一致（相对容差 0.0001%，几何使用弧长/角度的规范半径）。
-4. 以低分辨率生成预览；检查原海报、目标 3D 场景、LED 展开、现场回贴四种视图及验证报告。
-5. 将输出比例设为 1，导出 **4368 × 3120 PNG**。可选 MP4 是展开画布的定格视频，不包含角色或画框运动；FFmpeg 编码后以 ffprobe 检查。未校准标记留在界面和报告，避免污染播放素材。
+**BUPT Curved LED · 北邮弧形转角大屏** 启动即加载：
 
-更改观察相机后必须重新生成展开图。单一观察点的错觉不保证其他位置成立。参数在提交时快照保存为每个任务的 config.json。
+| 区域 | 像素规格 |
+|---|---:|
+| 左平面 | 2704 × 3120 |
+| 中间真实圆柱弧面 | 416 × 3120 |
+| 右平面 | 1248 × 3120 |
+| 正式输出 | **4368 × 3120** |
 
-## 数学与物理模型
+唯一默认源为 [`configs/bupt-curved-led.json`](configs/bupt-curved-led.json)，后端配置模型从它读取默认值，前端通过 API 获取，其他配置是快照。预览比例只改变采样密度，不改变物理几何、UV 或输出宽高比例。
 
-单位为米，Z 向上。屏幕横向采用真实表面弧长 `s`，竖向采用 `z`。设左屏宽 `L=2704*p`、弧长 `A=416*p`、右屏宽 `B=1248*p`，`p=pitch_mm/1000`，`θ=angle_deg*π/180`，`R=A/θ`。
+**仍未现场校准。** P3、90°、凹面、演示机位只是模拟假设。仓库没有现场建筑照片，不能据此确认实际是凹还是凸。可以切换凹/凸和安装 yaw；切换后用「重置演示机位」检查对应的正面可视区。真实像素间距、半径/夹角、朝向和观察点须实测；半径须与像素间距及弧长一致。
 
-局部横截面：
+## 创作流程
 
-- 左屏：`x=s-L, y=0`（`0≤s≤L`）。
-- 圆弧：`t=(s-L)/R; x=R*sin(t), y=R*(cos(t)-1)`。
-- 右屏：`q=s-L-A; x=R*sin(θ)+q*cos(θ), y=R*(cos(θ)-1)-q*sin(θ)`。
+1. 上传海报。Auto Fit 自动读取原始比例，在相机投影下的真实屏幕可见轮廓中寻找安全矩形，并改变画框外形。16:9 不再塞入默认竖框。
+2. 选择 Cinema Portal、悬浮展台或玻璃展柜，以及磨砂金、拉丝金属、黑钛、烤漆、玻璃或发光饰面。原海报文字区不铺玻璃反射。
+3. Auto Fit 完整原图；Fill 明确允许中心裁切（UV 范围见报告）；Manual 固定人工框尺寸，海报 contain 放置。三者均不拉伸原图。位置在 Auto/Fill 中是相机 right/up/forward 的偏移，在 Manual 中为世界坐标。
+4. 调整画框比例、虚拟纵深和空间深度。主框与房间独立；后墙碰撞配置会被拒绝，出屏构图不能判为验证通过。自动构图优化的是海报开口；建筑装饰允许被真实屏幕边界截去。
+5. 快速预览为1/8采样，高质量预览为1/2，正式导出固定全分辨率。结果栏显示提交的配置快照，不把后续参数改动冒充已有结果。
+6. 在原图、目标场景、展开、最佳点回贴之间切换，也可并列对照原图。3D 查看器加载 Blender 真正导出的 GLB，可旋转检查；网页照明是几何检查用光，最终材质与光照以 Blender 输出为准。
+7. 保存/恢复配置、重置北邮默认值，或导入/导出经过验证的 JSON。已保存的设置位于本地 `outputs/settings.json`，重启保留。
 
-两处接缝位置与一阶切向连续。整体 X 居中。UV 为 `u=s/(L+A+B)`、`v=(z+H/2)/H`，其中 `H=3120*p`。几何使用细分圆柱曲面网格，像素采样使用解析表面而非把视频分三段裁切。世界坐标与网格细分规则以 `studio/geometry.py` 为准。
+## 动态测试
 
-投影链路：Blender 渲染虚拟画框目标图 → 遍历展开画布像素中心，求真实三维表面点 → 投影到固定相机 → 双线性纹理采样 → 输出展开 → 将输出 PNG 作为发光纹理贴回真实 LED 网格，由 Blender 再渲染。背面与不可见表面不应作为可用显示区。
+可用「动态测试 · 低清2秒」快速生成1/8采样、12fps的三维动态预览，或选择正式输出的「三维前进—停留—返回」与边缘扫光。只移动主画框及海报，墙体/地台不动。每帧先在固定相机下真实渲染三维场景，再经过相同曲面反投影，绝非二维缩放。
 
-回贴验证使用独立的实际屏幕遮罩，只比较屏幕有效覆盖区域；同时输出边界与内区的误差、差异图及阈值结果。阈值和实际方法请查看每次任务的 report.json。有限纹理分辨率、网格近似、抗锯齿和掠射角会引入误差；这些指标验证数字投影链路，不能替代现场光学标定。
+扫光会启用动态序列。动态限6–360帧；长时间/全尺寸序列开销较高，先低分辨率测试。端点与停留峰值会再次渲染物理 LED 屏核查。FFmpeg 编码后用 ffprobe 检查尺寸/像素格式。单独选择视频而不选择动画时输出定格视频。
 
-## 测试与证据
+## 实现与验证
+
+连续平面—圆弧—平面以真实弧长 `s` 参数化；圆弧 `R=416*pitch/angle`。凹/凸统一改变曲率、切向、法线、射线遮挡，再将整体 yaw 旋转；UV 始终按左→弧→右展开。并非分三段裁切视频。
+
+投影为：目标三维场景渲染 → 解析 LED 表面采样 → 相机透视反投影 → 双线性采样 → 展开图 → 独立 Blender 物理屏发光材质回贴。误差只在实际有效屏幕区域比较；另有独立海报遮罩核查覆盖率，避免建筑背景或大面积黑色稀释结果。
+
+数值门禁（MAE/覆盖/安全构图）与美术评价分开记录。不能把 MAE 达标称为视觉质量通过。实际视觉复核见 [`examples/v2/acceptance.md`](examples/v2/acceptance.md)，最终美术取舍仍由用户确认。
 
 ```sh
-.venv/bin/python scripts/check_environment.py
 .venv/bin/python -m pytest -q
 RUN_BLENDER_TESTS=1 .venv/bin/python -m pytest -q
-.venv/bin/python scripts/smoke.py --scale 0.125
-.venv/bin/python scripts/smoke.py --scale 1 --video
+/Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 --python scripts/geometry_diagnostics.py
+# 服务启动后（默认8000）：
+BASE_URL=http://127.0.0.1:8000 npm --prefix frontend run test:ui
+.venv/bin/python scripts/v2_api_acceptance.py --base-url http://127.0.0.1:8000
 ```
 
-后两条实际启动 Blender，不是 mock；任务 ID、渲染日志、所有图片、打包 .blend、验证报告均位于 `outputs/<任务ID>/`。全分辨率较慢，任务串行执行。服务重启后保留任务结果，中断任务标为失败，不自动重复执行。
-
-独立运行 Blender：
+独立正式渲染：
 
 ```sh
 /Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 \
   --python studio/blender_render.py -- \
-  --config configs/bupt-demo.json --poster examples/poster.png --output outputs/manual
+  --config configs/bupt-demo.json --poster examples/v2/poster-16x9.png --output outputs/manual
 ```
 
-`examples/poster.png` 是通过 Pillow 排版的测试海报，文字和几何图形均为原始光栅素材。`examples/environment.json` 是实测环境记录。浏览器回归需本机 Chrome 与正在运行的服务，执行 `npm --prefix frontend run test:ui`。测试结果见 `examples/acceptance.md`。
+测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。现场照片和用户原图均未在本次验证中取得。
 
-## 目录
+## 交付文件
 
-- `studio/`：验证模型、API、串行任务调度、Blender 几何/投影/回贴。
-- `frontend/`：React + TypeScript 控制台。
-- `configs/`：演示与快速测试 JSON。
-- `scripts/`：安装、启动、环境检查、测试海报和端到端验收。
-- `tests/`：参数、上传、几何与失败路径测试。
-- `outputs/`：每个任务的输入快照、可播放素材、日志与验证证据。
+- [`examples/v2/cinema-full/`](examples/v2/cinema-full/)：4368×3120 正式展开、最佳点回贴、差异/遮罩、打包 Blender、GLB、报告。
+- [`examples/v2/v1-v2-comparison.png`](examples/v2/v1-v2-comparison.png)：同一张16:9海报对比。
+- [`examples/v2/diagnostics/`](examples/v2/diagnostics/)：凹凸正视/俯视诊断及数值记录。
+- [`examples/v2/float/`](examples/v2/float/)、[`glass/`](examples/v2/glass/)：不同结构的模板实测。
+- [`examples/v2/animation-api/`](examples/v2/animation-api/)：真实 API 动画视频、逐帧展开联系图、ffprobe 和验证报告。
+- [`docs/v2-design-brief.md`](docs/v2-design-brief.md)：视觉方向、验收与已知边界。
 
-## 第一阶段边界
-
-提供三个基础材质模板、静态画框与可选定格视频。无 AI 抠图、生成式重绘、角色动画、自动测量或现场控制器推流。预览为提交后的准实时任务渲染。现场物理校准、LED 亮度/色彩/控制器映射仍需实测；`calibrated` 只记录操作者声明，不代表软件独立验证了现场。
+V1 原始测试与样例保留在原有 `examples/` 子目录，便于回归。现场光学/色彩响应、镜头畸变、控制器映射仍须现场验收，本轮未做 AI 分层或自动测量。

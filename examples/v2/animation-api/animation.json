@@ -1,0 +1,101 @@
+{
+  "moving_objects": [
+    "Hero frame \u00b7 swept 13-step miter profile",
+    "Inner polished fillet",
+    "Recessed black shadow reveal",
+    "Original poster \u00b7 original aspect",
+    "Inset warm edge diffuser"
+  ],
+  "static_architecture": true,
+  "enabled": true,
+  "light_sweep": true,
+  "frames": [
+    {
+      "index": 0,
+      "blender_frame": 1,
+      "translation_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "path": "frames/led_0000.png"
+    },
+    {
+      "index": 1,
+      "blender_frame": 2,
+      "translation_m": [
+        -0.03500700369477272,
+        -0.24504901468753815,
+        0.03500700369477272
+      ],
+      "path": "frames/led_0001.png"
+    },
+    {
+      "index": 2,
+      "blender_frame": 3,
+      "translation_m": [
+        -0.07001400738954544,
+        -0.4900980293750763,
+        0.07001400738954544
+      ],
+      "path": "frames/led_0002.png"
+    },
+    {
+      "index": 3,
+      "blender_frame": 4,
+      "translation_m": [
+        -0.07001400738954544,
+        -0.4900980293750763,
+        0.07001400738954544
+      ],
+      "path": "frames/led_0003.png"
+    },
+    {
+      "index": 4,
+      "blender_frame": 5,
+      "translation_m": [
+        -0.03500700369477272,
+        -0.24504901468753815,
+        0.03500700369477272
+      ],
+      "path": "frames/led_0004.png"
+    },
+    {
+      "index": 5,
+      "blender_frame": 6,
+      "translation_m": [
+        -0.0,
+        -0.0,
+        0.0
+      ],
+      "path": "frames/led_0005.png"
+    }
+  ],
+  "timing": {
+    "forward_end_fraction": 0.35,
+    "hold_end_fraction": 0.65,
+    "interpolation": "BEZIER",
+    "displacement_m": 0.5
+  },
+  "verification": [
+    {
+      "frame": 0,
+      "screen_mae_srgb": 0.010314591228961945,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 3,
+      "screen_mae_srgb": 0.009935212321579456,
+      "poster_coverage": 1.0,
+      "passed": true
+    },
+    {
+      "frame": 5,
+      "screen_mae_srgb": 0.010314591228961945,
+      "poster_coverage": 1.0,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

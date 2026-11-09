@@ -1,0 +1,12 @@
+{
+  "structural_checks": {
+    "continuous_miter_profile": true,
+    "layered_ring_count": 5,
+    "artwork_coverage_pass": true,
+    "source_aspect": 1.7777777777777777,
+    "display_aspect": 1.7777777777777777,
+    "model_export": "EXPORTED_VIRTUAL_EXHIBITION_MESHES"
+  },
+  "human_visual_judgment": "PENDING",
+  "note": "Numerical projection agreement and scene structure do not establish visual quality."
+}

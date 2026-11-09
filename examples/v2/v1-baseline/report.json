@@ -1,0 +1,114 @@
+{
+  "passed": true,
+  "engine": "Blender 3.4.1 EEVEE",
+  "method": "3D physical continuous surface, perspective inverse projection, bilinear texture sampling, analytic front-face and self-occlusion tests, independent Blender camera re-render",
+  "physical": {
+    "left": 8.112,
+    "arc": 1.248,
+    "right": 3.744,
+    "angle": 1.5707963267948966,
+    "radius": 0.7945014759147415,
+    "height": 9.36,
+    "length": 13.104,
+    "x_shift": -3.658749262042629
+  },
+  "atlas_pixels": [
+    2184,
+    1560
+  ],
+  "nominal_atlas_pixels": [
+    4368,
+    3120
+  ],
+  "scale": 0.5,
+  "calibration_status": "NOMINAL_UNCALIBRATED",
+  "metrics": {
+    "mae_srgb": 0.0006738798110745847,
+    "full_mask_mae_srgb": 0.000719425908755511,
+    "interior_mae_srgb": 0.0006738798110745847,
+    "foreground_mae_srgb": 0.0031069277320057154,
+    "foreground_coverage": 1.0,
+    "foreground_pixels": 658003,
+    "rmse_srgb": 0.005652830480591989,
+    "psnr_db": 44.95468076292696,
+    "p95_absolute_error": 0.0,
+    "mask_pixels": 3128742,
+    "visible_screen_fraction": 0.920439149525688,
+    "valid_atlas_fraction": 0.9203378886071194
+  },
+  "verification": {
+    "criterion": "interior and foreground mean absolute sRGB error <= 0.04; >=98% target foreground covered by actual visible screen",
+    "threshold_mae": 0.04,
+    "pass": true
+  },
+  "limitations": [
+    "Nominal geometry is not field calibration; measured camera pose, lens distortion and LED transfer response are required on site.",
+    "Pixels outside the camera frustum or occluded/back-facing physical surface are black.",
+    "Comparison excludes a one-pixel raster boundary; texture resampling and finite curved mesh tessellation contribute remaining error."
+  ],
+  "coordinate_system": "metres; Z up; left Y=0; arc Y=R(cos(theta)-1); right tangent (cos(theta),-sin(theta)); centered surface X bounds",
+  "artwork": {
+    "poster_original_pixels": [
+      1536,
+      864
+    ],
+    "poster_display_metres": [
+      4.604,
+      2.58975
+    ],
+    "poster_aspect_preserved": true,
+    "effective_frame_position": [
+      2.5,
+      0.7,
+      0.0
+    ]
+  },
+  "elapsed_seconds": 4.383819103240967,
+  "config": {
+    "screen": {
+      "pixels": [
+        2704,
+        416,
+        1248
+      ],
+      "height_px": 3120,
+      "pitch_mm": 3.0,
+      "angle_deg": 90.0,
+      "radius_m": null,
+      "calibrated": false
+    },
+    "camera": {
+      "position": [
+        -2.0,
+        -10.0,
+        1.0
+      ],
+      "target": [
+        1.5,
+        -0.5,
+        0.0
+      ],
+      "fov_deg": 65.0
+    },
+    "frame": {
+      "template": "deep",
+      "width_m": 5.0,
+      "height_m": 6.0,
+      "depth_m": 0.65,
+      "border_m": 0.18,
+      "position": [
+        2.5,
+        0.7,
+        0.0
+      ],
+      "color": "#234863"
+    },
+    "render": {
+      "scale": 0.5,
+      "samples": 32,
+      "video": false,
+      "duration": 3.0,
+      "fps": 24
+    }
+  }
+}

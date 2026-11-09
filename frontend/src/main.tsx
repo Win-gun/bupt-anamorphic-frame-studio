@@ -10,6 +10,9 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import "./style.css";
+const Orbit = React.lazy(() =>
+  import("./Orbit").then((m) => ({ default: m.Orbit })),
+);
 type Config = {
   screen: {
     pixels: number[];
@@ -18,10 +21,18 @@ type Config = {
     angle_deg: number;
     radius_m: number | null;
     calibrated: boolean;
+    curvature: string;
+    yaw_deg: number;
   };
   camera: { position: number[]; target: number[]; fov_deg: number };
   frame: {
     template: string;
+    layout: string;
+    material: string;
+    scale: number;
+    virtual_depth_m: number;
+    edge_light: boolean;
+    portal_depth_m: number;
     width_m: number;
     height_m: number;
     depth_m: number;
@@ -31,6 +42,9 @@ type Config = {
   };
   render: {
     scale: number;
+    quality: string;
+    animation: boolean;
+    light_sweep: boolean;
     samples: number;
     video: boolean;
     duration: number;
@@ -52,14 +66,32 @@ function App() {
     [jobs, setJobs] = useState<Job[]>([]),
     [tab, setTab] = useState("simulation"),
     [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [snapshot, setSnapshot] = useState<Config | null>(null),
+    [localURL, setLocalURL] = useState(""),
+    [preset, setPreset] = useState("");
   useEffect(() => {
-    fetch("/api/config")
-      .then((r) => r.json())
+    fetch("/api/settings")
+      .then((r) => {
+        if (!r.ok) throw new Error("保存的配置无效，请重置配置");
+        return r.json();
+      })
       .then(setC)
       .catch(() => setError("无法连接本地服务，请检查后端是否运行。"));
+    fetch("/api/presets")
+      .then((r) => r.json())
+      .then((x) => setPreset(x.name || "BUPT Curved LED"));
     refresh();
   }, []);
+  useEffect(() => {
+    if (!file) {
+      setLocalURL("");
+      return;
+    }
+    const u = URL.createObjectURL(file);
+    setLocalURL(u);
+    return () => URL.revokeObjectURL(u);
+  }, [file]);
   function refresh() {
     fetch("/api/jobs")
       .then((r) => r.json())
@@ -91,11 +123,24 @@ function App() {
             )
               refresh();
           })
-          .catch(() => {}),
+          .catch(() => setError("无法更新任务状态，请检查本地服务。")),
       1500,
     );
     return () => clearInterval(t);
   }, [job?.id, job?.status]);
+  useEffect(() => {
+    if (!job?.outputs?.config) return;
+    let active = true;
+    fetch(job.outputs.config)
+      .then((r) => r.json())
+      .then((config) => {
+        if (active) setSnapshot(config);
+      })
+      .catch(() => setError("无法读取渲染配置快照"));
+    return () => {
+      active = false;
+    };
+  }, [job?.id, job?.outputs?.config]);
   function set(section: keyof Config, key: string, value: unknown) {
     setC((old) =>
       old ? { ...old, [section]: { ...old[section], [key]: value } } : old,
@@ -112,23 +157,70 @@ function App() {
     a[index] = value;
     set(section, key, a);
   }
-  async function submit() {
+  async function submit(mode: "quick" | "high" | "formal" | "motion") {
     if (!file || !c) return;
     setBusy(true);
     setError("");
     try {
       const data = new FormData();
       data.append("file", file);
-      data.append("config", JSON.stringify(c));
+      const config = structuredClone(c);
+      if (mode === "quick")
+        Object.assign(config.render, {
+          scale: 0.125,
+          samples: 8,
+          quality: "quick",
+          video: false,
+          animation: false,
+          light_sweep: false,
+        });
+      if (mode === "high")
+        Object.assign(config.render, {
+          scale: 0.5,
+          samples: 64,
+          quality: "high",
+          video: false,
+          animation: false,
+          light_sweep: false,
+        });
+      if (mode === "motion")
+        Object.assign(config.render, {
+          scale: 0.125,
+          samples: 8,
+          quality: "quick",
+          animation: true,
+          video: true,
+          duration: 2,
+          fps: 12,
+        });
+      if (mode === "formal") config.render.scale = 1;
+      data.append("config", JSON.stringify(config));
       const r = await fetch("/api/jobs", { method: "POST", body: data });
       if (!r.ok) throw new Error(await r.text());
       const j = await r.json();
       setJob({ id: j.id, status: "queued", progress: 0 });
+      setSnapshot(config);
+      setTab("simulation");
       refresh();
     } catch (e) {
       setError(String(e));
     } finally {
       setBusy(false);
+    }
+  }
+  async function configAction(path: string, method = "GET", body?: unknown) {
+    try {
+      const r = await fetch(path, {
+        method,
+        headers: body ? { "Content-Type": "application/json" } : undefined,
+        body: body ? JSON.stringify(body) : undefined,
+      });
+      if (!r.ok) throw new Error(await r.text());
+      const x = await r.json();
+      setC(x);
+      setError("");
+    } catch (e) {
+      setError(String(e));
     }
   }
   const n = (
@@ -167,9 +259,19 @@ function App() {
     ["simulation", "观看模拟"],
     ["scene", "三维场景"],
     ["atlas", "屏幕展开"],
-    ["difference", "差异图"],
+    ["orbit", "交互 3D"],
   ];
-  if (!c) return <div className="loading">{error || "正在连接工作室…"}</div>;
+  if (!c)
+    return (
+      <div className="loading">
+        {error || "正在连接工作室…"}
+        {error && (
+          <button onClick={() => configAction("/api/settings/reset", "POST")}>
+            重置配置
+          </button>
+        )}
+      </div>
+    );
   return (
     <>
       <header>
@@ -185,7 +287,7 @@ function App() {
         </div>
         <div className="headright">
           <span className="dot" /> 本地工作区{" "}
-          <span className="version">V 1.0</span>
+          <span className="version">V 2.0</span>
         </div>
       </header>
       <main>
@@ -212,6 +314,7 @@ function App() {
           </div>
           <div className="templates">
             {[
+              ["cinema", "影院画框", "经典空间感"],
               ["deep", "深邃画框", "纵深空间感"],
               ["float", "悬浮画框", "轻盈悬浮感"],
               ["glass", "玻璃画框", "通透层次感"],
@@ -254,6 +357,24 @@ function App() {
               <span>屏幕参数</span>
               <small>SCREEN</small>
             </summary>
+            <p className="muted">{preset}</p>
+            <label className="field">
+              弯曲方向
+              <select
+                value={c.screen.curvature}
+                onChange={(e) => set("screen", "curvature", e.target.value)}
+              >
+                <option value="convex">凸面</option>
+                <option value="concave">凹面</option>
+              </select>
+            </label>
+            <p className="muted">尚无现场照片佐证弯曲方向，请实地确认。</p>
+            {n(
+              "旋转角 °",
+              c.screen.yaw_deg,
+              (v) => set("screen", "yaw_deg", v),
+              1,
+            )}
             <div className="triple">
               {c.screen.pixels.map((x, i) => (
                 <label className="field" key={i}>
@@ -305,6 +426,29 @@ function App() {
               <span>观看机位</span>
               <small>CAMERA</small>
             </summary>
+            <button
+              className="secondary"
+              onClick={() => {
+                setC((old) =>
+                  old
+                    ? {
+                        ...old,
+                        camera: {
+                          ...old.camera,
+                          position:
+                            old.screen.curvature === "convex"
+                              ? [12, -14, 2]
+                              : [-2, -14, 2],
+                          target: [0, 0, 0],
+                        },
+                      }
+                    : old,
+                );
+              }}
+            >
+              重置演示机位
+            </button>
+            <p className="muted">演示机位，不代表现场校准</p>
             {vec("位置 / POSITION", "camera", "position", c.camera.position)}
             {vec("目标 / TARGET", "camera", "target", c.camera.target)}
             {n(
@@ -319,6 +463,57 @@ function App() {
               <span>画框尺寸</span>
               <small>FRAME</small>
             </summary>
+            <label className="field">
+              布局
+              <select
+                value={c.frame.layout}
+                onChange={(e) => set("frame", "layout", e.target.value)}
+              >
+                <option value="auto_fit">自动适配</option>
+                <option value="fill">填充</option>
+                <option value="manual">手动</option>
+              </select>
+            </label>
+            <label className="field">
+              材质
+              <select
+                value={c.frame.material}
+                onChange={(e) => set("frame", "material", e.target.value)}
+              >
+                {[
+                  ["gold", "金色"],
+                  ["brushed_metal", "拉丝金属"],
+                  ["black_titanium", "黑钛"],
+                  ["lacquer", "漆面"],
+                  ["glass", "玻璃"],
+                  ["emissive", "发光"],
+                ].map(([v, t]) => (
+                  <option key={v} value={v}>
+                    {t}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {n(
+              "画框比例",
+              c.frame.scale,
+              (v) => set("frame", "scale", v),
+              0.05,
+            )}
+            {n("虚拟纵深 m", c.frame.virtual_depth_m, (v) =>
+              set("frame", "virtual_depth_m", v),
+            )}
+            {n("空间纵深 m", c.frame.portal_depth_m, (v) =>
+              set("frame", "portal_depth_m", v),
+            )}
+            <label className="check">
+              <input
+                type="checkbox"
+                checked={c.frame.edge_light}
+                onChange={(e) => set("frame", "edge_light", e.target.checked)}
+              />{" "}
+              边缘灯光
+            </label>
             <div className="double">
               {n("宽度 m", c.frame.width_m, (v) => set("frame", "width_m", v))}
               {n("高度 m", c.frame.height_m, (v) =>
@@ -381,7 +576,19 @@ function App() {
             </span>
           </div>
           <div className="viewport">
-            {job?.outputs?.[tab] ? (
+            {tab === "orbit" ? (
+              job?.outputs?.model ? (
+                <React.Suspense
+                  fallback={<div className="empty">正在加载 3D 查看器…</div>}
+                >
+                  <Orbit url={job.outputs.model} />
+                </React.Suspense>
+              ) : (
+                <div className="empty">完成渲染后可查看真实导出的 3D 场景</div>
+              )
+            ) : tab === "original" && localURL && !job?.outputs?.original ? (
+              <img src={localURL} alt="本地原始画作" />
+            ) : job?.outputs?.[tab] ? (
               <img
                 src={job.outputs[tab]}
                 alt={tabs.find((t) => t[0] === tab)?.[1]}
@@ -407,11 +614,31 @@ function App() {
                 </p>
               </div>
             )}
+            {tab === "orbit" && (
+              <div className="orbit-caption">
+                几何检查 · 最终光照以 Blender 为准
+              </div>
+            )}
             <div className="viewportmeta">
               <span>PREVIEW / {tab.toUpperCase()}</span>
               <span>BUИT · FRAME LAB</span>
             </div>
           </div>
+          {job?.outputs?.original && job?.outputs?.simulation && (
+            <details className="compare">
+              <summary>原画 / 模拟效果对照</summary>
+              <div>
+                <figure>
+                  <img src={job.outputs.original} alt="原画" />
+                  <figcaption>原画</figcaption>
+                </figure>
+                <figure>
+                  <img src={job.outputs.simulation} alt="模拟效果" />
+                  <figcaption>模拟效果</figcaption>
+                </figure>
+              </div>
+            </details>
+          )}
           <div className="statusline">
             <div>
               <span className="statusdot" />{" "}
@@ -421,7 +648,7 @@ function App() {
               {job?.error && <span className="error"> · {job.error}</span>}
             </div>
             <span>
-              预览比例 {c.render.scale} · 完整画布{" "}
+              结果比例 {snapshot?.render.scale ?? "—"} · 完整画布{" "}
               {c.screen.pixels.reduce((a, b) => a + b, 0)} ×{" "}
               {c.screen.height_px} px
             </span>
@@ -476,6 +703,83 @@ function App() {
               生成定格视频
             </label>
           </details>
+          <label className="check">
+            <input
+              type="checkbox"
+              checked={c.render.animation}
+              onChange={(e) =>
+                setC((old) =>
+                  old
+                    ? {
+                        ...old,
+                        render: {
+                          ...old.render,
+                          animation: e.target.checked,
+                          light_sweep: e.target.checked
+                            ? old.render.light_sweep
+                            : false,
+                        },
+                      }
+                    : old,
+                )
+              }
+            />{" "}
+            动画
+          </label>
+          <label className="check">
+            <input
+              type="checkbox"
+              checked={c.render.light_sweep}
+              onChange={(e) =>
+                setC((old) =>
+                  old
+                    ? {
+                        ...old,
+                        render: {
+                          ...old.render,
+                          light_sweep: e.target.checked,
+                          animation: e.target.checked || old.render.animation,
+                        },
+                      }
+                    : old,
+                )
+              }
+            />{" "}
+            边缘扫光（启用三维序列）
+          </label>
+          <button
+            className="secondary"
+            disabled={
+              !file ||
+              busy ||
+              !!(job && ["queued", "running"].includes(job.status))
+            }
+            onClick={() => submit("quick")}
+          >
+            快速预览
+          </button>
+          <button
+            className="secondary"
+            disabled={
+              !file ||
+              busy ||
+              !!(job && ["queued", "running"].includes(job.status))
+            }
+            onClick={() => submit("high")}
+          >
+            高质量预览
+          </button>
+          <button
+            className="secondary"
+            disabled={
+              !file ||
+              busy ||
+              !!(job && ["queued", "running"].includes(job.status))
+            }
+            onClick={() => submit("motion")}
+          >
+            动态测试 · 低清2秒
+          </button>
           <button
             className="render"
             disabled={
@@ -483,11 +787,58 @@ function App() {
               busy ||
               !!(job && ["queued", "running"].includes(job.status))
             }
-            onClick={submit}
+            onClick={() => submit("formal")}
           >
-            <Play size={15} fill="currentColor" /> 开始渲染 <span>↗</span>
+            <Play size={15} fill="currentColor" /> 正式导出 <span>↗</span>
           </button>
           <p className="rendernote">渲染将在本机执行</p>
+          <div className="config-actions">
+            <button onClick={() => configAction("/api/settings", "PUT", c)}>
+              保存配置
+            </button>
+            <button onClick={() => configAction("/api/settings")}>
+              恢复已保存
+            </button>
+            <button onClick={() => configAction("/api/settings/reset", "POST")}>
+              重置默认
+            </button>
+            <button
+              onClick={() => {
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(
+                  new Blob([JSON.stringify(c, null, 2)], {
+                    type: "application/json",
+                  }),
+                );
+                a.download = "frame-config.json";
+                a.click();
+                URL.revokeObjectURL(a.href);
+              }}
+            >
+              下载 JSON
+            </button>
+            <label>
+              导入 JSON
+              <input
+                type="file"
+                accept="application/json,.json"
+                onChange={async (e) => {
+                  try {
+                    const f = e.target.files?.[0];
+                    if (f)
+                      await configAction(
+                        "/api/config/validate",
+                        "POST",
+                        JSON.parse(await f.text()),
+                      );
+                  } catch (err) {
+                    setError(String(err));
+                  }
+                  e.target.value = "";
+                }}
+              />
+            </label>
+          </div>
           <div className="bottom">
             <div>
               <div className="eyebrow">OUTPUT / 输出文件</div>
@@ -531,7 +882,15 @@ function App() {
                   onClick={() =>
                     fetch("/api/jobs/" + j.id)
                       .then((r) => r.json())
-                      .then(setJob)
+                      .then((j) => {
+                        setJob(j);
+                        setSnapshot(null);
+                        if (j.outputs?.config)
+                          fetch(j.outputs.config)
+                            .then((r) => r.json())
+                            .then(setSnapshot)
+                            .catch(() => {});
+                      })
                   }
                 >
                   <span>{j.id.slice(0, 12)}</span>

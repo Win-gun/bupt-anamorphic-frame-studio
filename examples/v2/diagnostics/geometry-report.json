@@ -1,0 +1,129 @@
+{
+  "purpose": "Synthetic geometry sign/visibility diagnostics; site curvature and yaw remain unverified",
+  "cases": [
+    {
+      "curvature": "concave",
+      "yaw_deg": 0,
+      "camera_position": [
+        -2,
+        -14,
+        2
+      ],
+      "camera_target": [
+        0,
+        0,
+        0
+      ],
+      "segment_samples_s": [
+        4.056,
+        8.736,
+        12.604
+      ],
+      "points": [
+        [
+          -0.39725073795737087,
+          0.0,
+          0.0
+        ],
+        [
+          4.2205466433246634,
+          -0.23270409463270772,
+          0.0
+        ],
+        [
+          4.4532507379573705,
+          -4.038501475914741,
+          0.0
+        ]
+      ],
+      "front_normals": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          -0.707106781186548,
+          -0.707106781186547,
+          0.0
+        ],
+        [
+          -1.0,
+          -6.123233995736766e-17,
+          0.0
+        ]
+      ],
+      "sample_front_visible": [
+        true,
+        true,
+        true
+      ],
+      "renders": [
+        "concave-front.png",
+        "concave-top.png"
+      ]
+    },
+    {
+      "curvature": "convex",
+      "yaw_deg": 0,
+      "camera_position": [
+        12,
+        -14,
+        2
+      ],
+      "camera_target": [
+        0,
+        0,
+        0
+      ],
+      "segment_samples_s": [
+        4.056,
+        8.736,
+        12.604
+      ],
+      "points": [
+        [
+          -0.39725073795737087,
+          0.0,
+          0.0
+        ],
+        [
+          4.2205466433246634,
+          0.23270409463270772,
+          0.0
+        ],
+        [
+          4.4532507379573705,
+          4.038501475914741,
+          0.0
+        ]
+      ],
+      "front_normals": [
+        [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        [
+          0.707106781186548,
+          -0.707106781186547,
+          0.0
+        ],
+        [
+          1.0,
+          -6.123233995736766e-17,
+          0.0
+        ]
+      ],
+      "sample_front_visible": [
+        true,
+        true,
+        true
+      ],
+      "renders": [
+        "convex-front.png",
+        "convex-top.png"
+      ]
+    }
+  ]
+}

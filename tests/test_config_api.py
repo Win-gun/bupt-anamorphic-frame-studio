@@ -24,7 +24,7 @@ def test_pixel_units_and_radius_consistency():
 
 @pytest.mark.parametrize('section,key,value',[
     ('screen','pitch_mm',0),('screen','angle_deg',180),('screen','pixels',[2704,400,1248]),
-    ('render','scale',2),('render','samples',0),('camera','position',[1.5,-0.5,0]),
+    ('render','scale',2),('render','samples',0),('camera','position',[0,0,0]),
     ('frame','border_m',5),('frame','color','invalid'),('frame','depth_m',float('nan')),
 ])
 def test_invalid_inputs(section,key,value):
@@ -65,3 +65,37 @@ def test_failed_render_persists_error_and_queue_can_continue(tmp_path,monkeypatc
         persisted=json.loads((directory/'job.json').read_text())
         assert persisted['status']=='failed'
         assert 'non-zero exit status' in persisted['error']
+
+
+def test_preset_save_restore_reset(tmp_path,monkeypatch):
+    monkeypatch.setattr(server,'SETTINGS_PATH',tmp_path/'settings.json')
+    client=TestClient(server.app)
+    preset=client.get('/api/presets').json()
+    assert preset['name']=='BUPT Curved LED · 北邮弧形转角大屏'
+    default=client.get('/api/config').json()
+    for name in ['bupt-demo.json','quick-test.json']:
+        snapshot=json.loads((server.ROOT/'configs'/name).read_text())
+        assert snapshot['screen']==default['screen']
+    assert default['render']['scale']==1
+    assert default['frame']['layout']=='auto_fit'
+    changed=Config().model_dump(); changed['frame']['material']='black_titanium'
+    changed['screen']['curvature']='convex'
+    assert client.put('/api/settings',json=changed).status_code==200
+    assert client.get('/api/settings').json()==changed
+    assert client.post('/api/config/validate',json=changed).json()==changed
+    assert client.post('/api/settings/reset').json()==default
+    assert client.get('/api/settings').json()==default
+    changed['screen']['pixels']=[2000,416,1248]
+    assert client.put('/api/settings',json=changed).status_code==422
+    (tmp_path/'settings.json').write_text('{broken')
+    assert client.get('/api/settings').status_code==409
+
+
+def test_animation_and_spatial_limits():
+    c=Config().model_dump(); c['render']['light_sweep']=True
+    parsed=Config.model_validate(c)
+    assert parsed.render.animation and parsed.render.video
+    c['render']['fps']=1; c['render']['duration']=1
+    with pytest.raises(ValidationError): Config.model_validate(c)
+    c=Config().model_dump(); c['frame']['virtual_depth_m']=2; c['frame']['portal_depth_m']=1
+    with pytest.raises(ValidationError): Config.model_validate(c)

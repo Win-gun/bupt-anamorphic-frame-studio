@@ -13,7 +13,7 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.staticfiles import StaticFiles
 from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import ValidationError
-from .config import Config
+from .config import Config, PRESET
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUTS = ROOT / 'outputs'
@@ -22,6 +22,7 @@ app = FastAPI(title='BUPT Anamorphic Frame Studio')
 pool = ThreadPoolExecutor(max_workers=1)
 lock = threading.Lock()
 jobs = {}
+SETTINGS_PATH = OUTPUTS / 'settings.json'
 MAX_UPLOAD = 40 * 1024 * 1024
 Image.MAX_IMAGE_PIXELS = 50_000_000
 
@@ -55,15 +56,18 @@ def run_job(identifier):
         update(identifier, progress=90)
         required = {'original':'original.png','scene':'scene.png','atlas':'atlas.png',
                     'simulation':'simulation.png','difference':'difference.png','mask':'mask.png',
-                    'calibration':'calibration.png','blend':'scene.blend','report':'report.json','config':'config.json','log':'render.log'}
+                    'calibration':'calibration.png','blend':'scene.blend','report':'report.json','config':'config.json','log':'render.log',
+                    'model':'scene.glb','visual':'visual.json','poster_mask':'poster_mask.png'}
         for filename in required.values():
             if not (directory/filename).is_file():
                 raise RuntimeError('渲染缺少输出：'+filename)
         report = json.loads((directory/'report.json').read_text())
         config = Config.model_validate_json((directory/'config.json').read_text())
-        if config.render.video:
-            # Explicitly a held still, not an animated 3D scene. Encode the mapped LED canvas.
-            subprocess.run(['ffmpeg','-y','-loop','1','-i',str(directory/'atlas.png'),'-t',str(config.render.duration),
+        if config.render.video or config.render.animation:
+            source = ['-framerate',str(config.render.fps),'-i',str(directory/'frames/led_%04d.png')] if config.render.animation else ['-loop','1','-i',str(directory/'atlas.png')]
+            if config.render.animation and not (directory/'frames/led_0000.png').is_file():
+                raise RuntimeError('动态任务未输出真实三维映射帧')
+            subprocess.run(['ffmpeg','-y',*source,'-t',str(config.render.duration),
                 '-r',str(config.render.fps),'-c:v','libx264','-pix_fmt','yuv420p','-vf',
                 'pad=ceil(iw/2)*2:ceil(ih/2)*2','-movflags','+faststart',str(directory/'led.mp4')],
                 stdout=subprocess.DEVNULL, stderr=(directory/'encode.log').open('w'),check=True,timeout=600)
@@ -77,6 +81,9 @@ def run_job(identifier):
             if (stream['width'],stream['height']) != expected or stream['pix_fmt'] != 'yuv420p':
                 raise RuntimeError('视频输出规格检查失败')
             required.update(video='led.mp4',video_probe='video-probe.json')
+        for key,name in {'model':'scene.glb','visual':'visual.json','animation':'animation.json','poster_mask':'poster_mask.png'}.items():
+            if (directory/name).is_file():
+                required[key]=name
         urls = {key:f'/outputs/{identifier}/{name}' for key,name in required.items()}
         passed = report.get('passed',report.get('validation',{}).get('passed',False))
         update(identifier,status='completed' if passed else 'validation_failed',progress=100,
@@ -88,6 +95,38 @@ def run_job(identifier):
 @app.get('/api/config')
 def default_config():
     return Config().model_dump()
+
+@app.get('/api/presets')
+def presets():
+    return {'id':PRESET['id'],'name':PRESET['name'],'config':Config().model_dump()}
+
+@app.post('/api/config/validate')
+def validate_config(config: Config):
+    return config.model_dump()
+
+@app.get('/api/settings')
+def get_settings():
+    if not SETTINGS_PATH.exists():
+        return Config().model_dump()
+    try:
+        return Config.model_validate_json(SETTINGS_PATH.read_text()).model_dump()
+    except (ValidationError, ValueError):
+        raise HTTPException(409,'保存的配置无效，请重置为北邮默认预设')
+
+def persist_settings(config):
+    temporary=SETTINGS_PATH.with_suffix('.tmp')
+    with lock:
+        temporary.write_text(config.model_dump_json(indent=2))
+        temporary.replace(SETTINGS_PATH)
+    return config.model_dump()
+
+@app.put('/api/settings')
+def save_settings(config: Config):
+    return persist_settings(config)
+
+@app.post('/api/settings/reset')
+def reset_settings():
+    return persist_settings(Config())
 
 @app.get('/api/health')
 def health():

@@ -1,0 +1,15 @@
+
+> bupt-frame-studio@1.0.0 build
+> tsc -b && vite build
+
+vite v8.3.6 building client environment for production...
+transforming...
+✓ 1572 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.34 kB │ gzip:   0.26 kB
+dist/assets/index-DEgp_cN_.css    9.78 kB │ gzip:   3.07 kB
+dist/assets/index-B5eq_PXs.js   162.96 kB │ gzip:  53.17 kB
+dist/assets/Orbit-BxNNaJqR.js   638.19 kB │ gzip: 158.85 kB
+
+✓ built in 220ms

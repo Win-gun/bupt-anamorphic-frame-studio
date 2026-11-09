@@ -13,6 +13,7 @@ import numpy as np
 from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from geometry import dimensions, surface_grid, surface_point, visible_points
 
 
@@ -83,49 +84,10 @@ def textured_material(path, name):
 
 
 def build_target(config, poster):
-    f = config['frame']; w, h, dep, b = [f[k] for k in ('width_m', 'height_m', 'depth_m', 'border_m')]
-    x, y, z = f.get('position', [0, .7, 0])
-    template = f.get('template', 'deep')
-    if template == 'float': y -= dep
-    rail_depth = dep*.35 if template == 'float' else dep
-    color = f.get('color', '#234863').lstrip('#')
-    rgb = tuple((int(color[i:i+2], 16)/255)**2.2 for i in (0, 2, 4))
-    metal = material('Anodized frame', rgb)
-    dark = material('Recess shadow', (.012, .018, .026))
-    template = f.get('template', 'deep')
-    cube('Deep back enclosure', (x, y+dep*.9, z), (w, max(.001, dep*.12), h), dark)
-    for side in (-1, 1):
-        cube('Vertical frame rail', (x+side*(w-b)/2, y, z), (b, rail_depth, h), metal)
-        cube('Horizontal frame rail', (x, y, z+side*(h-b)/2), (w-2*b, rail_depth, b), metal)
-    image = bpy.data.images.load(str(poster), check_existing=False)
-    aspect = image.size[0]/image.size[1]
-    iw, ih = w-2.2*b, h-2.2*b
-    if iw/ih > aspect: iw = ih*aspect
-    else: ih = iw/aspect
-    inset = .08*dep if template == 'float' else .28*dep
-    # Face in the XZ plane. UV does not crop or stretch the original poster.
-    verts = [(x-iw/2,y+inset,z-ih/2),(x+iw/2,y+inset,z-ih/2),(x+iw/2,y+inset,z+ih/2),(x-iw/2,y+inset,z+ih/2)]
-    me = bpy.data.meshes.new('Original poster mesh'); me.from_pydata(verts, [], [(0,1,2,3)]); me.uv_layers.new()
-    for loop, uv in zip(me.uv_layers.active.data, [(0,0),(1,0),(1,1),(0,1)]): loop.uv = uv
-    ob = bpy.data.objects.new('Original poster · aspect preserved', me); bpy.context.collection.objects.link(ob)
-    me.materials.append(textured_material(poster, 'Original artwork'))
-    if template == 'float':
-        accent = material('Floating luminous rim', (.06,.5,.7), True)
-        for side in (-1,1): cube('Floating spacer', (x+side*(iw/2+.04),y+inset+.02,z), (.035,.04,ih), accent, .01)
-    elif template == 'glass':
-        glass = material('Optical glass', (.55,.8,.9))
-        node = next(n for n in glass.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
-        node.inputs['Transmission'].default_value = .2; node.inputs['Roughness'].default_value = .09
-        node.inputs['Alpha'].default_value = .12
-        glass.blend_method = 'BLEND'; glass.use_screen_refraction = True
-        bpy.context.scene.eevee.use_ssr = True; bpy.context.scene.eevee.use_ssr_refraction = True
-        node.inputs['IOR'].default_value = 1.45
-        cube('Protective glazing', (x,y-.05,z),(w-2*b,.025,h-2*b),glass,.015)
-    for pos, power, size in [((-4,-6,7),1800,6),((6,-2,3),1300,5)]:
-        bpy.ops.object.light_add(type='AREA', location=pos)
-        light = bpy.context.object; light.data.energy=power; light.data.shape='DISK'; light.data.size=size
-        light.rotation_euler=(Vector((x,y,z))-light.location).to_track_quat('-Z','Y').to_euler()
-    return {'poster_original_pixels':list(image.size), 'poster_display_metres':[iw,ih], 'poster_aspect_preserved':True,'effective_frame_position':[x,y,z]}
+    from composition import solve_composition
+    from scene_design import build_exhibition
+    image = bpy.data.images.load(str(poster), check_existing=True)
+    return build_exhibition(config, poster, solve_composition(config, tuple(image.size)), textured_material)
 
 
 def build_screen(config, atlas):
@@ -148,37 +110,15 @@ def build_screen(config, atlas):
     return ob
 
 
-def main():
-    started=time.time()
-    parser=argparse.ArgumentParser(); parser.add_argument('--config',required=True); parser.add_argument('--poster',required=True); parser.add_argument('--output',required=True)
-    args=parser.parse_args(sys.argv[sys.argv.index('--')+1:])
-    config=json.loads(Path(args.config).read_text()); out=Path(args.output).resolve(); out.mkdir(parents=True,exist_ok=True)
-    poster=Path(args.poster).resolve(); s=config['screen']; d=dimensions(s); r=config['render']
-    bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
-    scene=bpy.context.scene; scene.render.engine='BLENDER_EEVEE'; scene.eevee.taa_render_samples=r.get('samples',16)
-    scene.view_settings.view_transform='Standard'; scene.view_settings.look='None'
-    scene.view_settings.look='None'; scene.view_settings.exposure=0; scene.view_settings.gamma=1
-    scene.render.image_settings.file_format='PNG'; scene.render.image_settings.color_mode='RGB'; scene.render.film_transparent=False
-    scene.world.color=(.008,.008,.008)
-    aw=max(32,round(sum(s['pixels'])*r['scale'])); ah=max(32,round(s['height_px']*r['scale']))
-    scene.render.resolution_x=aw; scene.render.resolution_y=ah; scene.render.resolution_percentage=100
-    scene.render.dither_intensity=0
-    bpy.ops.object.camera_add(location=config['camera']['position']); camera=bpy.context.object
-    camera.rotation_euler=(Vector(config['camera']['target'])-camera.location).to_track_quat('-Z','Y').to_euler()
-    camera.data.type='PERSP'; camera.data.sensor_fit='HORIZONTAL'; camera.data.lens=36/(2*math.tan(math.radians(config['camera']['fov_deg'])/2)); scene.camera=camera
-    artwork=build_target(config,poster); target_objects=list(scene.objects)
-    render(scene,out/'scene.png'); target=read_pixels(out/'scene.png')
-    # project each physical LED texel through the actual Blender perspective camera
-    bpy.context.view_layer.update()
-    matrix=np.asarray(camera.matrix_world.inverted(),dtype=float)
+def inverse_project(target,camera,config,aw,ah):
+    s=config['screen']; d=dimensions(s)
+    bpy.context.view_layer.update(); matrix=np.asarray(camera.matrix_world.inverted(),dtype=float)
     atlas=np.zeros((ah,aw,3),np.float32); valid_count=0
     fx=.5/math.tan(math.radians(config['camera']['fov_deg'])/2); fy=fx*aw/ah
     for row in range(0,ah,96):
-        end=min(ah,row+96)
-        u=(np.arange(aw)+.5)/aw; v=(np.arange(row,end)+.5)/ah
+        end=min(ah,row+96); u=(np.arange(aw)+.5)/aw; v=(np.arange(row,end)+.5)/ah
         points,normals=surface_grid(u[None,:]*d['length'],(v[:,None]-.5)*d['height'],s)
-        local=points@matrix[:3,:3].T+matrix[:3,3]
-        depth=-local[:,:,2]
+        local=points@matrix[:3,:3].T+matrix[:3,3]; depth=-local[:,:,2]
         with np.errstate(divide='ignore',invalid='ignore'):
             pu=.5+fx*local[:,:,0]/depth; pv=.5+fy*local[:,:,1]/depth
         valid=(depth>0)&(pu>=0)&(pu<=1)&(pv>=0)&(pv<=1)&visible_points(points,normals,list(camera.location),s)
@@ -187,6 +127,44 @@ def main():
         wx=(xx-x0)[...,None]; wy=(yy-y0)[...,None]
         sample=(target[y0,x0]*(1-wx)+target[y0,x1]*wx)*(1-wy)+(target[y1,x0]*(1-wx)+target[y1,x1]*wx)*wy
         atlas[row:end]=np.where(valid[...,None],sample,0); valid_count+=int(valid.sum())
+    return atlas,valid_count
+
+
+def main():
+    started=time.time()
+    parser=argparse.ArgumentParser(); parser.add_argument('--config',required=True); parser.add_argument('--poster',required=True); parser.add_argument('--output',required=True)
+    args=parser.parse_args(sys.argv[sys.argv.index('--')+1:])
+    config=json.loads(Path(args.config).read_text()); out=Path(args.output).resolve(); out.mkdir(parents=True,exist_ok=True)
+    poster=Path(args.poster).resolve(); s=config['screen']; d=dimensions(s); r=config['render']
+    bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
+    bpy.context.preferences.filepaths.save_version=0
+    scene=bpy.context.scene; scene.render.engine='BLENDER_EEVEE'; scene.eevee.taa_render_samples=r.get('samples',16)
+    scene.view_settings.view_transform='Standard'; scene.view_settings.look='None'
+    scene.view_settings.look='None'; scene.view_settings.exposure=0; scene.view_settings.gamma=1
+    scene.render.image_settings.file_format='PNG'; scene.render.image_settings.color_mode='RGB'; scene.render.film_transparent=False
+    scene.world.use_nodes=True
+    background=next(n for n in scene.world.node_tree.nodes if n.type=='BACKGROUND')
+    background.inputs['Color'].default_value=(.004,.002,.008,1)
+    background.inputs['Strength'].default_value=.18
+    scene.world.color=(.004,.002,.008)
+    aw=max(32,round(sum(s['pixels'])*r['scale'])); ah=max(32,round(s['height_px']*r['scale']))
+    scene.render.resolution_x=aw; scene.render.resolution_y=ah; scene.render.resolution_percentage=100
+    scene.render.dither_intensity=0
+    bpy.ops.object.camera_add(location=config['camera']['position']); camera=bpy.context.object
+    camera.rotation_euler=(Vector(config['camera']['target'])-camera.location).to_track_quat('-Z','Y').to_euler()
+    camera.data.type='PERSP'; camera.data.sensor_fit='HORIZONTAL'; camera.data.lens=36/(2*math.tan(math.radians(config['camera']['fov_deg'])/2)); scene.camera=camera
+    exhibition=build_target(config,poster); artwork=exhibition['report']; target_objects=list(scene.objects)
+    render(scene,out/'scene.png'); target=read_pixels(out/'scene.png')
+    # Independent artwork silhouette. Architecture may deliberately extend off LED.
+    poster_ob=exhibition['poster_object']; original_poster_mat=poster_ob.data.materials[0]
+    for ob in target_objects:
+        if ob.type=='MESH' and ob!=poster_ob: ob.hide_render=True
+    poster_ob.data.materials[0]=material('Artwork coverage mask',(1,1,1),True)
+    render(scene,out/'poster_mask.png'); poster_mask=read_pixels(out/'poster_mask.png').min(axis=2)>.98
+    poster_ob.data.materials[0]=original_poster_mat
+    for ob in target_objects: ob.hide_render=False
+    # Project the complete 3D render onto physical LED texels.
+    atlas,valid_count=inverse_project(target,camera,config,aw,ah)
     save_pixels(out/'atlas.png',atlas)
     for ob in target_objects:
         if ob.type!='CAMERA': ob.hide_render=True
@@ -209,25 +187,86 @@ def main():
         col=round(joint/sum(s['pixels'])*aw); check[:,max(0,col-1):col+2]=(1,.25,.05)
     save_pixels(out/'calibration.png',check)
     screen.data.materials[0]=original_mat; scene.world.color=world_color
+    # Save the editable virtual exhibition; retain the physical LED hidden for inspection.
+    screen.hide_render=True; screen.hide_viewport=True
+    for ob in target_objects: ob.hide_render=False
+    root=exhibition['root']; normal=Vector(artwork['composition']['normal'])
+    dynamics={'moving_objects':[ob.name for ob in exhibition['objects'] if ob.parent==root], 'static_architecture':True,'enabled':bool(r.get('animation',False)), 'light_sweep':bool(r.get('light_sweep',False)), 'frames':[]}
+    if r.get('animation',False):
+        count=max(2,round(r.get('duration',3)*r.get('fps',24))); scene.render.fps=r.get('fps',24)
+        scene.frame_start=1; scene.frame_end=count
+        displacement=min(.5,artwork['composition']['depth']*.055)
+        for frame,amount in ((1,0),(max(2,round(1+(count-1)*.35)),displacement),(min(count-1,round(1+(count-1)*.65)),displacement),(count,0)):
+            root.location=normal*amount; root.keyframe_insert(data_path='location',frame=frame)
+        # Blender's Bezier interpolation gives a smooth forward/back excursion.
+        frames_dir=out/'frames'; frames_dir.mkdir(exist_ok=True)
+        sweep_origin=exhibition['key_light'].location.copy()
+        dynamic_checks=[]
+        for fi in range(count):
+            scene.frame_set(fi+1)
+            if r.get('light_sweep',False):
+                exhibition['key_light'].location = sweep_origin+Vector(artwork['composition']['right'])*(math.sin(fi/max(1,count-1)*2*math.pi)*artwork['poster_display_metres'][0]*.4)
+            render(scene,out/'motion-source.png'); motion=read_pixels(out/'motion-source.png')
+            motion_atlas,_=inverse_project(motion,camera,config,aw,ah)
+            save_pixels(frames_dir/('led_%04d.png'%fi),motion_atlas)
+            dynamics['frames'].append({'index':fi,'blender_frame':fi+1,'translation_m':list(root.location),'path':'frames/led_%04d.png'%fi})
+            if fi in (0,count//2,count-1):
+                # Independently re-render the actual curved screen at endpoint and midpoint poses.
+                for ob in target_objects:
+                    if ob.type!='CAMERA': ob.hide_render=True
+                screen.hide_render=False; screen.data.materials[0]=textured_material(frames_dir/('led_%04d.png'%fi),'Motion LED %d'%fi)
+                render(scene,out/'motion-check.png'); recovered=read_pixels(out/'motion-check.png')
+                mean_error=float(np.abs(recovered-motion)[inner].mean())
+                for ob in target_objects: ob.hide_render=False
+                screen.hide_render=True
+                for ob in target_objects:
+                    if ob.type=='MESH' and ob!=poster_ob: ob.hide_render=True
+                poster_ob.data.materials[0]=material('Motion artwork white mask',(1,1,1),True)
+                render(scene,out/'motion-poster-mask.png'); current_mask=read_pixels(out/'motion-poster-mask.png').min(axis=2)>.98
+                poster_ob.data.materials[0]=original_poster_mat
+                for ob in target_objects: ob.hide_render=False
+                poster_coverage=float((current_mask & mask).sum()/max(1,current_mask.sum()))
+                dynamic_checks.append({'frame':fi,'screen_mae_srgb':mean_error,'poster_coverage':poster_coverage,'passed':mean_error<=.04 and poster_coverage>=.98})
+
+        dynamics['timing']={'forward_end_fraction':.35,'hold_end_fraction':.65,'interpolation':'BEZIER','displacement_m':displacement}
+        dynamics['verification']=dynamic_checks
+        dynamics['passed']=all(item['passed'] for item in dynamic_checks)
+        scene.frame_set(1); exhibition['key_light'].location=sweep_origin
+        screen.data.materials[0]=original_mat
+        (out/'motion-check.png').unlink(missing_ok=True)
+        (out/'motion-poster-mask.png').unlink(missing_ok=True)
+        (out/'motion-source.png').unlink(missing_ok=True)
+        (out/'animation.json').write_text(json.dumps(dynamics,indent=2))
+    bpy.ops.object.select_all(action='DESELECT')
+    for ob in exhibition['objects']: ob.select_set(True)
+    bpy.context.view_layer.objects.active=poster_ob
+    try:
+        bpy.ops.export_scene.gltf(filepath=str(out/'scene.glb'),export_format='GLB',use_selection=True,export_apply=True)
+        model_status='EXPORTED_VIRTUAL_EXHIBITION_MESHES'
+    except Exception as exc:
+        model_status='EXPORT_FAILED: '+type(exc).__name__
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out/'scene.blend'))
     values=err[inner]; mse=float(np.mean(values**2)) if values.size else None
     mae=float(np.mean(values)) if values.size else None
     full_mae=float(err[mask].mean()) if mask.any() else None
-    foreground=np.max(np.abs(target-target[0,0]),axis=2)>.025
+    foreground=poster_mask
     foreground_visible=foreground & inner
     foreground_mae=float(err[foreground_visible].mean()) if foreground_visible.any() else None
     coverage=float((foreground & mask).sum()/max(1,foreground.sum()))
-    passed=bool(mae is not None and mae<=.04 and foreground_mae is not None and foreground_mae<=.04 and coverage>=.98 and inner.sum()>100)
+    opening_safe=bool(artwork['composition'].get('metrics',{}).get('opening_safe',False))
+    passed=bool(opening_safe and mae is not None and mae<=.04 and foreground_mae is not None and foreground_mae<=.04 and coverage>=.98 and inner.sum()>100)
+    if dynamics['enabled']: passed=bool(passed and dynamics.get('passed',False))
     report={'passed':passed,'engine':'Blender '+bpy.app.version_string+' EEVEE','method':'3D physical continuous surface, perspective inverse projection, bilinear texture sampling, analytic front-face and self-occlusion tests, independent Blender camera re-render',
         'physical':d,'atlas_pixels':[aw,ah],'nominal_atlas_pixels':[sum(s['pixels']),s['height_px']], 'scale':r['scale'],
         'calibration_status':'MEASURED_INPUT' if s.get('calibrated') else 'NOMINAL_UNCALIBRATED',
         'metrics':{'mae_srgb':mae,'full_mask_mae_srgb':full_mae,'interior_mae_srgb':mae,'foreground_mae_srgb':foreground_mae,'foreground_coverage':coverage,'foreground_pixels':int(foreground_visible.sum()),'rmse_srgb':math.sqrt(mse) if mse is not None else None,'psnr_db':-10*math.log10(max(mse,1e-12)) if mse is not None else None,'p95_absolute_error':float(np.quantile(values,.95)) if values.size else None,'mask_pixels':int(inner.sum()),'visible_screen_fraction':float(mask.mean()),'valid_atlas_fraction':valid_count/(aw*ah)},
-        'verification':{'criterion':'interior and foreground mean absolute sRGB error <= 0.04; >=98% target foreground covered by actual visible screen','threshold_mae':.04,'pass':passed},
+        'verification':{'criterion':'composition opening must be within the visible screen; interior and artwork mean absolute sRGB error <= 0.04; >=98% independently rendered artwork silhouette covered by visible screen','threshold_mae':.04,'opening_safe':opening_safe,'pass':passed},
         'limitations':['Nominal geometry is not field calibration; measured camera pose, lens distortion and LED transfer response are required on site.','Pixels outside the camera frustum or occluded/back-facing physical surface are black.','Comparison excludes a one-pixel raster boundary; texture resampling and finite curved mesh tessellation contribute remaining error.'],
-        'coordinate_system':'metres; Z up; left Y=0; arc Y=R(cos(theta)-1); right tangent (cos(theta),-sin(theta)); centered surface X bounds',
-        'artwork':artwork,'elapsed_seconds':time.time()-started,'config':config}
+        'coordinate_system':{'units':'metres','up':'Z','curvature':s.get('curvature','concave'),'yaw_deg':s.get('yaw_deg',0),'physical_surface':'studio.geometry.surface_point; centered X bounds; yaw about Z','virtual_frame_basis':artwork['composition']},
+        'artwork':artwork,'dynamics':dynamics,'model_export':model_status,'elapsed_seconds':time.time()-started,'config':config}
     (out/'report.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
+    (out/'visual.json').write_text(json.dumps({'structural_checks':{'continuous_miter_profile':artwork['profile_stations']>=10,'layered_ring_count':artwork['continuous_ring_count'],'artwork_coverage_pass':coverage>=.98,'opening_safe':opening_safe,'source_aspect':artwork['source_aspect'],'display_aspect':artwork['display_aspect'],'model_export':model_status},'human_visual_judgment':'PENDING','note':'Numerical projection agreement and scene structure do not establish visual quality.'},indent=2))
     print('RENDER_REPORT '+json.dumps(report['metrics']))
 
 if __name__=='__main__':

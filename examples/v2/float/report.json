@@ -1,0 +1,299 @@
+{
+  "passed": true,
+  "engine": "Blender 3.4.1 EEVEE",
+  "method": "3D physical continuous surface, perspective inverse projection, bilinear texture sampling, analytic front-face and self-occlusion tests, independent Blender camera re-render",
+  "physical": {
+    "left": 8.112,
+    "arc": 1.248,
+    "right": 3.744,
+    "angle": 1.5707963267948966,
+    "radius": 0.7945014759147415,
+    "height": 9.36,
+    "length": 13.104,
+    "x_shift": -3.658749262042629
+  },
+  "atlas_pixels": [
+    1092,
+    780
+  ],
+  "nominal_atlas_pixels": [
+    4368,
+    3120
+  ],
+  "scale": 0.25,
+  "calibration_status": "NOMINAL_UNCALIBRATED",
+  "metrics": {
+    "mae_srgb": 0.011559722013771534,
+    "full_mask_mae_srgb": 0.011566350236535072,
+    "interior_mae_srgb": 0.011559722013771534,
+    "foreground_mae_srgb": 0.005325567442923784,
+    "foreground_coverage": 1.0,
+    "foreground_pixels": 204417,
+    "rmse_srgb": 0.03663927103959176,
+    "psnr_db": 28.721063509380752,
+    "p95_absolute_error": 0.07450979948043823,
+    "mask_pixels": 397935,
+    "visible_screen_fraction": 0.47037076171691555,
+    "valid_atlas_fraction": 0.9998966845120691
+  },
+  "verification": {
+    "criterion": "interior and artwork mean absolute sRGB error <= 0.04; >=98% independently rendered artwork silhouette covered by visible screen",
+    "threshold_mae": 0.04,
+    "pass": true
+  },
+  "limitations": [
+    "Nominal geometry is not field calibration; measured camera pose, lens distortion and LED transfer response are required on site.",
+    "Pixels outside the camera frustum or occluded/back-facing physical surface are black.",
+    "Comparison excludes a one-pixel raster boundary; texture resampling and finite curved mesh tessellation contribute remaining error."
+  ],
+  "coordinate_system": {
+    "units": "metres",
+    "up": "Z",
+    "curvature": "concave",
+    "yaw_deg": 0,
+    "physical_surface": "studio.geometry.surface_point; centered X bounds; yaw about Z",
+    "virtual_frame_basis": {
+      "layout": "auto_fit",
+      "center": [
+        1.0961456043814508,
+        -0.24448455866309732,
+        0.9715044316971372
+      ],
+      "right": [
+        0.9899494936611665,
+        -0.1414213562373095,
+        0.0
+      ],
+      "up": [
+        0.019802950859533486,
+        0.13862065601673437,
+        0.9901475429766742
+      ],
+      "normal": [
+        -0.14002800840280097,
+        -0.9801960588196068,
+        0.14002800840280097
+      ],
+      "stage_center": [
+        1.0961456043814508,
+        -0.24448455866309732,
+        0.9715044316971372
+      ],
+      "static_depth": 14.060667311417856,
+      "main_frame_offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stage_width": 9.91737938312798,
+      "stage_height": 5.578525903009489,
+      "stage_outer_width": 12.176782347429311,
+      "stage_outer_height": 14.696116626207791,
+      "width": 9.91737938312798,
+      "height": 5.578525903009489,
+      "width_m": 9.91737938312798,
+      "height_m": 5.578525903009489,
+      "depth": 14.060667311417854,
+      "outer_width": 12.176782347429311,
+      "outer_height": 14.696116626207788,
+      "opening_ndc": [
+        -0.42857142857142877,
+        -0.2875000000000002,
+        0.6785714285714286,
+        0.5843750000000001
+      ],
+      "screen_bbox_ndc": [
+        -0.53125,
+        -1.0,
+        0.8046875,
+        0.9140625
+      ],
+      "uv_crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "opening_safe": true,
+        "projected_width_fraction": 0.8287385129490394,
+        "visible_mask_pixels": 30974,
+        "mask_resolution": 256
+      }
+    }
+  },
+  "artwork": {
+    "poster_original_pixels": [
+      1536,
+      864
+    ],
+    "poster_display_metres": [
+      9.91737938312798,
+      5.5785259030094885
+    ],
+    "poster_aspect_preserved": true,
+    "source_aspect": 1.7777777777777777,
+    "display_aspect": 1.7777777777777777,
+    "uv_crop": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "effective_frame_position": [
+      1.0961456298828125,
+      -0.2444845587015152,
+      0.9715044498443604
+    ],
+    "template": "float",
+    "material": "gold",
+    "continuous_ring_count": 5,
+    "profile_stations": 13,
+    "profile_faces": 52,
+    "mesh_count": 13,
+    "composition": {
+      "layout": "auto_fit",
+      "center": [
+        1.0961456043814508,
+        -0.24448455866309732,
+        0.9715044316971372
+      ],
+      "right": [
+        0.9899494936611665,
+        -0.1414213562373095,
+        0.0
+      ],
+      "up": [
+        0.019802950859533486,
+        0.13862065601673437,
+        0.9901475429766742
+      ],
+      "normal": [
+        -0.14002800840280097,
+        -0.9801960588196068,
+        0.14002800840280097
+      ],
+      "stage_center": [
+        1.0961456043814508,
+        -0.24448455866309732,
+        0.9715044316971372
+      ],
+      "static_depth": 14.060667311417856,
+      "main_frame_offset": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stage_width": 9.91737938312798,
+      "stage_height": 5.578525903009489,
+      "stage_outer_width": 12.176782347429311,
+      "stage_outer_height": 14.696116626207791,
+      "width": 9.91737938312798,
+      "height": 5.578525903009489,
+      "width_m": 9.91737938312798,
+      "height_m": 5.578525903009489,
+      "depth": 14.060667311417854,
+      "outer_width": 12.176782347429311,
+      "outer_height": 14.696116626207788,
+      "opening_ndc": [
+        -0.42857142857142877,
+        -0.2875000000000002,
+        0.6785714285714286,
+        0.5843750000000001
+      ],
+      "screen_bbox_ndc": [
+        -0.53125,
+        -1.0,
+        0.8046875,
+        0.9140625
+      ],
+      "uv_crop": [
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "metrics": {
+        "opening_safe": true,
+        "projected_width_fraction": 0.8287385129490394,
+        "visible_mask_pixels": 30974,
+        "mask_resolution": 256
+      }
+    }
+  },
+  "dynamics": {
+    "moving_objects": [
+      "Hero frame · swept 13-step miter profile",
+      "Inner polished fillet",
+      "Recessed black shadow reveal",
+      "Original poster · original aspect",
+      "Floating halo",
+      "Floating backing",
+      "Inset warm edge diffuser"
+    ],
+    "static_architecture": true,
+    "enabled": false,
+    "light_sweep": false,
+    "frames": []
+  },
+  "model_export": "EXPORTED_VIRTUAL_EXHIBITION_MESHES",
+  "elapsed_seconds": 2.7409982681274414,
+  "config": {
+    "screen": {
+      "pixels": [
+        2704,
+        416,
+        1248
+      ],
+      "height_px": 3120,
+      "pitch_mm": 3,
+      "angle_deg": 90,
+      "radius_m": null,
+      "calibrated": false,
+      "curvature": "concave",
+      "yaw_deg": 0
+    },
+    "camera": {
+      "position": [
+        -2,
+        -14,
+        2
+      ],
+      "target": [
+        0,
+        0,
+        0
+      ],
+      "fov_deg": 65
+    },
+    "frame": {
+      "template": "float",
+      "layout": "auto_fit",
+      "material": "gold",
+      "scale": 0.9,
+      "virtual_depth_m": 0,
+      "width_m": 5,
+      "height_m": 6,
+      "depth_m": 0.65,
+      "border_m": 0.18,
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "color": "#b8945c",
+      "edge_light": true,
+      "portal_depth_m": 3
+    },
+    "render": {
+      "scale": 0.25,
+      "quality": "high",
+      "samples": 32,
+      "video": false,
+      "animation": false,
+      "light_sweep": false,
+      "duration": 3,
+      "fps": 24
+    }
+  }
+}
