@@ -1,0 +1,47 @@
+{
+  "screen": {
+    "pixels": [
+      2704,
+      416,
+      1248
+    ],
+    "height_px": 3120,
+    "pitch_mm": 3.0,
+    "angle_deg": 90.0,
+    "radius_m": null,
+    "calibrated": false
+  },
+  "camera": {
+    "position": [
+      -2.0,
+      -10.0,
+      1.0
+    ],
+    "target": [
+      1.5,
+      -0.5,
+      0.0
+    ],
+    "fov_deg": 65.0
+  },
+  "frame": {
+    "template": "deep",
+    "width_m": 5.0,
+    "height_m": 6.0,
+    "depth_m": 0.65,
+    "border_m": 0.18,
+    "position": [
+      2.5,
+      0.7,
+      0.0
+    ],
+    "color": "#234863"
+  },
+  "render": {
+    "scale": 0.125,
+    "samples": 8,
+    "video": false,
+    "duration": 3.0,
+    "fps": 24
+  }
+}

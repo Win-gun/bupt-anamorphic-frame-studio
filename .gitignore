@@ -1,0 +1,10 @@
+.venv/
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+outputs/*
+!outputs/.gitkeep
+*.blend1
+.DS_Store
+*.tsbuildinfo
