@@ -1,0 +1,18 @@
+{
+  "source_size": [
+    4368,
+    3120
+  ],
+  "crop_box": [
+    1021,
+    128,
+    3951,
+    3120
+  ],
+  "cropped_size": [
+    2930,
+    2992
+  ],
+  "playback_canvas_changed": false,
+  "method": "Actual Blender simulated LED render with independently rendered physical-screen coverage alpha; bounding-box crop only."
+}

@@ -79,7 +79,7 @@ def test_forward_auto_offset_cannot_enter_static_back_wall(template):
 
 def test_absolute_manual_world_position_cannot_enter_back_wall():
     c = Config().model_dump()
-    c['frame'].update(layout='manual', position=[0,0,0])
+    c['frame'].update(template='cinema', layout='manual', position=[0,0,0])
     baseline = solve_composition(c, (1920,1080))
     forward = -np.asarray(baseline['normal'])
     c['frame']['position'] = (np.asarray(baseline['stage_center'])+forward*3).tolist()

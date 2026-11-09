@@ -1,12 +1,12 @@
 {
   "name": "bupt-frame-studio",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc -b && vite build",
-    "test:ui": "node ui-smoke.cjs"
+    "test:ui": "node v3-ui-check.cjs"
   },
   "dependencies": {
     "@types/three": "^0.187.0",

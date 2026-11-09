@@ -1,8 +1,128 @@
 {
   "id": "bupt-curved-led",
   "name": "BUPT Curved LED · 北邮弧形转角大屏",
-  "screen": {"pixels": [2704, 416, 1248], "height_px": 3120, "pitch_mm": 3, "angle_deg": 90, "radius_m": null, "calibrated": false, "curvature": "concave", "yaw_deg": 0},
-  "camera": {"position": [-2, -14, 2], "target": [0, 0, 0], "fov_deg": 65},
-  "frame": {"template": "cinema", "layout": "auto_fit", "material": "gold", "scale": 0.9, "virtual_depth_m": 0, "width_m": 5, "height_m": 6, "depth_m": 0.65, "border_m": 0.18, "position": [0, 0, 0], "color": "#b8945c", "edge_light": true, "portal_depth_m": 3},
-  "render": {"scale": 1, "quality": "high", "samples": 32, "video": false, "animation": false, "light_sweep": false, "duration": 3, "fps": 24}
+  "screen": {
+    "pixels": [
+      2704,
+      416,
+      1248
+    ],
+    "height_px": 3120,
+    "pitch_mm": 3,
+    "angle_deg": 90,
+    "radius_m": null,
+    "calibrated": false,
+    "curvature": "concave",
+    "yaw_deg": 0
+  },
+  "camera": {
+    "position": [
+      -2,
+      -14,
+      2
+    ],
+    "target": [
+      0,
+      0,
+      0
+    ],
+    "fov_deg": 65
+  },
+  "frame": {
+    "template": "aurora_float",
+    "layout": "auto_fit",
+    "material": "gold",
+    "scale": 0.86,
+    "virtual_depth_m": 0,
+    "width_m": 5,
+    "height_m": 6,
+    "depth_m": 0.65,
+    "border_m": 0.18,
+    "position": [
+      0,
+      0,
+      0
+    ],
+    "color": "#b8945c",
+    "edge_light": true,
+    "portal_depth_m": 3
+  },
+  "render": {
+    "scale": 1,
+    "quality": "high",
+    "samples": 32,
+    "video": false,
+    "animation": false,
+    "light_sweep": false,
+    "duration": 3,
+    "fps": 24
+  },
+  "palettes": {
+    "aurora": {
+      "name": "Aurora Mist · 极光烟紫",
+      "colors": [
+        "#656C88",
+        "#9388A7",
+        "#B8A9B9",
+        "#D6B9AC",
+        "#E2D9DA"
+      ]
+    },
+    "cool_mist": {
+      "name": "Blue Hour · 灰蓝晨雾",
+      "colors": [
+        "#626E87",
+        "#8192AA",
+        "#A8B8C6",
+        "#C9D4DC",
+        "#E2E5E6"
+      ]
+    },
+    "warm_haze": {
+      "name": "Clay Haze · 暖粉薄雾",
+      "colors": [
+        "#857D94",
+        "#A396AB",
+        "#BBA8B4",
+        "#D6B9AC",
+        "#E7DCD7"
+      ]
+    }
+  },
+  "appearance": {
+    "palette": "aurora",
+    "gradient_type": "dual",
+    "colors": [
+      "#656C88",
+      "#9388A7",
+      "#B8A9B9",
+      "#D6B9AC",
+      "#E2D9DA"
+    ],
+    "stops": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "direction_deg": 25,
+    "transition": 0.5,
+    "brightness": 1,
+    "saturation": 0.72,
+    "noise_strength": 0.006
+  },
+  "lighting": {
+    "intensity": 1,
+    "softness": 0.8,
+    "glow": 0.025,
+    "ambient": 0.5,
+    "shadow_softness": 0.8
+  },
+  "panel": {
+    "thickness_m": 0.035,
+    "corner_radius_m": 0.035,
+    "float_distance_m": 0.85,
+    "reflection": 0.025
+  }
 }

@@ -40,6 +40,30 @@ type Config = {
     position: number[];
     color: string;
   };
+  appearance: {
+    palette: string;
+    colors: string[];
+    gradient_type: string;
+    stops: number[];
+    direction_deg: number;
+    transition: number;
+    brightness: number;
+    saturation: number;
+    noise_strength: number;
+  };
+  lighting: {
+    intensity: number;
+    softness: number;
+    glow: number;
+    ambient: number;
+    shadow_softness: number;
+  };
+  panel: {
+    thickness_m: number;
+    corner_radius_m: number;
+    float_distance_m: number;
+    reflection: number;
+  };
   render: {
     scale: number;
     quality: string;
@@ -64,12 +88,24 @@ function App() {
     [file, setFile] = useState<File | null>(null),
     [job, setJob] = useState<Job | null>(null),
     [jobs, setJobs] = useState<Job[]>([]),
-    [tab, setTab] = useState("simulation"),
+    [tab, setTab] = useState("simulation_alpha"),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [snapshot, setSnapshot] = useState<Config | null>(null),
     [localURL, setLocalURL] = useState(""),
-    [preset, setPreset] = useState("");
+    [preset, setPreset] = useState(""),
+    [palettes, setPalettes] = useState<
+      Record<string, { name: string; colors: string[] }>
+    >({}),
+    [professional, setProfessional] = useState(false),
+    [background, setBackground] = useState("checker"),
+    [photo, setPhoto] = useState(""),
+    [placement, setPlacement] = useState({
+      x: 50,
+      y: 50,
+      scale: 50,
+      opacity: 80,
+    });
   useEffect(() => {
     fetch("/api/settings")
       .then((r) => {
@@ -80,7 +116,10 @@ function App() {
       .catch(() => setError("无法连接本地服务，请检查后端是否运行。"));
     fetch("/api/presets")
       .then((r) => r.json())
-      .then((x) => setPreset(x.name || "BUPT Curved LED"));
+      .then((x) => {
+        setPreset(x.name || "BUPT Curved LED");
+        setPalettes(x.palettes || {});
+      });
     refresh();
   }, []);
   useEffect(() => {
@@ -200,7 +239,7 @@ function App() {
       const j = await r.json();
       setJob({ id: j.id, status: "queued", progress: 0 });
       setSnapshot(config);
-      setTab("simulation");
+      setTab("simulation_alpha");
       refresh();
     } catch (e) {
       setError(String(e));
@@ -256,10 +295,12 @@ function App() {
   );
   const tabs = [
     ["original", "原始画作"],
-    ["simulation", "观看模拟"],
+    ["simulation_alpha", "最佳观看模拟"],
+    ["led_crop", "LED 裁切预览"],
     ["scene", "三维场景"],
     ["atlas", "屏幕展开"],
     ["orbit", "交互 3D"],
+    ["photo", "现场照片合成"],
   ];
   if (!c)
     return (
@@ -272,22 +313,28 @@ function App() {
         )}
       </div>
     );
+  const isLegacy = ["cinema", "deep", "float", "glass"].includes(
+    c.frame.template,
+  );
   return (
     <>
       <header>
         <div className="brand">
           <span className="brandmark">B</span>
           <div>
-            <b>FRAME STUDIO</b>
+            <b>ANAMORPHIC IMAGE DISPLAY STUDIO</b>
             <small>BUPT · ANAMORPHIC LAB</small>
           </div>
         </div>
         <div className="headcenter">
-          裸眼三维画框工作台 <span>/</span> 创作空间
+          图片空间展示 <span>/</span> 创作空间
         </div>
         <div className="headright">
+          <button onClick={() => setProfessional(!professional)}>
+            {professional ? "专业模式" : "创作模式"} · 切换
+          </button>
           <span className="dot" /> 本地工作区{" "}
-          <span className="version">V 2.0</span>
+          <span className="version">V 3.0</span>
         </div>
       </header>
       <main>
@@ -297,7 +344,7 @@ function App() {
             <ImageIcon size={16} />
           </div>
           <h2>从一张画开始</h2>
-          <p className="muted">上传画作，选择空间画框的呈现方式。</p>
+          <p className="muted">上传图片，选择柔和的空间展示方式。</p>
           <label className="upload">
             <Upload size={23} />
             <b>{file ? file.name : "选择一张图片"}</b>
@@ -309,15 +356,15 @@ function App() {
             />
           </label>
           <div className="sectionlabel">
-            <span>画框模板</span>
-            <small>FRAME TYPE</small>
+            <span>空间样式</span>
+            <small>STYLE</small>
           </div>
           <div className="templates">
             {[
-              ["cinema", "影院画框", "经典空间感"],
-              ["deep", "深邃画框", "纵深空间感"],
-              ["float", "悬浮画框", "轻盈悬浮感"],
-              ["glass", "玻璃画框", "通透层次感"],
+              ["aurora_float", "极光悬浮", "柔和空间"],
+              ["soft_depth", "柔光纵深", "轻柔层次"],
+              ["glass_layers", "玻璃叠层", "通透质感"],
+              ["embedded_cube", "嵌入立方", "几何空间"],
             ].map(([id, name, desc], i) => (
               <button
                 key={id}
@@ -337,12 +384,252 @@ function App() {
               </button>
             ))}
           </div>
+          <details>
+            <summary>Legacy / 经典样式</summary>
+            <div className="templates">
+              {[
+                ["cinema", "影院画框"],
+                ["float", "悬浮画框"],
+                ["glass", "玻璃画框"],
+              ].map(([id, name]) => (
+                <button
+                  key={id}
+                  className={
+                    "template " + (c.frame.template === id ? "selected" : "")
+                  }
+                  onClick={() => set("frame", "template", id)}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          </details>
+          {!isLegacy && (
+            <>
+              <div className="sectionlabel">
+                <span>空间色彩</span>
+                <small>PALETTE</small>
+              </div>
+              <div className="palette-list">
+                {Object.entries(palettes).map(([id, p]) => (
+                  <button
+                    key={id}
+                    className={c.appearance.palette === id ? "selected" : ""}
+                    onClick={() =>
+                      setC({
+                        ...c,
+                        appearance: {
+                          ...c.appearance,
+                          palette: id,
+                          colors: p.colors,
+                        },
+                      })
+                    }
+                  >
+                    <span>{p.name}</span>
+                    <span className="swatches">
+                      {p.colors.map((color, i) => (
+                        <i key={i} style={{ background: color }} />
+                      ))}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              {professional && (
+                <div className="color-editor">
+                  {c.appearance.colors.map((color, i) => (
+                    <input
+                      key={i}
+                      aria-label={`颜色 ${i + 1}`}
+                      type="color"
+                      value={color}
+                      onChange={(e) => {
+                        const colors = [...c.appearance.colors];
+                        colors[i] = e.target.value;
+                        setC({
+                          ...c,
+                          appearance: {
+                            ...c.appearance,
+                            palette: "custom",
+                            colors,
+                          },
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+              {professional && (
+                <details>
+                  <summary>色彩细节 / APPEARANCE</summary>
+                  <label className="field">
+                    渐变类型
+                    <select
+                      value={c.appearance.gradient_type}
+                      onChange={(e) =>
+                        set("appearance", "gradient_type", e.target.value)
+                      }
+                    >
+                      {[
+                        ["dual", "双色"],
+                        ["linear", "线性"],
+                        ["radial", "径向"],
+                        ["multi", "多色"],
+                      ].map(([id, label]) => (
+                        <option key={id} value={id}>
+                          {label}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <div className="double">
+                    {n(
+                      "方向 °",
+                      c.appearance.direction_deg,
+                      (v) => set("appearance", "direction_deg", v),
+                      1,
+                    )}
+                    {n(
+                      "过渡",
+                      c.appearance.transition,
+                      (v) => set("appearance", "transition", v),
+                      0.05,
+                    )}
+                    {n(
+                      "亮度",
+                      c.appearance.brightness,
+                      (v) => set("appearance", "brightness", v),
+                      0.05,
+                    )}
+                    {n(
+                      "饱和度",
+                      c.appearance.saturation,
+                      (v) => set("appearance", "saturation", v),
+                      0.05,
+                    )}
+                    {n(
+                      "噪点",
+                      c.appearance.noise_strength,
+                      (v) => set("appearance", "noise_strength", v),
+                      0.001,
+                    )}
+                    {n(
+                      "圆角 m",
+                      c.panel.corner_radius_m,
+                      (v) => set("panel", "corner_radius_m", v),
+                      0.005,
+                    )}
+                    {n(
+                      "反射",
+                      c.panel.reflection,
+                      (v) => set("panel", "reflection", v),
+                      0.005,
+                    )}
+                  </div>
+                  <p className="muted">
+                    色标需从 0 到 1 严格递增，与颜色数量一致。
+                  </p>
+                  <div className="double">
+                    {c.appearance.stops.map((stop, i) =>
+                      n(
+                        `色标 ${i + 1}`,
+                        stop,
+                        (v) => {
+                          const stops = [...c.appearance.stops];
+                          stops[i] = v;
+                          set("appearance", "stops", stops);
+                        },
+                        0.05,
+                      ),
+                    )}
+                  </div>
+                </details>
+              )}
+            </>
+          )}
+          {professional && !isLegacy && (
+            <details>
+              <summary>图片布局 / LAYOUT</summary>
+              <label className="field">
+                布局
+                <select
+                  value={c.frame.layout}
+                  onChange={(e) => set("frame", "layout", e.target.value)}
+                >
+                  <option value="auto_fit">Auto Fit · 完整显示</option>
+                  <option value="fill">Fill · 中心裁切</option>
+                  <option value="manual">Manual · 人工尺寸</option>
+                </select>
+              </label>
+              {c.frame.layout === "manual" && (
+                <div className="double">
+                  {n("面板宽度 m", c.frame.width_m, (v) =>
+                    set("frame", "width_m", v),
+                  )}
+                  {n("面板高度 m", c.frame.height_m, (v) =>
+                    set("frame", "height_m", v),
+                  )}
+                </div>
+              )}
+              {vec(
+                c.frame.layout === "manual"
+                  ? "面板世界位置"
+                  : "相机空间偏移（右/上/向内）",
+                "frame",
+                "position",
+                c.frame.position,
+              )}
+            </details>
+          )}
+          {isLegacy && !professional && (
+            <p className="muted">
+              经典样式保留原有材质与灯光。切换专业模式可调整画框参数。
+            </p>
+          )}
+          <details open>
+            <summary>{isLegacy ? "作品大小" : "作品与光线"}</summary>
+            <div className="double">
+              {n(
+                "图片大小",
+                c.frame.scale,
+                (v) => set("frame", "scale", v),
+                0.05,
+              )}
+              {!isLegacy && (
+                <>
+                  {n(
+                    "悬浮距离 m",
+                    c.panel.float_distance_m,
+                    (v) => set("panel", "float_distance_m", v),
+                    0.05,
+                  )}
+                  {n(
+                    "面板厚度 m",
+                    c.panel.thickness_m,
+                    (v) => set("panel", "thickness_m", v),
+                    0.005,
+                  )}
+                  {(
+                    [
+                      ["intensity", "光照强度"],
+                      ["softness", "光线柔和度"],
+                      ["glow", "辉光"],
+                      ["ambient", "环境光"],
+                      ["shadow_softness", "阴影柔和度"],
+                    ] as const
+                  ).map(([k, label]) =>
+                    n(label, c.lighting[k], (v) => set("lighting", k, v), 0.05),
+                  )}
+                </>
+              )}
+            </div>
+          </details>
           <div className="paneltitle">
             <span>02 / 场景设置</span>
             <Settings2 size={16} />
           </div>
           <h2>调整参数</h2>
-          <p className="muted">设定屏幕、机位与画框尺寸。</p>
+          <p className="muted">设定屏幕、机位与展示参数。</p>
           <div className="notice">
             <ScanLine size={17} />
             <div>
@@ -352,197 +639,212 @@ function App() {
               <p>屏幕与机位参数需根据实际场地测量，当前结果仅供预览。</p>
             </div>
           </div>
-          <details open>
-            <summary>
-              <span>屏幕参数</span>
-              <small>SCREEN</small>
-            </summary>
-            <p className="muted">{preset}</p>
-            <label className="field">
-              弯曲方向
-              <select
-                value={c.screen.curvature}
-                onChange={(e) => set("screen", "curvature", e.target.value)}
-              >
-                <option value="convex">凸面</option>
-                <option value="concave">凹面</option>
-              </select>
-            </label>
-            <p className="muted">尚无现场照片佐证弯曲方向，请实地确认。</p>
-            {n(
-              "旋转角 °",
-              c.screen.yaw_deg,
-              (v) => set("screen", "yaw_deg", v),
-              1,
-            )}
-            <div className="triple">
-              {c.screen.pixels.map((x, i) => (
-                <label className="field" key={i}>
-                  <span>{["左屏 px", "转角 px", "右屏 px"][i]}</span>
-                  <input type="number" value={x} readOnly />
+          {professional && (
+            <>
+              <details open>
+                <summary>
+                  <span>屏幕参数</span>
+                  <small>SCREEN</small>
+                </summary>
+                <p className="muted">{preset}</p>
+                <label className="field">
+                  弯曲方向
+                  <select
+                    value={c.screen.curvature}
+                    onChange={(e) => set("screen", "curvature", e.target.value)}
+                  >
+                    <option value="convex">凸面</option>
+                    <option value="concave">凹面</option>
+                  </select>
                 </label>
-              ))}
-            </div>
-            <div className="double">
-              <label className="field">
-                <span>高度 px</span>
-                <input type="number" value={c.screen.height_px} readOnly />
-              </label>
-              {n("点间距 mm", c.screen.pitch_mm, (v) =>
-                set("screen", "pitch_mm", v),
-              )}
-              {n(
-                "夹角 °",
-                c.screen.angle_deg,
-                (v) => set("screen", "angle_deg", v),
-                1,
-              )}
-              <label className="field">
-                <span>弧半径 m（可选）</span>
-                <input
-                  type="number"
-                  value={c.screen.radius_m ?? ""}
-                  onChange={(e) =>
-                    set(
-                      "screen",
-                      "radius_m",
-                      e.target.value === "" ? null : Number(e.target.value),
-                    )
-                  }
-                />
-              </label>
-            </div>
-            <label className="check">
-              <input
-                type="checkbox"
-                checked={c.screen.calibrated}
-                onChange={(e) => set("screen", "calibrated", e.target.checked)}
-              />{" "}
-              已按实际场地校准
-            </label>
-          </details>
-          <details open>
-            <summary>
-              <span>观看机位</span>
-              <small>CAMERA</small>
-            </summary>
-            <button
-              className="secondary"
-              onClick={() => {
-                setC((old) =>
-                  old
-                    ? {
-                        ...old,
-                        camera: {
-                          ...old.camera,
-                          position:
-                            old.screen.curvature === "convex"
-                              ? [12, -14, 2]
-                              : [-2, -14, 2],
-                          target: [0, 0, 0],
-                        },
+                <p className="muted">尚无现场照片佐证弯曲方向，请实地确认。</p>
+                {n(
+                  "旋转角 °",
+                  c.screen.yaw_deg,
+                  (v) => set("screen", "yaw_deg", v),
+                  1,
+                )}
+                <div className="triple">
+                  {c.screen.pixels.map((x, i) => (
+                    <label className="field" key={i}>
+                      <span>{["左屏 px", "转角 px", "右屏 px"][i]}</span>
+                      <input type="number" value={x} readOnly />
+                    </label>
+                  ))}
+                </div>
+                <div className="double">
+                  <label className="field">
+                    <span>高度 px</span>
+                    <input type="number" value={c.screen.height_px} readOnly />
+                  </label>
+                  {n("点间距 mm", c.screen.pitch_mm, (v) =>
+                    set("screen", "pitch_mm", v),
+                  )}
+                  {n(
+                    "夹角 °",
+                    c.screen.angle_deg,
+                    (v) => set("screen", "angle_deg", v),
+                    1,
+                  )}
+                  <label className="field">
+                    <span>弧半径 m（可选）</span>
+                    <input
+                      type="number"
+                      value={c.screen.radius_m ?? ""}
+                      onChange={(e) =>
+                        set(
+                          "screen",
+                          "radius_m",
+                          e.target.value === "" ? null : Number(e.target.value),
+                        )
                       }
-                    : old,
-                );
-              }}
-            >
-              重置演示机位
-            </button>
-            <p className="muted">演示机位，不代表现场校准</p>
-            {vec("位置 / POSITION", "camera", "position", c.camera.position)}
-            {vec("目标 / TARGET", "camera", "target", c.camera.target)}
-            {n(
-              "视场角 °",
-              c.camera.fov_deg,
-              (v) => set("camera", "fov_deg", v),
-              1,
-            )}
-          </details>
-          <details open>
-            <summary>
-              <span>画框尺寸</span>
-              <small>FRAME</small>
-            </summary>
-            <label className="field">
-              布局
-              <select
-                value={c.frame.layout}
-                onChange={(e) => set("frame", "layout", e.target.value)}
-              >
-                <option value="auto_fit">自动适配</option>
-                <option value="fill">填充</option>
-                <option value="manual">手动</option>
-              </select>
-            </label>
-            <label className="field">
-              材质
-              <select
-                value={c.frame.material}
-                onChange={(e) => set("frame", "material", e.target.value)}
-              >
-                {[
-                  ["gold", "金色"],
-                  ["brushed_metal", "拉丝金属"],
-                  ["black_titanium", "黑钛"],
-                  ["lacquer", "漆面"],
-                  ["glass", "玻璃"],
-                  ["emissive", "发光"],
-                ].map(([v, t]) => (
-                  <option key={v} value={v}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {n(
-              "画框比例",
-              c.frame.scale,
-              (v) => set("frame", "scale", v),
-              0.05,
-            )}
-            {n("虚拟纵深 m", c.frame.virtual_depth_m, (v) =>
-              set("frame", "virtual_depth_m", v),
-            )}
-            {n("空间纵深 m", c.frame.portal_depth_m, (v) =>
-              set("frame", "portal_depth_m", v),
-            )}
-            <label className="check">
-              <input
-                type="checkbox"
-                checked={c.frame.edge_light}
-                onChange={(e) => set("frame", "edge_light", e.target.checked)}
-              />{" "}
-              边缘灯光
-            </label>
-            <div className="double">
-              {n("宽度 m", c.frame.width_m, (v) => set("frame", "width_m", v))}
-              {n("高度 m", c.frame.height_m, (v) =>
-                set("frame", "height_m", v),
-              )}
+                    />
+                  </label>
+                </div>
+                <label className="check">
+                  <input
+                    type="checkbox"
+                    checked={c.screen.calibrated}
+                    onChange={(e) =>
+                      set("screen", "calibrated", e.target.checked)
+                    }
+                  />{" "}
+                  已按实际场地校准
+                </label>
+              </details>
+              <details open>
+                <summary>
+                  <span>观看机位</span>
+                  <small>CAMERA</small>
+                </summary>
+                <button
+                  className="secondary"
+                  onClick={() => {
+                    setC((old) =>
+                      old
+                        ? {
+                            ...old,
+                            camera: {
+                              ...old.camera,
+                              position:
+                                old.screen.curvature === "convex"
+                                  ? [12, -14, 2]
+                                  : [-2, -14, 2],
+                              target: [0, 0, 0],
+                            },
+                          }
+                        : old,
+                    );
+                  }}
+                >
+                  重置演示机位
+                </button>
+                <p className="muted">演示机位，不代表现场校准</p>
+                {vec(
+                  "位置 / POSITION",
+                  "camera",
+                  "position",
+                  c.camera.position,
+                )}
+                {vec("目标 / TARGET", "camera", "target", c.camera.target)}
+                {n(
+                  "视场角 °",
+                  c.camera.fov_deg,
+                  (v) => set("camera", "fov_deg", v),
+                  1,
+                )}
+              </details>
+            </>
+          )}
+          {["cinema", "deep", "float", "glass"].includes(c.frame.template) && (
+            <details open>
+              <summary>
+                <span>画框尺寸</span>
+                <small>FRAME</small>
+              </summary>
+              <label className="field">
+                布局
+                <select
+                  value={c.frame.layout}
+                  onChange={(e) => set("frame", "layout", e.target.value)}
+                >
+                  <option value="auto_fit">自动适配</option>
+                  <option value="fill">填充</option>
+                  <option value="manual">手动</option>
+                </select>
+              </label>
+              <label className="field">
+                材质
+                <select
+                  value={c.frame.material}
+                  onChange={(e) => set("frame", "material", e.target.value)}
+                >
+                  {[
+                    ["gold", "金色"],
+                    ["brushed_metal", "拉丝金属"],
+                    ["black_titanium", "黑钛"],
+                    ["lacquer", "漆面"],
+                    ["glass", "玻璃"],
+                    ["emissive", "发光"],
+                  ].map(([v, t]) => (
+                    <option key={v} value={v}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+              </label>
               {n(
-                "深度 m",
-                c.frame.depth_m,
-                (v) => set("frame", "depth_m", v),
-                0.01,
+                "画框比例",
+                c.frame.scale,
+                (v) => set("frame", "scale", v),
+                0.05,
               )}
-              {n(
-                "边框 m",
-                c.frame.border_m,
-                (v) => set("frame", "border_m", v),
-                0.01,
+              {n("虚拟纵深 m", c.frame.virtual_depth_m, (v) =>
+                set("frame", "virtual_depth_m", v),
               )}
-            </div>
-            {vec("位置 / POSITION", "frame", "position", c.frame.position)}
-            <label className="colorfield">
-              画框颜色{" "}
-              <input
-                type="color"
-                value={c.frame.color}
-                onChange={(e) => set("frame", "color", e.target.value)}
-              />
-              <span>{c.frame.color}</span>
-            </label>
-          </details>
+              {n("空间纵深 m", c.frame.portal_depth_m, (v) =>
+                set("frame", "portal_depth_m", v),
+              )}
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={c.frame.edge_light}
+                  onChange={(e) => set("frame", "edge_light", e.target.checked)}
+                />{" "}
+                边缘灯光
+              </label>
+              <div className="double">
+                {n("宽度 m", c.frame.width_m, (v) =>
+                  set("frame", "width_m", v),
+                )}
+                {n("高度 m", c.frame.height_m, (v) =>
+                  set("frame", "height_m", v),
+                )}
+                {n(
+                  "深度 m",
+                  c.frame.depth_m,
+                  (v) => set("frame", "depth_m", v),
+                  0.01,
+                )}
+                {n(
+                  "边框 m",
+                  c.frame.border_m,
+                  (v) => set("frame", "border_m", v),
+                  0.01,
+                )}
+              </div>
+              {vec("位置 / POSITION", "frame", "position", c.frame.position)}
+              <label className="colorfield">
+                画框颜色{" "}
+                <input
+                  type="color"
+                  value={c.frame.color}
+                  onChange={(e) => set("frame", "color", e.target.value)}
+                />
+                <span>{c.frame.color}</span>
+              </label>
+            </details>
+          )}
         </aside>
         <section className="center">
           <div className="workspacehead">
@@ -551,7 +853,7 @@ function App() {
                 CREATIVE WORKSPACE <span> / 画面预览</span>
               </div>
               <h1>
-                空间画框<span>工作台</span>
+                图片空间<span>展示</span>
               </h1>
             </div>
             <div className="badge">
@@ -575,13 +877,107 @@ function App() {
               {job ? "任务 " + job.id.slice(0, 8) : "等待渲染"}
             </span>
           </div>
-          <div className="viewport">
-            {tab === "orbit" ? (
+          {["simulation_alpha", "led_crop"].includes(tab) && (
+            <div className="preview-options">
+              背景：
+              {[
+                ["light", "浅色"],
+                ["dark", "深色"],
+                ["checker", "透明棋盘"],
+              ].map(([id, label]) => (
+                <button
+                  key={id}
+                  onClick={() => setBackground(id)}
+                  aria-pressed={background === id}
+                >
+                  {label}
+                </button>
+              ))}{" "}
+              {tab === "led_crop" && <span>裁切预览，并非实际播放尺寸</span>}
+            </div>
+          )}
+          <div
+            className={
+              "viewport " +
+              (["simulation_alpha", "led_crop"].includes(tab)
+                ? "alpha-" + background
+                : "")
+            }
+          >
+            {tab === "photo" ? (
+              <div className="photo-tools">
+                <p>手动配准预览 · 未现场校准</p>
+                <label>
+                  选择现场照片{" "}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (photo) URL.revokeObjectURL(photo);
+                      const f = e.target.files?.[0];
+                      setPhoto(f ? URL.createObjectURL(f) : "");
+                    }}
+                  />
+                </label>
+                {photo && (
+                  <div className="photo-stage">
+                    <img src={photo} alt="用户选择的照片" />
+                    {job?.outputs?.simulation_alpha && (
+                      <img
+                        className="photo-overlay"
+                        src={job.outputs.simulation_alpha}
+                        alt="手动配准的模拟画面"
+                        style={{
+                          left: placement.x + "%",
+                          top: placement.y + "%",
+                          width: placement.scale + "%",
+                          opacity: placement.opacity / 100,
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+                {photo &&
+                  (
+                    [
+                      ["x", "水平位置"],
+                      ["y", "垂直位置"],
+                      ["scale", "大小"],
+                      ["opacity", "透明度"],
+                    ] as const
+                  ).map(([k, label]) => (
+                    <label key={k}>
+                      {label}
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={placement[k]}
+                        onChange={(e) =>
+                          setPlacement({ ...placement, [k]: +e.target.value })
+                        }
+                      />
+                      {professional && (
+                        <input
+                          type="number"
+                          value={placement[k]}
+                          onChange={(e) =>
+                            setPlacement({ ...placement, [k]: +e.target.value })
+                          }
+                        />
+                      )}
+                    </label>
+                  ))}
+              </div>
+            ) : tab === "orbit" ? (
               job?.outputs?.model ? (
                 <React.Suspense
                   fallback={<div className="empty">正在加载 3D 查看器…</div>}
                 >
-                  <Orbit url={job.outputs.model} />
+                  <Orbit
+                    url={job.outputs.model}
+                    composition={(job.metrics as any)?.artwork?.composition}
+                  />
                 </React.Suspense>
               ) : (
                 <div className="empty">完成渲染后可查看真实导出的 3D 场景</div>
@@ -610,7 +1006,7 @@ function App() {
                 <p>
                   {job && ["queued", "running"].includes(job.status)
                     ? "渲染进行中，请稍候。"
-                    : "上传图片并设置参数后，开始创建你的空间画框。"}
+                    : "上传图片并选择风格后，开始创建图片空间。"}
                 </p>
               </div>
             )}
@@ -621,7 +1017,7 @@ function App() {
             )}
             <div className="viewportmeta">
               <span>PREVIEW / {tab.toUpperCase()}</span>
-              <span>BUИT · FRAME LAB</span>
+              <span>BUPT · IMAGE SPACE</span>
             </div>
           </div>
           {job?.outputs?.original && job?.outputs?.simulation && (
@@ -668,85 +1064,95 @@ function App() {
           </div>
           <h2>生成画面</h2>
           <p className="muted">设置渲染质量并导出结果。</p>
-          <details>
-            <summary>
-              <span>渲染设置</span>
-              <small>RENDER</small>
-            </summary>
-            <div className="double">
-              {n(
-                "渲染比例",
-                c.render.scale,
-                (v) => set("render", "scale", v),
-                0.05,
-              )}
-              {n(
-                "采样数",
-                c.render.samples,
-                (v) => set("render", "samples", v),
-                1,
-              )}
-              {n(
-                "时长 s",
-                c.render.duration,
-                (v) => set("render", "duration", v),
-                1,
-              )}
-              {n("帧率 fps", c.render.fps, (v) => set("render", "fps", v), 1)}
-            </div>
-            <label className="check">
-              <input
-                type="checkbox"
-                checked={c.render.video}
-                onChange={(e) => set("render", "video", e.target.checked)}
-              />{" "}
-              生成定格视频
-            </label>
-          </details>
-          <label className="check">
-            <input
-              type="checkbox"
-              checked={c.render.animation}
-              onChange={(e) =>
-                setC((old) =>
-                  old
-                    ? {
-                        ...old,
-                        render: {
-                          ...old.render,
-                          animation: e.target.checked,
-                          light_sweep: e.target.checked
-                            ? old.render.light_sweep
-                            : false,
-                        },
-                      }
-                    : old,
-                )
-              }
-            />{" "}
-            动画
-          </label>
-          <label className="check">
-            <input
-              type="checkbox"
-              checked={c.render.light_sweep}
-              onChange={(e) =>
-                setC((old) =>
-                  old
-                    ? {
-                        ...old,
-                        render: {
-                          ...old.render,
-                          light_sweep: e.target.checked,
-                          animation: e.target.checked || old.render.animation,
-                        },
-                      }
-                    : old,
-                )
-              }
-            />{" "}
-            边缘扫光（启用三维序列）
-          </label>
+          {professional && (
+            <>
+              <details>
+                <summary>
+                  <span>渲染设置</span>
+                  <small>RENDER</small>
+                </summary>
+                <div className="double">
+                  {n(
+                    "渲染比例",
+                    c.render.scale,
+                    (v) => set("render", "scale", v),
+                    0.05,
+                  )}
+                  {n(
+                    "采样数",
+                    c.render.samples,
+                    (v) => set("render", "samples", v),
+                    1,
+                  )}
+                  {n(
+                    "时长 s",
+                    c.render.duration,
+                    (v) => set("render", "duration", v),
+                    1,
+                  )}
+                  {n(
+                    "帧率 fps",
+                    c.render.fps,
+                    (v) => set("render", "fps", v),
+                    1,
+                  )}
+                </div>
+                <label className="check">
+                  <input
+                    type="checkbox"
+                    checked={c.render.video}
+                    onChange={(e) => set("render", "video", e.target.checked)}
+                  />{" "}
+                  生成定格视频
+                </label>
+              </details>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={c.render.animation}
+                  onChange={(e) =>
+                    setC((old) =>
+                      old
+                        ? {
+                            ...old,
+                            render: {
+                              ...old.render,
+                              animation: e.target.checked,
+                              light_sweep: e.target.checked
+                                ? old.render.light_sweep
+                                : false,
+                            },
+                          }
+                        : old,
+                    )
+                  }
+                />{" "}
+                动画
+              </label>
+              <label className="check">
+                <input
+                  type="checkbox"
+                  checked={c.render.light_sweep}
+                  onChange={(e) =>
+                    setC((old) =>
+                      old
+                        ? {
+                            ...old,
+                            render: {
+                              ...old.render,
+                              light_sweep: e.target.checked,
+                              animation:
+                                e.target.checked || old.render.animation,
+                            },
+                          }
+                        : old,
+                    )
+                  }
+                />{" "}
+                边缘扫光（启用三维序列）
+              </label>
+            </>
+          )}
           <button
             className="secondary"
             disabled={
@@ -847,24 +1253,40 @@ function App() {
             </div>
             <div className="downloads">
               {job?.outputs ? (
-                Object.entries(job.outputs).map(([k, v]) => (
-                  <a key={k} href={v} download>
-                    <Download size={14} />
-                    {(
-                      {
-                        original: "原图",
-                        scene: "场景",
-                        atlas: "展开图",
-                        simulation: "模拟图",
-                        difference: "差异图",
-                        mask: "遮罩",
-                        blend: "工程文件",
-                        report: "报告",
-                        video: "定格视频",
-                      } as Record<string, string>
-                    )[k] || k}
-                  </a>
-                ))
+                Object.entries(job.outputs)
+                  .filter(
+                    ([k]) =>
+                      professional ||
+                      [
+                        "original",
+                        "scene",
+                        "simulation_alpha",
+                        "led_crop",
+                        "atlas",
+                        "blend",
+                        "video",
+                      ].includes(k),
+                  )
+                  .map(([k, v]) => (
+                    <a key={k} href={v} download>
+                      <Download size={14} />
+                      {(
+                        {
+                          original: "原图",
+                          scene: "场景",
+                          atlas: "展开图",
+                          simulation: "模拟图",
+                          simulation_alpha: "透明模拟图",
+                          led_crop: "LED 裁切预览",
+                          difference: "差异图",
+                          mask: "遮罩",
+                          blend: "工程文件",
+                          report: "报告",
+                          video: "定格视频",
+                        } as Record<string, string>
+                      )[k] || k}
+                    </a>
+                  ))
               ) : (
                 <span>暂无输出文件</span>
               )}

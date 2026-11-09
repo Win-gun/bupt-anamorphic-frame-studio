@@ -1,0 +1,16 @@
+{
+  "structural_checks": {
+    "template": "glass_layers",
+    "continuous_miter_profile": null,
+    "minimal_architecture": true,
+    "procedural_curved_backdrop": true,
+    "layered_ring_count": 0,
+    "artwork_coverage_pass": true,
+    "opening_safe": true,
+    "source_aspect": 1.777734221873775,
+    "display_aspect": 1.7777342218737757,
+    "model_export": "EXPORTED_VIRTUAL_EXHIBITION_MESHES"
+  },
+  "human_visual_judgment": "PENDING",
+  "note": "Numerical projection agreement and scene structure do not establish visual quality."
+}

@@ -1,0 +1,42 @@
+{
+  "purpose": "Actual Blender render ablation; not an aesthetic acceptance score",
+  "cases": {
+    "intensity": {
+      "background_mae_srgb": 0.18068630993366241,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    },
+    "softness": {
+      "background_mae_srgb": 0.018801841884851456,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    },
+    "glow": {
+      "background_mae_srgb": 0.046659305691719055,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    },
+    "ambient": {
+      "background_mae_srgb": 0.1618642956018448,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    },
+    "shadow_softness": {
+      "background_mae_srgb": 0.0046446193009614944,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    },
+    "background_saturation": {
+      "background_mae_srgb": 0.03633305802941322,
+      "poster_mae_srgb": 0.0,
+      "affects_background": true,
+      "poster_unchanged": true
+    }
+  },
+  "passed": true
+}

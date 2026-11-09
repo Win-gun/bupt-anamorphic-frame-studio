@@ -1,24 +1,14 @@
-# BUPT Anamorphic Frame Studio · V2
+# Anamorphic Image Display Studio · Aurora Space V3
 
-本地运行的曲面 LED 裸眼 3D 海报工具。原海报作为原始纹理保留，不进行 AI 重绘。FastAPI + Blender Python + React/TypeScript + FFmpeg。
+上传一张图片，用柔和的三维空间、轻薄悬浮面板与真实投影，生成北邮弧形转角 LED 内容。本地运行，保留原海报文字、Logo 和所有图像，不依赖云端或生成式重绘。
 
-![同一16:9海报的V1/V2真实渲染对比](examples/v2/v1-v2-comparison.png)
+![计启秋韵 · Aurora Float 真实三维渲染](examples/v3/aurora-preview.png)
 
-默认模板 **Cinema Portal · 电影级空间画框**：真实墙体、顶面、地台与分层金属画框；另外提供悬浮展台与玻璃展柜。可编辑 `.blend`、同源 GLB、LED 展开、回贴模拟与报告均可下载。
+[三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
 
-## 真实活动海报实例：计启秋韵
+## 本地启动
 
-以下为旧上传任务中找到的4535×2551原海报，经V2实际生成的最佳观察点模拟；全部保留原图内容。
-
-![计启秋韵 · Cinema Portal 实际回贴预览](examples/v2/jiqi-qiuyun/preview.png)
-
-[原始海报](examples/v2/jiqi-qiuyun/original.png) · [V1/V2真实对比](examples/v2/jiqi-qiuyun/comparison-v1-v2.png) · [4368×3120 LED展开](examples/v2/jiqi-qiuyun/atlas.png) · [全尺寸回贴](examples/v2/jiqi-qiuyun/simulation.png) · [数值验证报告](examples/v2/jiqi-qiuyun/report.json) · [美术复核](examples/v2/visual-review.md)
-
-完整图片、配置、遮罩、差异图与文件校验清单见 [实例目录](examples/v2/jiqi-qiuyun/)。报告基于未校准演示参数，不能代替现场验收。
-
-## 安装与启动
-
-已实测 macOS Apple Silicon、Python 3.9.6、Blender **3.4.1** EEVEE、Node 20.20.2、FFmpeg 8.1.1。Blender 其他大版本尚未兼容验证（EEVEE/PBR API 有差异）。
+需要 Python 3.9+、Node.js 20.19+、FFmpeg/ffprobe。已实际验证 macOS Apple Silicon、Blender **3.4.1 EEVEE**；其他 Blender 大版本的 PBR/EEVEE API 尚未兼容验证。
 
 ```sh
 git clone https://github.com/Win-gun/bupt-anamorphic-frame-studio.git
@@ -27,77 +17,85 @@ cd bupt-anamorphic-frame-studio
 ./scripts/start.sh
 ```
 
-打开 http://127.0.0.1:8000 。Blender 默认 `/Applications/Blender.app/Contents/MacOS/Blender`，可设置 `BLENDER_BIN`；FFmpeg 与 ffprobe 须在 PATH。安装脚本使用锁定 Python/npm 依赖，优先使用已安装的 Homebrew Node 20，不修改主机链接。只监听本机。
+打开 http://127.0.0.1:8000 。安装脚本使用锁定依赖，优先使用已安装的 Homebrew Node 20。Blender 默认路径 `/Applications/Blender.app/Contents/MacOS/Blender`，可用 `BLENDER_BIN` 覆盖。仅监听本机。
 
-开发前端：`npm --prefix frontend run dev`（代理 API 至8000）。
+## 新视觉系统
 
-## 北邮默认预设
+| 风格 | 实际空间结构 |
+|---|---|
+| **Aurora Float · 极光悬浮**（默认） | 无传统外框的薄面板，连续弧形渐变后景，宽软真实投影 |
+| Soft Depth · 柔光纵深 | 单一连续曲面构成的浅凹空间，平滑侧面/上下转折 |
+| Glass Layers · 轻透叠层 | 两片错位磨砂薄板位于海报后方，原海报不覆玻璃 |
+| Embedded Cube · 楼体内嵌立方体 | 实体侧壁、顶部与底部组成挖空体积，海报置于内部 |
 
-**BUPT Curved LED · 北邮弧形转角大屏** 启动即加载：
+V2 的 Cinema、悬浮画框、玻璃展柜完整保留在 **Legacy** 中，原实现单独归档为 `studio/legacy_scene_design.py`，并有实际回归。V1/V2 样例仍在原 `examples/` 目录，V2 使用说明见 [历史说明](docs/v2-readme.md)。
 
-| 区域 | 像素规格 |
-|---|---:|
-| 左平面 | 2704 × 3120 |
-| 中间真实圆柱弧面 | 416 × 3120 |
-| 右平面 | 1248 × 3120 |
-| 正式输出 | **4368 × 3120** |
+三种默认低饱和配色：极光烟紫、灰蓝晨雾、暖粉薄雾。颜色只用于三维容器；不会降低用户图片本身的饱和度。
 
-唯一默认源为 [`configs/bupt-curved-led.json`](configs/bupt-curved-led.json)，后端配置模型从它读取默认值，前端通过 API 获取，其他配置是快照。预览比例只改变采样密度，不改变物理几何、UV 或输出宽高比例。
+渐变由 Blender Shader Nodes 附着在真实曲面上计算，支持线性、径向、双光场、多色、方向、色标位置、亮度、饱和度和微量噪声。薄板厚度、倒角、悬浮间距和材质边缘反射可调。反射参数作用于薄板侧边，不给正文叠玻璃反光。
 
-**仍未现场校准。** P3、90°、凹面、演示机位只是模拟假设。仓库没有现场建筑照片，不能据此确认实际是凹还是凸。可以切换凹/凸和安装 yaw；切换后用「重置演示机位」检查对应的正面可视区。真实像素间距、半径/夹角、朝向和观察点须实测；半径须与像素间距及弧长一致。
+光照强度、柔和度、环境亮度、阴影柔和度均控制真实区域光及场景；背景辉光控制曲面低强度自发光，避免全局光晕覆盖原图。实际对照渲染证明所有参数有效，海报区域颜色保持不变，见 [控制检查](examples/v3/control-probe/report.json)。
 
-## 创作流程
+## 创作与专业模式
 
-1. 上传海报。Auto Fit 自动读取原始比例，在相机投影下的真实屏幕可见轮廓中寻找安全矩形，并改变画框外形。16:9 不再塞入默认竖框。
-2. 选择 Cinema Portal、悬浮展台或玻璃展柜，以及磨砂金、拉丝金属、黑钛、烤漆、玻璃或发光饰面。原海报文字区不铺玻璃反射。
-3. Auto Fit 完整原图；Fill 明确允许中心裁切（UV 范围见报告）；Manual 固定人工框尺寸，海报 contain 放置。三者均不拉伸原图。位置在 Auto/Fill 中是相机 right/up/forward 的偏移，在 Manual 中为世界坐标。
-4. 调整画框比例、虚拟纵深和空间深度。主框与房间独立；后墙碰撞配置会被拒绝，出屏构图不能判为验证通过。自动构图优化的是海报开口；建筑装饰允许被真实屏幕边界截去。
-5. 快速预览为1/8采样，高质量预览为1/2，正式导出固定全分辨率。结果栏显示提交的配置快照，不把后续参数改动冒充已有结果。
-6. 在原图、目标场景、展开、最佳点回贴之间切换，也可并列对照原图。3D 查看器加载 Blender 真正导出的 GLB，可旋转检查；网页照明是几何检查用光，最终材质与光照以 Blender 输出为准。
-7. 保存/恢复配置、重置北邮默认值，或导入/导出经过验证的 JSON。已保存的设置位于本地 `outputs/settings.json`，重启保留。
+创作模式默认呈现：上传、风格、渐变配色、悬浮深度、面板/光照、画面大小、预览及导出。普通用户无需输入三维坐标。
 
-## 动态测试
+专业模式提供 LED 几何、凹凸方向、安装朝向、点间距、相机/FOV、UV 诊断、完整渐变色标、分辨率/视频编码和数值报告。Legacy 的传统画框尺寸与金属材质只在对应样式中出现。
 
-可用「动态测试 · 低清2秒」快速生成1/8采样、12fps的三维动态预览，或选择正式输出的「三维前进—停留—返回」与边缘扫光。只移动主画框及海报，墙体/地台不动。每帧先在固定相机下真实渲染三维场景，再经过相同曲面反投影，绝非二维缩放。
+Auto Fit 自动读取原始比例并在观察相机的实际可见屏幕轮廓中构图；Manual 完整 contain 放置，Fill 明确允许中心裁切。海报原始矩形四角完整保留，圆角仅用于微小外扩的薄背板。
 
-扫光会启用动态序列。动态限6–360帧；长时间/全尺寸序列开销较高，先低分辨率测试。端点与停留峰值会再次渲染物理 LED 屏核查。FFmpeg 编码后用 ffprobe 检查尺寸/像素格式。单独选择视频而不选择动画时输出定格视频。
+支持保存/恢复配置、导入导出 JSON、重置北邮默认值。已保存的旧配置仍可恢复为其 Legacy 风格。结果使用任务提交时的配置快照。
 
-## 实现与验证
+## 预览与动画
 
-连续平面—圆弧—平面以真实弧长 `s` 参数化；圆弧 `R=416*pitch/angle`。凹/凸统一改变曲率、切向、法线、射线遮挡，再将整体 yaw 旋转；UV 始终按左→弧→右展开。并非分三段裁切视频。
+- **完整三维场景**：展示虚拟空间的真实渲染。
+- **最佳观看模拟**：把最终 LED 展开图重新贴回物理屏渲染；可选择屏外预览底色。
+- **有效 LED 裁切**：实际屏幕遮罩的透明图，仅做包围盒裁切，绝不改变播放画布。
+- **LED 展开**：实际三段连续 UV 画布。
+- **交互 3D**：载入 Blender 导出的同源 GLB，默认正面三分之四视角，支持旋转、缩放和重置。程序化节点和完整灯光保存在 Blender；GLB 用于几何检查，其材质回退不等同于最终照明。
+- **照片合成**：提供场地照片时，可手动调位置、大小和透明度；明确标注未现场校准。当前未提供真实场地照片，浏览器测试仅用了标明身份的合成测试图，不能称为现场对齐验收。
 
-投影为：目标三维场景渲染 → 解析 LED 表面采样 → 相机透视反投影 → 双线性采样 → 展开图 → 独立 Blender 物理屏发光材质回贴。误差只在实际有效屏幕区域比较；另有独立海报遮罩核查覆盖率，避免建筑背景或大面积黑色稀释结果。
+快速预览1/8采样，高质量预览1/2，正式输出全尺寸。V3 动态缓慢向前、轻微悬浮后稳定停留，可选柔光移动；旧 Legacy 保持原有前进—停留—返回行为。每帧都是真实三维对象和灯光渲染后再执行曲面反投影，未使用二维缩放。
 
-数值门禁（MAE/覆盖/安全构图）与美术评价分开记录。不能把 MAE 达标称为视觉质量通过。实际视觉复核见 [`examples/v2/acceptance.md`](examples/v2/acceptance.md)，最终美术取舍仍由用户确认。
+动态限6–360帧。已交付真实海报2秒/12fps低分辨率视频，以及端点/中间/结束的独立物理屏回贴检查。播放 PNG 按 sRGB 使用；MP4 采用 BT.709 矩阵、有限范围和显式 sRGB 传递标记，实际控制器仍需现场检查颜色响应。
+
+## 北邮唯一默认预设
+
+默认值继续由 [`configs/bupt-curved-led.json`](configs/bupt-curved-led.json) 管理，前端经 API 获取，示例配置是校验过的快照。
+
+| 左平面 | 中间真实弧面 | 右平面 | 正式展开 |
+|---:|---:|---:|---:|
+| 2704×3120 | 416×3120 | 1248×3120 | **4368×3120** |
+
+预览比例只改变渲染分辨率，不改变物理几何、UV、画布比例或像素次序。仍保留凹/凸、安装 yaw、自遮挡、表面弧长 UV 与独立数值验证。
+
+**P3、90°、曲率方向、朝向和观察机位仍未校准。** 当前没有现场照片或测量，不宣称真实建筑方向已确认。像素数不能直接当作物理长度。
+
+## 测试与渲染
 
 ```sh
 .venv/bin/python -m pytest -q
 RUN_BLENDER_TESTS=1 .venv/bin/python -m pytest -q
-/Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 --python scripts/geometry_diagnostics.py
-# 服务启动后（默认8000）：
 BASE_URL=http://127.0.0.1:8000 npm --prefix frontend run test:ui
-.venv/bin/python scripts/v2_api_acceptance.py --base-url http://127.0.0.1:8000
+.venv/bin/python scripts/v3_api_acceptance.py
+/Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 --python scripts/v3_control_probe.py
 ```
 
-独立正式渲染：
+独立正式输出：
 
 ```sh
 /Applications/Blender.app/Contents/MacOS/Blender -b --python-exit-code 1 \
   --python studio/blender_render.py -- \
-  --config configs/bupt-demo.json --poster examples/v2/poster-16x9.png --output outputs/manual
+  --config configs/bupt-demo.json --poster examples/v2/jiqi-qiuyun/original.png --output outputs/manual
 ```
 
-测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。收尾补查旧上传任务后找到4535×2551的「计启秋韵」图，并另行完成正式输出验证，记录为 `examples/v2/user-poster-validation.json`；真实海报的原图、示例渲染和报告已上传至 [`examples/v2/jiqi-qiuyun/`](examples/v2/jiqi-qiuyun/)，可编辑工程仍在本地 `outputs/28f54a4536b141d4a2143192f48b4353/`。现场照片仍未取得。
+真实素材为4535×2551「计启秋韵」原海报。另有浅色/深色、横版/竖版测试。数值一致性、结构检查、实际视觉复核分别记录；任何自动测试通过都不能代替用户审美确认。
 
-## 交付文件
+## 交付入口
 
-- [`examples/v2/jiqi-qiuyun/`](examples/v2/jiqi-qiuyun/)：真实活动海报的原图、展开、回贴、V1/V2对比、差异/遮罩与报告。
-
-- [`examples/v2/cinema-full/`](examples/v2/cinema-full/)：4368×3120 正式展开、最佳点回贴、差异/遮罩、打包 Blender、GLB、报告。
-- [`examples/v2/v1-v2-comparison.png`](examples/v2/v1-v2-comparison.png)：同一张16:9海报对比。
-- [`examples/v2/diagnostics/`](examples/v2/diagnostics/)：凹凸正视/俯视诊断及数值记录。
-- [`examples/v2/float/`](examples/v2/float/)、[`glass/`](examples/v2/glass/)：不同结构的模板实测。
-- [`examples/v2/animation-api/`](examples/v2/animation-api/)：真实 API 动画视频、逐帧展开联系图、ffprobe 和验证报告。
-- [`docs/v2-design-brief.md`](docs/v2-design-brief.md)：视觉方向、验收与已知边界。
-
-V1 原始测试与样例保留在原有 `examples/` 子目录，便于回归。现场光学/色彩响应、镜头畸变、控制器映射仍须现场验收，本轮未做 AI 分层或自动测量。
+- [Aurora 正式输出](examples/v3/aurora-full/)：4368×3120展开、目标场景、最佳点模拟、有效区透明图、差异/遮罩、`.blend`、GLB与报告。
+- [三种配色实测](examples/v3/palette-contact-sheet.png)：对应目录为 `aurora/`、`cool_mist/`、`warm_haze/`。
+- [四种模板对比](examples/v3/architecture-contact-sheet.png)：`soft_depth/`、`glass_layers/`、`embedded_cube/` 含实际图片、配置与报告，可据配置重建可编辑场景。
+- [动态预览](examples/v3/motion-api/led.mp4)与[逐帧联系图](examples/v3/motion-api/mapped-motion-frames.png)；与视频对应的可编辑动画工程为 `motion-api/scene.blend`；另有 `aurora-motion/` 独立关键帧落盘回归。
+- [V2/V3 同海报对比](examples/v3/v2-v3-comparison.png)：使用相同屏外底色，避免黑色视场干扰评价。
+- [验收报告](examples/v3/acceptance.md)、[独立视觉报告](examples/v3/visual-review.md)、[设计与已知边界](docs/v3-design-brief.md)。

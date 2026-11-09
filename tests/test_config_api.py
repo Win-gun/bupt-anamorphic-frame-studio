@@ -97,5 +97,5 @@ def test_animation_and_spatial_limits():
     assert parsed.render.animation and parsed.render.video
     c['render']['fps']=1; c['render']['duration']=1
     with pytest.raises(ValidationError): Config.model_validate(c)
-    c=Config().model_dump(); c['frame']['virtual_depth_m']=2; c['frame']['portal_depth_m']=1
+    c=Config().model_dump(); c['frame']['template']='cinema'; c['frame']['virtual_depth_m']=2; c['frame']['portal_depth_m']=1
     with pytest.raises(ValidationError): Config.model_validate(c)

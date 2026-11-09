@@ -1,0 +1,58 @@
+{
+  "aurora": {
+    "passed": true,
+    "mae_srgb": 0.007274617440998554,
+    "foreground_mae_srgb": 0.013853038661181927,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.280204337523486
+  },
+  "cool_mist": {
+    "passed": true,
+    "mae_srgb": 0.007269746158272028,
+    "foreground_mae_srgb": 0.013865365646779537,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.28749636484335
+  },
+  "warm_haze": {
+    "passed": true,
+    "mae_srgb": 0.0072594317607581615,
+    "foreground_mae_srgb": 0.013857292011380196,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.2942058216352
+  },
+  "soft_depth": {
+    "passed": true,
+    "mae_srgb": 0.0072829267010092735,
+    "foreground_mae_srgb": 0.013857943005859852,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.29021276825132
+  },
+  "glass_layers": {
+    "passed": true,
+    "mae_srgb": 0.007613034453243017,
+    "foreground_mae_srgb": 0.013858783058822155,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.220859135993614
+  },
+  "embedded_cube": {
+    "passed": true,
+    "mae_srgb": 0.007829365320503712,
+    "foreground_mae_srgb": 0.013843357563018799,
+    "foreground_coverage": 1.0,
+    "psnr_db": 33.163248407916385
+  },
+  "aurora-motion": {
+    "passed": true,
+    "mae_srgb": 0.011208392679691315,
+    "foreground_mae_srgb": 0.020018991082906723,
+    "foreground_coverage": 1.0,
+    "psnr_db": 31.324617424320067
+  },
+  "legacy-cinema": {
+    "passed": true,
+    "mae_srgb": 0.017230303958058357,
+    "foreground_mae_srgb": 0.018708672374486923,
+    "foreground_coverage": 1.0,
+    "psnr_db": 28.702132708799258
+  }
+}

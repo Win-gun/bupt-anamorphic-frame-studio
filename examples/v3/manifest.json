@@ -1,0 +1,1070 @@
+{
+  "acceptance.json": {
+    "bytes": 5245,
+    "sha256": "51faf3bf67954862a8d6b98ef5cccf0e94e526eb84fcb1c9900cb8ea0214c5d2"
+  },
+  "acceptance.md": {
+    "bytes": 3494,
+    "sha256": "e1c84a4b39353343edbb1b7fe2217e3975f91bfb7bab8197a97660164d7c45fa"
+  },
+  "architecture-contact-sheet.png": {
+    "bytes": 125974,
+    "sha256": "8eae09a1137b0ad0552ebd4775e23a34be4f645ad704bc231b4de1629bfaf9e8",
+    "pixels": [
+      1200,
+      239
+    ]
+  },
+  "aurora/atlas.png": {
+    "bytes": 782932,
+    "sha256": "2e4bf819dcd382f41022f660a12223381932e06871f01c07eb33fb4492e5c152",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/calibration.png": {
+    "bytes": 773227,
+    "sha256": "b58e54cf8a79262abb69ccde68891461e860d2c2262a16f221ba795129b2f11b",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/config.json": {
+    "bytes": 1585,
+    "sha256": "c38c0425ffabd69b3eb9588957c212b4672d8fffc127e6c8d4e15478f2c7b8c0"
+  },
+  "aurora/difference.png": {
+    "bytes": 335936,
+    "sha256": "74c05eedafc669b03e8e8eafeac6380b497aad2c2a1060d597db40c4fcfd0e9e",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/led_crop.png": {
+    "bytes": 416921,
+    "sha256": "9d49eb24240d9b02a6a002ab7a14244da81378ec7568016ef097eea309022af5",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "aurora/mask.png": {
+    "bytes": 27246,
+    "sha256": "5f69c9a1cdaa8dab1133a3eb6963eed5fe519c902eb10b43b71de928143aa8eb",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "a6e470090c16e5d37b397491eaabe24685391aa9ab69a91afd4e4d8bf4c50e23",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "aurora/report.json": {
+    "bytes": 9619,
+    "sha256": "d33cc0c5c8023e8b1c817617424d749cdcb6ea2fbac4be35d76749fb5cd305dc"
+  },
+  "aurora/scene.png": {
+    "bytes": 595411,
+    "sha256": "30d24392eccee2960e79fd8b53c2be092c30cc4036da19a986b71e10ad134804",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/simulation.png": {
+    "bytes": 443972,
+    "sha256": "94ed02f34fb7840c6d76dc8252c5981f9a0b15a0bbb1d0a3cb7264ec4217e8bf",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/simulation_rgba.png": {
+    "bytes": 430482,
+    "sha256": "c5167b00a44368564580cf8b9c2987ec53c98946276ea93206832013d38791fa",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "aurora/visual.json": {
+    "bytes": 540,
+    "sha256": "861931014f2e2439190de11c514e9083025935b1e94af93a5a79c8a909474b99"
+  },
+  "aurora-full/atlas.png": {
+    "bytes": 7470208,
+    "sha256": "692ad18f6fde72d837b4c52d2c7eaa79d0c509dcfbf0e249d5c666bebd9231f2",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/calibration.png": {
+    "bytes": 7445571,
+    "sha256": "1ca6af543e254cd0bdd154b2e0ac72edf5afa58880beb87082223612f95b97e3",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/difference.png": {
+    "bytes": 3107229,
+    "sha256": "e9a9a24329385740e7ffab8743ba3b41a9208e9019db719de4129f74c4a405ec",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/led_crop.png": {
+    "bytes": 3815504,
+    "sha256": "046e73ab7fc704317a50e9dc8b38d842eb16900e729960b7e97b9d0d59b9cadb",
+    "pixels": [
+      2930,
+      2992
+    ]
+  },
+  "aurora-full/mask.png": {
+    "bytes": 247422,
+    "sha256": "3c90e770aed3edfa69b04be7b6ae8a40be025c8b488246fadc115e9b44544957",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/poster_mask.png": {
+    "bytes": 183549,
+    "sha256": "a19a6a35a909176d4d4cd018f643770f664841801213fa1762b6257dbf307544",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/preview.json": {
+    "bytes": 319,
+    "sha256": "256ca5966baebb27c3b4623a394bbce4dc79f47a745de8c55c1c401977ad46bf"
+  },
+  "aurora-full/report.json": {
+    "bytes": 9622,
+    "sha256": "e39aae12aa717c17ff6217c0e2c4c402e7b05d50a03f4de07f73ad0a2341e067"
+  },
+  "aurora-full/scene.blend": {
+    "bytes": 16817124,
+    "sha256": "25432984b566425d54aaffc9ddb8940921232c1a0c34d23dd39b37d5b80e815b"
+  },
+  "aurora-full/scene.glb": {
+    "bytes": 8153912,
+    "sha256": "69d367c9cc197477c09efafdacb01fd525feb4919cd3c2de7f7752df1aa5363c"
+  },
+  "aurora-full/scene.png": {
+    "bytes": 5294404,
+    "sha256": "5dbe249053be194f881c31f4f7b1d1827d81ad786a74042afcdf7a8654b54465",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/simulation.png": {
+    "bytes": 4292789,
+    "sha256": "9d665476c3a35f643bdede38bb07f86c006db00af9ab566dab3b274dca897653",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/simulation_rgba.png": {
+    "bytes": 3957075,
+    "sha256": "d9a200a8e9af5c1e4126801e72223483688b56c1e5554594dc2a271480ab0332",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "aurora-full/visual.json": {
+    "bytes": 540,
+    "sha256": "861931014f2e2439190de11c514e9083025935b1e94af93a5a79c8a909474b99"
+  },
+  "aurora-motion/animation.json": {
+    "bytes": 2060,
+    "sha256": "4ff580ac46a0e9daa8ce9e0014fc2aa69d0d5db9d3420b5d725cc9b7c3e65063"
+  },
+  "aurora-motion/atlas.png": {
+    "bytes": 240400,
+    "sha256": "2c2bb9be1b292f63cc9fdf40bc2a60fa1ca1aab03d4fc96940bc0da5a2adc191",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/calibration.png": {
+    "bytes": 234863,
+    "sha256": "e3305df967c426913d3d670a5ffe749234ebefd728706849c1e9e9e56b2964c0",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/config.json": {
+    "bytes": 1584,
+    "sha256": "7751245b480d5b33b2c820cd52b17142dc396a31080bd134afaaa09c76ef22cd"
+  },
+  "aurora-motion/difference.png": {
+    "bytes": 107873,
+    "sha256": "487466d8327ce50b06df62d3ffb1bec30933252578fc81d246c3c3529b34bb1b",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0000.png": {
+    "bytes": 240400,
+    "sha256": "2c2bb9be1b292f63cc9fdf40bc2a60fa1ca1aab03d4fc96940bc0da5a2adc191",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0001.png": {
+    "bytes": 243225,
+    "sha256": "48b74faed05b69769f9266f44e15c8addc19f6be9bc909822caa2a3d5e76307c",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0002.png": {
+    "bytes": 247312,
+    "sha256": "2a25b563a9351daa581bce5908f65e96b7cb777b5dae9c9f9e39ac67acf886c3",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0003.png": {
+    "bytes": 249874,
+    "sha256": "92186ffe53d8de216ba51112e70efd0e4d6c6ed9b4b7cb1b690fa35249eff8c5",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0004.png": {
+    "bytes": 250003,
+    "sha256": "4e64ecf3ffc353f624be56be837b0e5fdc38b174ecc65506e14e77fd9fb724e1",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/frames/led_0005.png": {
+    "bytes": 250003,
+    "sha256": "4e64ecf3ffc353f624be56be837b0e5fdc38b174ecc65506e14e77fd9fb724e1",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/mask.png": {
+    "bytes": 8583,
+    "sha256": "4a87abfc5cb733a9510e3d7c2fb1d09f833f9dd55596f83ffd400e3df9c88bae",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/persistence.json": {
+    "bytes": 1014,
+    "sha256": "3cb3fe5e6382d5ff5dc5da24c12da056733c5b4edd596476d91a60c13844316a"
+  },
+  "aurora-motion/poster_mask.png": {
+    "bytes": 3715,
+    "sha256": "c23fe91477cc36cbd8268f1727f64f09be0b820b5433450288907bdbb648b4a5",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/report.json": {
+    "bytes": 11619,
+    "sha256": "b727d8908e7205e8522937078cbeb5a24da988fb1990fbec1774899c9b9c90c7"
+  },
+  "aurora-motion/scene.blend": {
+    "bytes": 10289180,
+    "sha256": "4df522f32f05abdd89e460a1b8894b60f990db625f1dde4a11e57b1125bc846e"
+  },
+  "aurora-motion/scene.png": {
+    "bytes": 186500,
+    "sha256": "bf9357b5add43d9aef097ee508311f5082128fac27e946b3e52b2e3e3afc87a7",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/simulation.png": {
+    "bytes": 138034,
+    "sha256": "843d4fa0927e74e5b1e7a70e9e320494080e58860460a01eb6cd2d70923cc78f",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "aurora-motion/visual.json": {
+    "bytes": 540,
+    "sha256": "861931014f2e2439190de11c514e9083025935b1e94af93a5a79c8a909474b99"
+  },
+  "aurora-preview.png": {
+    "bytes": 573828,
+    "sha256": "ea8d4183977a279f3460b8d6e8a3abfeb78ca00a6680ad958198f422d52ac1e2",
+    "pixels": [
+      1200,
+      857
+    ]
+  },
+  "background-statistics.json": {
+    "bytes": 196,
+    "sha256": "ae4523c6b407945c89c42a63e6f3243a1dfbc212aa15eca5c705e02c48c20bb4"
+  },
+  "configs/aurora-full.json": {
+    "bytes": 1584,
+    "sha256": "cb82b57af99a8616d34de4db9b68893ca73a683f57acd270512523cc533d4623"
+  },
+  "control-probe/ambient.png": {
+    "bytes": 176601,
+    "sha256": "362ea52c1cec85d621239677164a4b325a1ad280d0fee4afb177e01139c72999",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/background_saturation.png": {
+    "bytes": 188194,
+    "sha256": "75e581b2548e4b3a822a199a089f6190d62d71daaaf7ce11df2dd94cdceee39a",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/baseline.png": {
+    "bytes": 195167,
+    "sha256": "e802d2a67ee6b85d1b6810ef124ecf91b3b647fe9c1ad82657c069dfba0880d3",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/glow.png": {
+    "bytes": 193503,
+    "sha256": "819bfe373a84b48a897c799fc5a61fa363a312fdab1af41f5e8a306078d2e4d1",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/intensity.png": {
+    "bytes": 175963,
+    "sha256": "aeefedfc7500aa8fee96218f175eda1b6154545295adf43fae183ea1d2890fd1",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/report.json": {
+    "bytes": 1158,
+    "sha256": "024654f340594fe2fa65dadffe956207215aab04b98f0c62e666b7031829202c"
+  },
+  "control-probe/shadow_softness.png": {
+    "bytes": 195503,
+    "sha256": "40525796497e4aac668ff19d9d22f53ee1b75bf94ee1f0bffd549f0733f6dfeb",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "control-probe/softness.png": {
+    "bytes": 199067,
+    "sha256": "1804a6f7a6089c4e4b8f85589886fa6dcef92d302a2c598e96262d77b5dc467c",
+    "pixels": [
+      560,
+      400
+    ]
+  },
+  "cool_mist/atlas.png": {
+    "bytes": 787981,
+    "sha256": "8048a79d50272a710fbf25fce185de8aaa519e474e76c1259e51c10b52de52d9",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/calibration.png": {
+    "bytes": 778033,
+    "sha256": "7007b58ccec29fb440a08a9e63d1a1f2e0d442cedf4fcc1ac401d3dd8ed59001",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/config.json": {
+    "bytes": 1588,
+    "sha256": "ee07915c0fca4ef2fe70ff0ee196b3000cc2a8894c2c161ead5f35a444188f51"
+  },
+  "cool_mist/difference.png": {
+    "bytes": 338641,
+    "sha256": "2c4663372a80143492940929330ae0ae4a07af0399ca9af33911a0a8a6ed7ef9",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/led_crop.png": {
+    "bytes": 417540,
+    "sha256": "14741b2156e87e6e92f71c7df5c463e8e3cae85dbbc7c055c3ebfc4f4df14695",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "cool_mist/mask.png": {
+    "bytes": 27246,
+    "sha256": "98cac8299e6a0a1976b3b425811813a57ec33effdaabb1781215e33d5d60bcf4",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "5ee19a7ff9b86159801222842e8bfe3068f2d8ed8ebe06fde2a5a4a891c70e26",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "cool_mist/report.json": {
+    "bytes": 9621,
+    "sha256": "355a1c8b716e54ac9dec47dd53442438c03f1153ae85624bb5d7a5fa4d51e4c7"
+  },
+  "cool_mist/scene.png": {
+    "bytes": 595782,
+    "sha256": "ae28232645eb9af50e214c65129a05ce7dda1a370de4457e5d295571309ae705",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/simulation.png": {
+    "bytes": 443851,
+    "sha256": "963fb45fcc65e01bd8f4964709c50746fbb775ca90e0ccbf24dc9a493417d5e5",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/simulation_rgba.png": {
+    "bytes": 431188,
+    "sha256": "f72bed24db1c1fd698b39e3a10abc2d7e340c2d5a4f5f0bc99242b7308b55e05",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "cool_mist/visual.json": {
+    "bytes": 540,
+    "sha256": "861931014f2e2439190de11c514e9083025935b1e94af93a5a79c8a909474b99"
+  },
+  "embedded_cube/atlas.png": {
+    "bytes": 818514,
+    "sha256": "81b9c45f3dd9511f611b64b307cd43861aed34510e537f0d1343a071e151abed",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/calibration.png": {
+    "bytes": 811512,
+    "sha256": "12d7892de683c998e025e8fe475a1c9388163769d7884dd55c27a719acb1c65c",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/config.json": {
+    "bytes": 1586,
+    "sha256": "0cb6200bc6c2fac81f12f88a4a17c0165660eab1ca64a5c756eb1161af9ba588"
+  },
+  "embedded_cube/difference.png": {
+    "bytes": 365493,
+    "sha256": "7e2756199cadf4c7c0fb32ff9fda7d38c3ecf9e90eaa6776d81dfc34f8d976c3",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/led_crop.png": {
+    "bytes": 422892,
+    "sha256": "60e9ca00b59388e1fa4de8c68a3f3f72bc472c3a00efec4d3bd8b22849036281",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "embedded_cube/mask.png": {
+    "bytes": 27246,
+    "sha256": "b6447228ab43c0debaa831dc82e4ca150ba8b1a06f8dcbe89b6954e0f6556f62",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "a58dd96bb997cd64861647301419de1bc3fe0166fea5515553766cd4d4ded2ac",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "embedded_cube/report.json": {
+    "bytes": 9621,
+    "sha256": "19da2e493eebae0e8eaeb4b33954aea888792d1feb49d28e9eb31ba3f078d56a"
+  },
+  "embedded_cube/scene.png": {
+    "bytes": 610487,
+    "sha256": "079058e35792636dd4bcbc1c7e0b6bcd74f43e75006347d6b979f1842ed679ab",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/simulation.png": {
+    "bytes": 449858,
+    "sha256": "f9ab94a4b9b520dfebc65eea7ef69cb8c46dadd30567cfd06afcfb89c9f6dda7",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/simulation_rgba.png": {
+    "bytes": 437310,
+    "sha256": "201bfe615cc4e3f1a37daf0001044c43dbbdb29ce343e63649e567fbe2cc9268",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "embedded_cube/visual.json": {
+    "bytes": 541,
+    "sha256": "8797cdf49d8be870cbcfa121bb5776b73b07fb6504076188ee4ba495476574bc"
+  },
+  "fixtures/dark-portrait.png": {
+    "bytes": 21169,
+    "sha256": "c9d214abe36b54135642c5c08cd28d022cc27a1abba19632405ce2089ebaa441",
+    "pixels": [
+      720,
+      1080
+    ]
+  },
+  "fixtures/light-landscape.png": {
+    "bytes": 20681,
+    "sha256": "2e830dd610c9bb73f5eacf4b26051495b6ecea30bfc5d2ff45f258979d3cd725",
+    "pixels": [
+      1280,
+      720
+    ]
+  },
+  "frontend-build.txt": {
+    "bytes": 472,
+    "sha256": "ca0a86199df1574a4062b712abc0e264c6545f9e30250b8ca66f5cf455196395"
+  },
+  "glass_layers/atlas.png": {
+    "bytes": 809029,
+    "sha256": "e468b5271b712a1e4449f7c10bbefbb79a2a2811751f21d72735bb7c5232b526",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/calibration.png": {
+    "bytes": 800627,
+    "sha256": "4c9ed5de15ab3056775f493d58ebadd6aa2fa63a6889bb43791d1ad623099935",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/config.json": {
+    "bytes": 1585,
+    "sha256": "3dcac15d5ef7d81f5107a9e51b9a1a2d3d31a2a1e3e374ec201217a4a7a73d9a"
+  },
+  "glass_layers/difference.png": {
+    "bytes": 349796,
+    "sha256": "3ba68879f0b2e62f140027677e6683bb37f0b18ca6d643c6337e203be307d093",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/led_crop.png": {
+    "bytes": 425237,
+    "sha256": "e8c4c8a75b26af0d1b49db7dc12ab0edafd30458c0afd731ec89bfaf4897b91f",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "glass_layers/mask.png": {
+    "bytes": 27246,
+    "sha256": "736b047fbf2c71558efcb6feedb87572c7671ab04766107051c01509e6772e69",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "6e45089f48456a1358287b54bde7301ef6e36c44604e6b27764a113a96ce76e4",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "glass_layers/report.json": {
+    "bytes": 9619,
+    "sha256": "c5125717c131e80d24c1834677b6512025fc4c296ca4f5a6582b85bb68b7b508"
+  },
+  "glass_layers/scene.png": {
+    "bytes": 605581,
+    "sha256": "a646c53918220818fd796d313dfa3a38adb86bb19d95810095e72a2c2adf136f",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/simulation.png": {
+    "bytes": 452604,
+    "sha256": "aa2b75ba27bcec2e19a349145aca9ab5f046aa557f658ca3c537bf1fc5ad7dfa",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/simulation_rgba.png": {
+    "bytes": 439534,
+    "sha256": "5bae98000da6dd53df7b6516d0a0f2cc73668e1559a57cac602de03152423b6f",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "glass_layers/visual.json": {
+    "bytes": 540,
+    "sha256": "18a462f64dd83e48a8287bf00cb62d587d3506ec473c74a184b88d32003439cd"
+  },
+  "legacy-cinema/atlas.png": {
+    "bytes": 265489,
+    "sha256": "0c39ea9002368eef1258a52b47f822da2a6565890824bc721a2ba1d624b90158",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/calibration.png": {
+    "bytes": 261665,
+    "sha256": "39321528af6a0c818935799f7a5f5a79ea000f0c4b3b7e586a94115ff3cd1d60",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/config.json": {
+    "bytes": 1580,
+    "sha256": "cfdfd4b7029a4b50859b448898ef5a8a2f14f9e56de892b53130822bbdfa76a9"
+  },
+  "legacy-cinema/difference.png": {
+    "bytes": 128462,
+    "sha256": "e34c67697cbc5b6f4cba114d3218c106f298c453a3317151510f8291e514792a",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/mask.png": {
+    "bytes": 8583,
+    "sha256": "fd06fef5db9c67eab394bd7566a26ddeda684602e22f3273336da1474b15a893",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/poster_mask.png": {
+    "bytes": 3503,
+    "sha256": "7ab9fb4ba5a46c0ea7d5b03bd73df50fa439503b1abe7d662d346563128dc306",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/report.json": {
+    "bytes": 8207,
+    "sha256": "c640664a1598a48e06e87caff8467d831327802ae76901d2e11d1c02dceac2e9"
+  },
+  "legacy-cinema/scene.png": {
+    "bytes": 159018,
+    "sha256": "f85d65cce968da13d8a8c18b6a1dac3024bf3935c3eeaa826b0754eaaf040c62",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/simulation.png": {
+    "bytes": 142370,
+    "sha256": "0d4d41160c32c0e820e8dff455332f4fcfacd26198959847fb3d4170fd433238",
+    "pixels": [
+      546,
+      390
+    ]
+  },
+  "legacy-cinema/visual.json": {
+    "bytes": 535,
+    "sha256": "133bf65a02b461e535943ed31c4f0505a63535e0575adaf285ebd0b38b352100"
+  },
+  "legacy-preservation.json": {
+    "bytes": 229,
+    "sha256": "cb6a6abc07841cfd651677e8406b2d55f53b386d065347c001e03ee2a844d8d8"
+  },
+  "motion-api/animation.json": {
+    "bytes": 6096,
+    "sha256": "6e933b9f36010d1d602eff7dc46bb1cb46284fa814c5bc52c840cf179dcf76f5"
+  },
+  "motion-api/config.json": {
+    "bytes": 1582,
+    "sha256": "db1195150a3496a4cb6c33b8544c3471bf6cb9457eaf5a9a434bad4435289d2a"
+  },
+  "motion-api/job.json": {
+    "bytes": 18967,
+    "sha256": "fb82236cf8b8a66806c7389ee0afd6d9370da626c6768c12c89d8598ff77af2d"
+  },
+  "motion-api/led.mp4": {
+    "bytes": 55815,
+    "sha256": "d42abb2d14236a091ebc31f489867fd8e0432c689e1da3d006fe15a5e1e3e8d6"
+  },
+  "motion-api/mapped-motion-frames.png": {
+    "bytes": 845973,
+    "sha256": "eb0835935d8d295e6e2feb18b5d0e0ff9ef89a04f6c02b1eaebe0679b67f14dc",
+    "pixels": [
+      1638,
+      780
+    ]
+  },
+  "motion-api/persistence.json": {
+    "bytes": 1184,
+    "sha256": "f2b0ed9afe28c1719fc56e67dce6c4ebdac9bbfff8f7b81b58dca554b9bba2bf"
+  },
+  "motion-api/preview.json": {
+    "bytes": 311,
+    "sha256": "fff4432629706552155a57a5222ca2e449f7ce5690a2f4fbebdd31247e9d8090"
+  },
+  "motion-api/report.json": {
+    "bytes": 16021,
+    "sha256": "dc4e91c61891ab77b97e11b786faef15d1c8b5031a1a428f43c3df8794b3f891"
+  },
+  "motion-api/scene.blend": {
+    "bytes": 10542460,
+    "sha256": "46fbb417198c887ed7725f83dd7d5521a6946388bb3d9719666bf82fbb5152f2"
+  },
+  "motion-api/video-probe.json": {
+    "bytes": 2891,
+    "sha256": "26922ed530a9fccf80de364cea3515dbf9fcabf4fc58a1a8ffc023deaf2922c2"
+  },
+  "npm-audit.json": {
+    "bytes": 361,
+    "sha256": "09becf52b8c9d193fe9692fcb0d576f0d7f66297ea85ebfefff0babc13b3d613"
+  },
+  "palette-contact-sheet.png": {
+    "bytes": 176579,
+    "sha256": "f6a4f9f6373a6f4fcebdba0e91abac267397fc5d70f95f48e01b7fffa5b95d3c",
+    "pixels": [
+      1200,
+      310
+    ]
+  },
+  "render-verification.json": {
+    "bytes": 1573,
+    "sha256": "9cdb0831f92bbf4fb1f6d6e17fb87a134fecd10933d6430684fcc534cbcc1ae7"
+  },
+  "soft_depth/atlas.png": {
+    "bytes": 803073,
+    "sha256": "4a85dcd1eff4a6eb8bba2efccd7da20b4fbae4bb288de22af17ced4cd4aa3843",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/calibration.png": {
+    "bytes": 792784,
+    "sha256": "78511d4eb85309234f504644eb538397b1ed473fa226332a2820a3a6fc7b7bc9",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/config.json": {
+    "bytes": 1583,
+    "sha256": "65fdea0ab479933022683e91bc68b9ba948886816964c9b81187754bf8461859"
+  },
+  "soft_depth/difference.png": {
+    "bytes": 338093,
+    "sha256": "5d7a26fe09d10dfc533c5fe225baeacf501cb9de1017c3550414414a8784274f",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/led_crop.png": {
+    "bytes": 425589,
+    "sha256": "32f2efc67394dfecc63cb5d67017325c1ac0bcecb42f92d58abf5924c2acf042",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "soft_depth/mask.png": {
+    "bytes": 27246,
+    "sha256": "c486a595db343e287bff64c545272c96db419772e27acb1f9e9496426a382a7c",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "59c3865189f008ece06c938070d521fb708bf4ddc3c69e6096beed0518ced426",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "soft_depth/report.json": {
+    "bytes": 9613,
+    "sha256": "cd5d21cbc26a3e8e5ade3da7fe3af1b1578e9c83dbe67962fe84610e65de2f06"
+  },
+  "soft_depth/scene.png": {
+    "bytes": 610367,
+    "sha256": "cf43cdfcb9e3dc93ee94d92c9a793421f2eb8defe1d7bf9bbb2086158b572ac6",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/simulation.png": {
+    "bytes": 453649,
+    "sha256": "a84b6d4d2844ddc1133b11ab795c5837e120112b431bddc14b1d1c329528c09f",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/simulation_rgba.png": {
+    "bytes": 439881,
+    "sha256": "8121cfa3638d9766038262f7f7845e05a2d6dc4475db6ee24ac2b6954770dda6",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "soft_depth/visual.json": {
+    "bytes": 538,
+    "sha256": "1635cad6c9f8b73a9f8488edf71a28d66d57a1b228bf9af4bcc6e294a625e0a7"
+  },
+  "test-results.txt": {
+    "bytes": 180,
+    "sha256": "b8abf9972b6bfd63322b523614b392c4af8b81f4e186976d86bed440bcb904a0"
+  },
+  "ui-alpha.png": {
+    "bytes": 275584,
+    "sha256": "268dcf4095912adb9d37bf64151476b330012213b99bb1afe3c18c45c1d9b5bc",
+    "pixels": [
+      1600,
+      1000
+    ]
+  },
+  "ui-check.json": {
+    "bytes": 409,
+    "sha256": "a35b4930c46d5a604491322f3d3ded54b57b212a444e7723eb7e9ab20f53527f"
+  },
+  "ui-desktop.png": {
+    "bytes": 146389,
+    "sha256": "e9511b815de3c6da253bde9d76d7c24fd8567277e25667067103f95e33d1a24e",
+    "pixels": [
+      1600,
+      1000
+    ]
+  },
+  "ui-mobile.png": {
+    "bytes": 252937,
+    "sha256": "7909d0c6cef619a88abdec09685d7d0d6e0ca9124754601a08d21a4158519c0e",
+    "pixels": [
+      390,
+      4271
+    ]
+  },
+  "ui-orbit-before.png": {
+    "bytes": 388259,
+    "sha256": "52713492d6733b9153a5e91a76edb4e86335d012e8329c983d583825803fe0cf",
+    "pixels": [
+      942,
+      489
+    ]
+  },
+  "ui-orbit-reset.png": {
+    "bytes": 388229,
+    "sha256": "7472828f1bb0f1ca5806c142ca956273dc53f361fc21bf978670eb41f45b393f",
+    "pixels": [
+      942,
+      489
+    ]
+  },
+  "ui-orbit.png": {
+    "bytes": 531397,
+    "sha256": "c4031ead9313801ffced5450e127ac454c120762b00247fd05e7bfe84f6049f7",
+    "pixels": [
+      1600,
+      1000
+    ]
+  },
+  "ui-photo-synthetic.png": {
+    "bytes": 216726,
+    "sha256": "bbe4c1918d217e35372f310d82688ffc3246f10f7bb6011960c6853be190315b",
+    "pixels": [
+      1600,
+      1000
+    ]
+  },
+  "v2-v3-comparison.png": {
+    "bytes": 1117033,
+    "sha256": "bcd26a8ace020efaef0d315db317e1b3da79979bba9b670e6e461b5e4d24b397",
+    "pixels": [
+      1800,
+      950
+    ]
+  },
+  "visual-review.md": {
+    "bytes": 2788,
+    "sha256": "4cbd789207b03d85394adf483f650fac33423367c0f3565e2001f16beb6aeeb6"
+  },
+  "warm_haze/atlas.png": {
+    "bytes": 780836,
+    "sha256": "2298a7d2431a0a44e3529e8cca617f1f74b7a5ecc26f15e5286655bd747a8e02",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/calibration.png": {
+    "bytes": 771136,
+    "sha256": "80874f72f8510a0991e30046ae7eefaea9c5f6c50d7fb41b840a370529d81b27",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/config.json": {
+    "bytes": 1588,
+    "sha256": "7579e4abc2101509cb5080d64bb7832fa66cce9c06bb7f3b396c1a8f8f3b4f9f"
+  },
+  "warm_haze/difference.png": {
+    "bytes": 335640,
+    "sha256": "424e10ceb4e9e1056373b74d7699cd0d17fc9b5160ed2943e5bf53f4ce3849ab",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/led_crop.png": {
+    "bytes": 415174,
+    "sha256": "cba336282f72cac50e3f6841dcea959c6a52eceab1069f43e37fdf7561b8dc1d",
+    "pixels": [
+      733,
+      748
+    ]
+  },
+  "warm_haze/mask.png": {
+    "bytes": 27246,
+    "sha256": "3fe5090fca744abdddde6d2cf29aac2549698e5291bd69fa73b4ac8ab1c54d73",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/poster_mask.png": {
+    "bytes": 12517,
+    "sha256": "ae4d4afbc61b0bfc70977824e9b4cb929454235d7c1541db19feceeae093507a",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/preview.json": {
+    "bytes": 312,
+    "sha256": "ae0fe167e6ef49429eea26affada8a3929334bb16f145b05652bbcfcabf2e87e"
+  },
+  "warm_haze/report.json": {
+    "bytes": 9623,
+    "sha256": "63f07c658c625c7e1479e87bf7fc09ffdf3f65d2cdbac1791316fd5f751e8403"
+  },
+  "warm_haze/scene.png": {
+    "bytes": 590777,
+    "sha256": "1e53575cf5e8c586994243a3427c09e5259fa5eda04788559413cf9f624a1122",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/simulation.png": {
+    "bytes": 442861,
+    "sha256": "ed92ed33735b68b5c52dccc564d6eda60f16b9dc0aadfe3fd452ae9725311293",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/simulation_rgba.png": {
+    "bytes": 429080,
+    "sha256": "40461544b26a817611a0c7f92f69f049bba40cef2ffdba39ffd1d8362cdd13ed",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "warm_haze/visual.json": {
+    "bytes": 540,
+    "sha256": "861931014f2e2439190de11c514e9083025935b1e94af93a5a79c8a909474b99"
+  }
+}

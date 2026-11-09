@@ -1,0 +1,18 @@
+{
+  "default": "极光悬浮\n柔和空间",
+  "creativeHidesScreen": true,
+  "palette": "Blue Hour · 灰蓝晨雾",
+  "legacy": true,
+  "proShowsScreen": true,
+  "saved": true,
+  "reset": true,
+  "alpha": true,
+  "crop": true,
+  "orbitChanges": true,
+  "resetMeanPixelDelta": 0.050577677047920495,
+  "resetRestores": true,
+  "photoLabel": true,
+  "photoOverlay": true,
+  "noOverflow": true,
+  "errors": []
+}
