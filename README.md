@@ -6,6 +6,16 @@
 
 默认模板 **Cinema Portal · 电影级空间画框**：真实墙体、顶面、地台与分层金属画框；另外提供悬浮展台与玻璃展柜。可编辑 `.blend`、同源 GLB、LED 展开、回贴模拟与报告均可下载。
 
+## 真实活动海报实例：计启秋韵
+
+以下为旧上传任务中找到的4535×2551原海报，经V2实际生成的最佳观察点模拟；全部保留原图内容。
+
+![计启秋韵 · Cinema Portal 实际回贴预览](examples/v2/jiqi-qiuyun/preview.png)
+
+[原始海报](examples/v2/jiqi-qiuyun/original.png) · [V1/V2真实对比](examples/v2/jiqi-qiuyun/comparison-v1-v2.png) · [4368×3120 LED展开](examples/v2/jiqi-qiuyun/atlas.png) · [全尺寸回贴](examples/v2/jiqi-qiuyun/simulation.png) · [数值验证报告](examples/v2/jiqi-qiuyun/report.json) · [美术复核](examples/v2/visual-review.md)
+
+完整图片、配置、遮罩、差异图与文件校验清单见 [实例目录](examples/v2/jiqi-qiuyun/)。报告基于未校准演示参数，不能代替现场验收。
+
 ## 安装与启动
 
 已实测 macOS Apple Silicon、Python 3.9.6、Blender **3.4.1** EEVEE、Node 20.20.2、FFmpeg 8.1.1。Blender 其他大版本尚未兼容验证（EEVEE/PBR API 有差异）。
@@ -77,9 +87,11 @@ BASE_URL=http://127.0.0.1:8000 npm --prefix frontend run test:ui
   --config configs/bupt-demo.json --poster examples/v2/poster-16x9.png --output outputs/manual
 ```
 
-测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。收尾补查旧上传任务后找到4535×2551的「计启秋韵」图，并另行完成正式输出验证，记录为 `examples/v2/user-poster-validation.json`；真实海报生成物保留在本地 `outputs/28f54a4536b141d4a2143192f48b4353/`。现场照片仍未取得。
+测试海报 `poster-16x9.png` 是1536×864、紫金暖橙的自制光栅素材，**不是用户的「计启秋韵」原稿**。收尾补查旧上传任务后找到4535×2551的「计启秋韵」图，并另行完成正式输出验证，记录为 `examples/v2/user-poster-validation.json`；真实海报的原图、示例渲染和报告已上传至 [`examples/v2/jiqi-qiuyun/`](examples/v2/jiqi-qiuyun/)，可编辑工程仍在本地 `outputs/28f54a4536b141d4a2143192f48b4353/`。现场照片仍未取得。
 
 ## 交付文件
+
+- [`examples/v2/jiqi-qiuyun/`](examples/v2/jiqi-qiuyun/)：真实活动海报的原图、展开、回贴、V1/V2对比、差异/遮罩与报告。
 
 - [`examples/v2/cinema-full/`](examples/v2/cinema-full/)：4368×3120 正式展开、最佳点回贴、差异/遮罩、打包 Blender、GLB、报告。
 - [`examples/v2/v1-v2-comparison.png`](examples/v2/v1-v2-comparison.png)：同一张16:9海报对比。

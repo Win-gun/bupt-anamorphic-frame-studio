@@ -28,5 +28,5 @@
   "poster_aspect_preserved": true,
   "opening_safe": true,
   "visual_review": "Actual image opened: title, college mark, figures and edges preserved; gold frame and aubergine stage visible",
-  "assets_location": "Local outputs directory; not part of committed test-fixture assets"
+  "assets_location": "examples/v2/jiqi-qiuyun/"
 }

@@ -1,0 +1,106 @@
+{
+  "atlas.png": {
+    "bytes": 9108173,
+    "sha256": "fda6e78d28b2005d500064185b6c36a1d160219edbd996fe5966bca7e168ee3c",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "calibration.png": {
+    "bytes": 9128604,
+    "sha256": "12758c491f94840269eff9a9db6174c6a535724b6f62dccfe9e860667e12595e",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "comparison-v1-v2.png": {
+    "bytes": 521389,
+    "sha256": "39b876b58a42b02c1df19efa3ba0688ccab14a1661ce09761aac2750ea6616b7",
+    "pixels": [
+      1920,
+      750
+    ]
+  },
+  "config.json": {
+    "bytes": 932,
+    "sha256": "4fa4569e94abb5a3c79c01ae15bc716975312df720a294f03343a182e54c9419"
+  },
+  "difference.png": {
+    "bytes": 4069878,
+    "sha256": "c10d3a0abc8d5426c4cf9cb15ffa234fc59afd4acb84e9f5ab223d01d5a4f98f",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "mask.png": {
+    "bytes": 249391,
+    "sha256": "00b6ec1ad1a27675abb23e5340f3c46577194bc16a85918c023c3a487224a7d1",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "original.png": {
+    "bytes": 8021113,
+    "sha256": "2e2508328ccbc61aeb02a78058644bd248a9f40a2f1956e361260905aa140094",
+    "pixels": [
+      4535,
+      2551
+    ]
+  },
+  "poster_mask.png": {
+    "bytes": 189071,
+    "sha256": "3035908eb0a955da1f38d4ab1676b03a4e76141252251d26716d3df56a69418e",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "preview.png": {
+    "bytes": 520557,
+    "sha256": "d880f38449bd3576f5c900deab39bcd682776736b2830218ee329991b8a56ad2",
+    "pixels": [
+      1200,
+      857
+    ]
+  },
+  "report.json": {
+    "bytes": 7506,
+    "sha256": "3d1e77e40e2015a5d7e57078ed2b29fcc456dcdcb8f27bbd642e36df3cb829ab"
+  },
+  "scene.png": {
+    "bytes": 5427306,
+    "sha256": "760af95ec5ec491f4600693d743e6c0313f60e5040170d9f415893107ba4d37c",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "simulation.png": {
+    "bytes": 4956067,
+    "sha256": "f535c4a98c025173c97d3e81f518256ab5c581e1be0631cd50c9346dc72ac83b",
+    "pixels": [
+      4368,
+      3120
+    ]
+  },
+  "v1-report.json": {
+    "bytes": 2951,
+    "sha256": "db393fc2d1a9fc86f99a739f37355eb3910922176206501c5a39f5cb0a88ac3e"
+  },
+  "v1-simulation.png": {
+    "bytes": 216170,
+    "sha256": "940b926859fdd6e5680621a41e7dd77017f048624a2564b7b25b835ed008847e",
+    "pixels": [
+      1092,
+      780
+    ]
+  },
+  "visual.json": {
+    "bytes": 433,
+    "sha256": "85c64bf046034598c4aad28075a41ea98a612baab7e475a30aad8202a5274c15"
+  }
+}
