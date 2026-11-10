@@ -102,6 +102,10 @@ type Job = {
   id: string;
   status: string;
   progress: number;
+  stage?: string;
+  detail?: string;
+  elapsed_seconds?: number;
+  last_activity_age_s?: number;
   error?: string;
   outputs?: Record<string, string>;
   metrics?: Record<string, unknown>;
@@ -1263,6 +1267,13 @@ function App() {
               {job
                 ? `${({ queued: "排队中", running: "渲染中", completed: "已完成", done: "已完成", failed: "失败", error: "错误", validation_failed: "验证未通过" } as Record<string, string>)[job.status] || job.status} · ${Math.round(job.progress <= 1 ? job.progress * 100 : job.progress)}%`
                 : "准备就绪"}{" "}
+              {job?.status === "running" && (
+                <span aria-live="polite">
+                  {" · "}{job.stage}{" · "}{job.detail}
+                  {job.elapsed_seconds !== undefined && ` · 已用时 ${Math.floor(job.elapsed_seconds / 60)}分${job.elapsed_seconds % 60}秒`}
+                  {" · 阶段估算"}
+                </span>
+              )}
               {job?.error && <span className="error"> · {job.error}</span>}
             </div>
             <span>

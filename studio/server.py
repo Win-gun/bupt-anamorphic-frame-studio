@@ -6,6 +6,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor
 from uuid import uuid4
 
@@ -15,6 +16,7 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import ValidationError
 from .config import Config, PRESET
 from .previews import make_previews
+from .progress import render_progress
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUTS = ROOT / "outputs"
@@ -52,7 +54,13 @@ def update(identifier, **changes):
 def run_job(identifier):
     directory = OUTPUTS / identifier
     try:
-        update(identifier, status="running", progress=10)
+        update(
+            identifier,
+            status="running",
+            progress=10,
+            started_at=time.time(),
+            stage="启动 Blender",
+        )
         command = [
             blender_binary(),
             "-b",
@@ -77,7 +85,7 @@ def run_job(identifier):
                 check=True,
                 timeout=3600,
             )
-        update(identifier, progress=90)
+        update(identifier, progress=90, stage="整理输出", detail="生成透明和裁切预览")
         required = {
             "original": "original.png",
             "scene": "scene.png",
@@ -101,6 +109,7 @@ def run_job(identifier):
         report = json.loads((directory / "report.json").read_text())
         config = Config.model_validate_json((directory / "config.json").read_text())
         if config.render.video or config.render.animation:
+            update(identifier, progress=92, stage="视频编码", detail="FFmpeg 编码及输出检查")
             source = (
                 [
                     "-framerate",
@@ -197,6 +206,8 @@ def run_job(identifier):
             identifier,
             status="completed" if passed else "validation_failed",
             progress=100,
+            stage="已完成" if passed else "验证未通过",
+            finished_at=time.time(),
             outputs=urls,
             metrics=report,
             error=None if passed else "回贴验证未通过，请检查报告和差异图",
@@ -279,7 +290,8 @@ def get_job(identifier: str):
     with lock:
         if identifier not in jobs:
             raise HTTPException(404, "任务不存在")
-        return dict(jobs[identifier])
+        snapshot = dict(jobs[identifier])
+    return render_progress(OUTPUTS / identifier, snapshot)
 
 
 @app.post("/api/jobs", status_code=202)

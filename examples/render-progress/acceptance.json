@@ -1,0 +1,246 @@
+{
+  "passed": true,
+  "job": "ba4cfbf7894e474c9723fba5ea7b392e",
+  "observed": [
+    {
+      "status": "running",
+      "progress": 10,
+      "stage": "场景渲染",
+      "detail": "正在计算，请勿重复提交",
+      "elapsed_seconds": 0
+    },
+    {
+      "status": "running",
+      "progress": 10,
+      "stage": "场景渲染",
+      "detail": "正在计算，请勿重复提交",
+      "elapsed_seconds": 1
+    },
+    {
+      "status": "running",
+      "progress": 10,
+      "stage": "场景渲染",
+      "detail": "正在计算，请勿重复提交",
+      "elapsed_seconds": 2
+    },
+    {
+      "status": "running",
+      "progress": 10.0,
+      "stage": "场景渲染",
+      "detail": "当前采样 0/64",
+      "elapsed_seconds": 2
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 3
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 4
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 5
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 6
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 7
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 8
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 9
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 10
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 11
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 12
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 13
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 14
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 15
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 16
+    },
+    {
+      "status": "running",
+      "progress": 10.6,
+      "stage": "场景渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 17
+    },
+    {
+      "status": "running",
+      "progress": 48,
+      "stage": "场景渲染",
+      "detail": "当前采样 64/64",
+      "elapsed_seconds": 18
+    },
+    {
+      "status": "running",
+      "progress": 48.1,
+      "stage": "海报覆盖验证",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 18
+    },
+    {
+      "status": "running",
+      "progress": 48.1,
+      "stage": "海报覆盖验证",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 19
+    },
+    {
+      "status": "running",
+      "progress": 48.1,
+      "stage": "海报覆盖验证",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 20
+    },
+    {
+      "status": "running",
+      "progress": 55,
+      "stage": "三段曲面反向投影",
+      "detail": "正在计算，请勿重复提交",
+      "elapsed_seconds": 20
+    },
+    {
+      "status": "running",
+      "progress": 63.2,
+      "stage": "LED 回贴渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 20
+    },
+    {
+      "status": "running",
+      "progress": 63.2,
+      "stage": "LED 回贴渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 21
+    },
+    {
+      "status": "running",
+      "progress": 63.2,
+      "stage": "LED 回贴渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 22
+    },
+    {
+      "status": "running",
+      "progress": 63.2,
+      "stage": "LED 回贴渲染",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 23
+    },
+    {
+      "status": "running",
+      "progress": 77.1,
+      "stage": "有效屏幕遮罩",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 23
+    },
+    {
+      "status": "running",
+      "progress": 77.1,
+      "stage": "有效屏幕遮罩",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 24
+    },
+    {
+      "status": "running",
+      "progress": 77.1,
+      "stage": "有效屏幕遮罩",
+      "detail": "当前采样 1/64",
+      "elapsed_seconds": 25
+    },
+    {
+      "status": "running",
+      "progress": 89,
+      "stage": "验证与工程保存",
+      "detail": "计算误差并打包 Blender 工程",
+      "elapsed_seconds": 25
+    },
+    {
+      "status": "running",
+      "progress": 89,
+      "stage": "验证与工程保存",
+      "detail": "计算误差并打包 Blender 工程",
+      "elapsed_seconds": 26
+    },
+    {
+      "status": "completed",
+      "progress": 100,
+      "stage": "已完成",
+      "detail": "生成透明和裁切预览",
+      "elapsed_seconds": null
+    }
+  ],
+  "render_elapsed_seconds": 23.98096513748169,
+  "coverage": 1.0
+}
