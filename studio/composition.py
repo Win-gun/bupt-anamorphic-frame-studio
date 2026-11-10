@@ -218,6 +218,7 @@ def solve_composition(config, poster_size, resolution=256):
             "embedded_cube",
             "embedded_cube_architecture",
             "autumn_resonance_cube",
+            "autumn_symphony",
         )
         and inward_extent >= frame.get("portal_depth_m", 3) - 0.1
     ):

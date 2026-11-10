@@ -6,6 +6,16 @@
 
 [三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
 
+## 新增：Autumn Symphony · 秋韵枫光奏鸣
+
+针对「计启秋韵」原图定制的独立三维样式 `autumn_symphony`：深紫弯折建筑翼面、宽幅悬浮曲面、铜色旋律曲带，以及九片带真实叶脉的曲面枫叶。海报在最佳观察点下放大，原始纹理、文字、Logo完整保留。
+
+![灰舱与枫光奏鸣 · 同一观察点真实回贴对比](examples/autumn-symphony/before-after.png)
+
+[完整场景](examples/autumn-symphony/final/scene.png) · [最佳点模拟](examples/autumn-symphony/final/simulation.png) · [4368×3120 LED画布](examples/autumn-symphony/final/atlas.png) · [可编辑Blender](examples/autumn-symphony/final/scene.blend) · [枫叶建模细节](examples/autumn-symphony/maple-detail.png) · [验收报告](examples/autumn-symphony/acceptance.md)
+
+界面选择“秋韵 · 枫光奏鸣”，或导入 [`configs/autumn-symphony.json`](configs/autumn-symphony.json)。支持图片大小、光照强度、柔和度与环境光；高质量使用Cycles，快速构图使用Eevee。此前全部样式和Aurora默认保留。
+
 ## 新增：Autumn Resonance Cube · 秋韵光影舱
 
 独立专属美术预设 `autumn_resonance_cube`，复用楼体开孔、五面实体内舱和北邮曲面映射。新增共享空间坐标下的矿物微水泥节点材质、宽柔渐变、六组真实 Area 灯及后壁软影；原图保持完整 UV 和色彩。Aurora 仍为启动默认，全部旧模板保留。

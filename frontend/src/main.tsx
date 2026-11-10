@@ -341,6 +341,7 @@ function App() {
       </div>
     );
   const isAutumn = c.frame.template === "autumn_resonance_cube";
+  const isSymphony = c.frame.template === "autumn_symphony";
   const isArchitecture = c.frame.template === "embedded_cube_architecture";
   const isLegacy = ["cinema", "deep", "float", "glass"].includes(
     c.frame.template,
@@ -390,6 +391,7 @@ function App() {
           </div>
           <div className="templates">
             {[
+              ["autumn_symphony", "秋韵 · 枫光奏鸣", "枫叶雕塑 · 旋律曲面"],
               ["autumn_resonance_cube", "秋韵光影舱", "Autumn Resonance Cube"],
               ["aurora_float", "极光悬浮", "柔和空间"],
               ["soft_depth", "柔光纵深", "轻柔层次"],
@@ -400,14 +402,38 @@ function App() {
                 "Embedded Cube · 建筑切口",
               ],
               ["embedded_cube", "嵌入立方（原版）", "保留 V3 轻型版本"],
-            ].map(([id, name, desc], i) => (
+            ].map(([id, name, desc]) => (
               <button
                 key={id}
                 className={
                   "template " + (c.frame.template === id ? "selected" : "")
                 }
                 onClick={() => {
-                  if (id === "autumn_resonance_cube")
+                  if (id === "autumn_symphony")
+                    setC({
+                      ...c,
+                      frame: {
+                        ...c.frame,
+                        template: id,
+                        layout: "auto_fit",
+                        position: [0, 0, 0],
+                        scale: 0.88,
+                        virtual_depth_m: 0,
+                      },
+                      render: {
+                        ...c.render,
+                        animation: false,
+                        video: false,
+                        light_sweep: false,
+                      },
+                      lighting: {
+                        ...c.lighting,
+                        intensity: 1,
+                        softness: 0.8,
+                        ambient: 0.5,
+                      },
+                    });
+                  else if (id === "autumn_resonance_cube")
                     setC({
                       ...c,
                       frame: {
@@ -439,7 +465,7 @@ function App() {
                   else set("frame", "template", id);
                 }}
               >
-                <span className={"frameicon f" + (id === "autumn_resonance_cube" ? 3 : i - 1)}>
+                <span className={"frameicon f" + ({autumn_symphony: 2, autumn_resonance_cube: 3, aurora_float: 0, soft_depth: 1, glass_layers: 2, embedded_cube_architecture: 3, embedded_cube: 4} as Record<string, number>)[id]}>
                   <i />
                 </span>
                 <span>
@@ -470,6 +496,11 @@ function App() {
               ))}
             </div>
           </details>
+          {isSymphony && (
+            <p className="muted">
+              专为「计启秋韵」设计：立体枫叶、流动曲面与紫橙柔光延展原画意境。海报使用完整原始纹理。快速构图使用 Eevee，高质量输出使用 Cycles。
+            </p>
+          )}
           {c.frame.template === "embedded_cube_architecture" && (
             <details open>
               <summary>Embedded Cube · 建筑空间</summary>
@@ -524,7 +555,7 @@ function App() {
               )}
             </details>
           )}
-          {!isLegacy && !isArchitecture && !isAutumn && (
+          {!isLegacy && !isArchitecture && !isAutumn && !isSymphony && (
             <>
               <div className="sectionlabel">
                 <span>空间色彩</span>
@@ -667,7 +698,7 @@ function App() {
               )}
             </>
           )}
-          {professional && !isLegacy && !isArchitecture && !isAutumn && (
+          {professional && !isLegacy && !isArchitecture && !isAutumn && !isSymphony && (
             <details>
               <summary>图片布局 / LAYOUT</summary>
               <label className="field">
@@ -812,7 +843,7 @@ function App() {
               )}
               {!isLegacy && !isAutumn && (
                 <>
-                  {!isArchitecture && (
+                  {!isArchitecture && !isSymphony && (
                     <>
                       {n(
                         "悬浮距离 m",
@@ -837,7 +868,7 @@ function App() {
                       ["shadow_softness", "阴影柔和度"],
                     ] as const
                   )
-                    .filter(([k]) => !isArchitecture || k !== "glow")
+                    .filter(([k]) => (!isArchitecture || k !== "glow") && (!isSymphony || ["intensity", "softness", "ambient"].includes(k)))
                     .map(([k, label]) =>
                       n(
                         label,

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "blender": "3.4.1",
+  "engine": "CYCLES",
+  "poster_flat_depth_range_m": 2.0031167291545415e-07,
+  "poster_complete_uv": true,
+  "packed_original_png_sha256": "2e2508328ccbc61aeb02a78058644bd248a9f40a2f1956e361260905aa140094",
+  "packed_png_identical_to_original": true,
+  "sculpted_maple_leaves": 9,
+  "curved_architectural_wings": 2,
+  "wings_max_front_depth_m": {
+    "Sculpted rear architectural wing -1": -0.9731385516747315,
+    "Sculpted rear architectural wing 1": -0.9731383847483375
+  },
+  "actual_mesh_count": 66
+}

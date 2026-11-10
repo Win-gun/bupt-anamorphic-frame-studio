@@ -1,0 +1,21 @@
+{
+  "method": "Actual unlit group-ID render of saved geometry intersected with independent physical LED mask; original poster retained as black depth occluder",
+  "groups": {
+    "maple": {
+      "visible_in_frustum": 5085,
+      "visible_on_led": 4351,
+      "led_fraction": 0.855653883972468
+    },
+    "sculpture": {
+      "visible_in_frustum": 63158,
+      "visible_on_led": 43647,
+      "led_fraction": 0.6910763482060863
+    },
+    "wing": {
+      "visible_in_frustum": 59772,
+      "visible_on_led": 42822,
+      "led_fraction": 0.7164224051395303
+    }
+  },
+  "all_groups_visible_on_led": true
+}

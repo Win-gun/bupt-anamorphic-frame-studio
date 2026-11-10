@@ -1,0 +1,89 @@
+{
+  "new_template": "autumn_symphony",
+  "default_template_preserved": "aurora_float",
+  "baseline_commit": "0d0e2078639ca52efeaeca20d9db2911d2251fc7",
+  "reference_checks": {
+    "user_image_1_matches_previous_atlas_pixels": true,
+    "user_image_2_matches_repo_original_pixels": true,
+    "poster_pixels": [
+      4535,
+      2551
+    ]
+  },
+  "formal": {
+    "atlas_pixels": [
+      4368,
+      3120
+    ],
+    "engine": "Blender 3.4.1 CYCLES",
+    "samples": 64,
+    "metrics": {
+      "mae_srgb": 0.0024929242208600044,
+      "full_mask_mae_srgb": 0.0024933801032602787,
+      "interior_mae_srgb": 0.0024929242208600044,
+      "foreground_mae_srgb": 0.004435504321008921,
+      "foreground_coverage": 1.0,
+      "foreground_pixels": 3139810,
+      "rmse_srgb": 0.010372897350390544,
+      "psnr_db": 39.68199839673954,
+      "p95_absolute_error": 0.011764705181121826,
+      "mask_pixels": 6422070,
+      "visible_screen_fraction": 0.4720334219733258,
+      "valid_atlas_fraction": 0.9998955838499107
+    },
+    "elapsed_seconds": 352.27006101608276,
+    "poster_projected_width_fraction": 0.8103022484998595
+  },
+  "saved_blender": {
+    "passed": true,
+    "blender": "3.4.1",
+    "engine": "CYCLES",
+    "poster_flat_depth_range_m": 2.0031167291545415e-07,
+    "poster_complete_uv": true,
+    "packed_original_png_sha256": "2e2508328ccbc61aeb02a78058644bd248a9f40a2f1956e361260905aa140094",
+    "packed_png_identical_to_original": true,
+    "sculpted_maple_leaves": 9,
+    "curved_architectural_wings": 2,
+    "wings_max_front_depth_m": {
+      "Sculpted rear architectural wing -1": -0.9731385516747315,
+      "Sculpted rear architectural wing 1": -0.9731383847483375
+    },
+    "actual_mesh_count": 66
+  },
+  "actual_decor_visibility": {
+    "method": "Actual unlit group-ID render of saved geometry intersected with independent physical LED mask; original poster retained as black depth occluder",
+    "groups": {
+      "maple": {
+        "visible_in_frustum": 5085,
+        "visible_on_led": 4351,
+        "led_fraction": 0.855653883972468
+      },
+      "sculpture": {
+        "visible_in_frustum": 63158,
+        "visible_on_led": 43647,
+        "led_fraction": 0.6910763482060863
+      },
+      "wing": {
+        "visible_in_frustum": 59772,
+        "visible_on_led": 42822,
+        "led_fraction": 0.7164224051395303
+      }
+    },
+    "all_groups_visible_on_led": true
+  },
+  "actual_browser": {
+    "passed": true,
+    "actual_render_job": "e98421fd10b743b7933d2b80ef87b9ef",
+    "poster_coverage": 1,
+    "mobile_no_overflow": true,
+    "page_errors": []
+  },
+  "tests": {
+    "command": "RUN_BLENDER_TESTS=1 .venv/bin/python -m pytest -q",
+    "passed": 154,
+    "skipped": 0
+  },
+  "geometry_core_unchanged": true,
+  "calibration_status": "NOMINAL_UNCALIBRATED",
+  "visual_judgment": "Actual iterations, full image, detail, and reprojected screen reviewed by agent; not user aesthetic approval"
+}

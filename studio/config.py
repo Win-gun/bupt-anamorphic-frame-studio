@@ -69,6 +69,7 @@ class Frame(StrictModel):
         "embedded_cube",
         "embedded_cube_architecture",
         "autumn_resonance_cube",
+        "autumn_symphony",
         "cinema",
         "deep",
         "float",
@@ -253,6 +254,7 @@ class Config(StrictModel):
             "embedded_cube",
             "embedded_cube_architecture",
             "autumn_resonance_cube",
+            "autumn_symphony",
         ):
             return self
         inward_offset = self.frame.position[2] if self.frame.layout != "manual" else 0

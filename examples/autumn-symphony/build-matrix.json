@@ -1,0 +1,98 @@
+[
+  {
+    "aspect": "16:9",
+    "scale": 0.1,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "16:9",
+    "scale": 0.5,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "16:9",
+    "scale": 0.88,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "16:9",
+    "scale": 1.0,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "square",
+    "scale": 0.1,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731383919715881,
+    "meshes": 66
+  },
+  {
+    "aspect": "square",
+    "scale": 0.5,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731383919715881,
+    "meshes": 66
+  },
+  {
+    "aspect": "square",
+    "scale": 0.88,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731383919715881,
+    "meshes": 66
+  },
+  {
+    "aspect": "square",
+    "scale": 1.0,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731383919715881,
+    "meshes": 66
+  },
+  {
+    "aspect": "portrait",
+    "scale": 0.1,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "portrait",
+    "scale": 0.5,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "portrait",
+    "scale": 0.88,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  },
+  {
+    "aspect": "portrait",
+    "scale": 1.0,
+    "status": "PASS",
+    "decor_guard_all_pass": true,
+    "rear_wing_max_local_z": -0.9731384366750717,
+    "meshes": 66
+  }
+]
