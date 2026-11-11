@@ -10,21 +10,21 @@
     "angle_deg": 90.0,
     "radius_m": null,
     "calibrated": false,
-    "curvature": "concave",
+    "curvature": "convex",
     "yaw_deg": 0.0
   },
   "camera": {
     "position": [
-      -2.0,
-      -14.0,
-      2.0
+      35.51,
+      -54.93,
+      -10.82
     ],
     "target": [
-      0.0,
-      0.0,
-      0.0
+      0.6,
+      1.4,
+      0.22
     ],
-    "fov_deg": 65.0
+    "fov_deg": 15
   },
   "frame": {
     "template": "aurora_float",

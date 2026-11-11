@@ -32,9 +32,11 @@ def test_v3_actual_preserved_poster_and_mapping(tmp_path, template, poster, conv
     c.frame.template = template
     c.render.scale = 0.125
     c.render.samples = 16
-    if convex:
-        c.screen.curvature = "convex"
-        c.camera.position = [12, -14, 2]
+    # Exercise both geometries independent of the product's default preset.
+    c.screen.curvature = "convex" if convex else "concave"
+    c.camera.position = [12, -14, 2] if convex else [-2, -14, 2]
+    c.camera.target = [0, 0, 0]
+    c.camera.fov_deg = 65
     config = tmp_path / "config.json"
     config.write_text(c.model_dump_json())
     target = tmp_path / "out"

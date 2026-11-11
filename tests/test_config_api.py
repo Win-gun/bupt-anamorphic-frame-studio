@@ -24,7 +24,7 @@ def test_pixel_units_and_radius_consistency():
 
 @pytest.mark.parametrize('section,key,value',[
     ('screen','pitch_mm',0),('screen','angle_deg',180),('screen','pixels',[2704,400,1248]),
-    ('render','scale',2),('render','samples',0),('camera','position',[0,0,0]),
+    ('render','scale',2),('render','samples',0),('camera','position',Config().camera.target),
     ('frame','border_m',5),('frame','color','invalid'),('frame','depth_m',float('nan')),
 ])
 def test_invalid_inputs(section,key,value):

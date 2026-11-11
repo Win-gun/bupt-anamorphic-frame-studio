@@ -33,6 +33,8 @@ def test_symphony_actual_mapping(tmp_path, shape):
     elif shape == "convex":
         c.screen.curvature = "convex"
         c.camera.position = [12, -14, 2]
+        c.camera.target = [0, 0, 0]
+        c.camera.fov_deg = 65
     cfg = tmp_path / "config.json"
     cfg.write_text(c.model_dump_json())
     out = tmp_path / "out"

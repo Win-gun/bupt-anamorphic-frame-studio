@@ -20,8 +20,9 @@ def test_autumn_actual_curved_projection(tmp_path, curvature):
     c.render.scale = 0.125
     c.render.samples = 8
     c.render.quality = "quick"
-    if curvature == "convex":
-        c.camera.position = [12, -14, 2]
+    c.camera.position = [12, -14, 2] if curvature == "convex" else [-2, -14, 2]
+    c.camera.target = [0, 0, 0]
+    c.camera.fov_deg = 65
     p = tmp_path / "config.json"
     p.write_text(c.model_dump_json())
     run = subprocess.run(

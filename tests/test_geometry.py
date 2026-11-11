@@ -29,7 +29,7 @@ def test_vectorization_and_arc_length(angle):
 
 
 def test_front_back_and_self_occlusion():
-    screen=Config().screen.model_dump(); d=dimensions(screen)
+    screen=Config().screen.model_dump(); screen['curvature']='concave'; d=dimensions(screen)
     ss=np.array([d['left']/2,d['left']+d['arc']/2,d['length']-.5])
     pts,normals=surface_grid(ss,0,screen)
     assert visible_points(pts,normals,[-2,-10,1],screen).all()
@@ -83,3 +83,21 @@ def test_concave_front_can_be_occluded_but_ray_above_panel_is_clear(yaw):
     assert np.dot(normal,blocked-point)>0
     assert not visible_points(point,normal,blocked,screen)
     assert visible_points(point,normal,above,screen)
+
+
+def test_default_photo_reference_sees_outward_corner_from_below():
+    from studio.composition import project_points
+
+    config = Config()
+    screen = config.screen.model_dump()
+    d = dimensions(screen)
+    distances = np.array([0, d["left"] + d["arc"] / 2, d["length"]])
+    points, normals = surface_grid(distances, d["height"] / 2, screen)
+    projected, depth = project_points(points, config)
+    assert np.all(depth > 0)
+    assert visible_points(points, normals, config.camera.position, screen).all()
+    assert projected[0, 0] < projected[1, 0] < projected[2, 0]
+    # The photographed upper edge reaches its high point near the corner.
+    assert projected[1, 1] > max(projected[0, 1], projected[2, 1])
+    assert config.camera.position[2] < -d["height"] / 2
+    assert not screen["calibrated"]

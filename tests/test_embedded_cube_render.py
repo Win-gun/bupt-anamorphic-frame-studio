@@ -19,9 +19,11 @@ def test_new_cube_actual_pipeline(tmp_path, layout, convex):
     c.cube.layout = layout
     c.render.scale = 0.125
     c.render.samples = 16
-    if convex:
-        c.screen.curvature = "convex"
-        c.camera.position = [12, -14, 2]
+    # Exercise both geometries independent of the product's default preset.
+    c.screen.curvature = "convex" if convex else "concave"
+    c.camera.position = [12, -14, 2] if convex else [-2, -14, 2]
+    c.camera.target = [0, 0, 0]
+    c.camera.fov_deg = 65
     p = tmp_path / "config.json"
     p.write_text(c.model_dump_json())
     out = tmp_path / "out"
