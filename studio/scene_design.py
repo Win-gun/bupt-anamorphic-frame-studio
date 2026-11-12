@@ -17,6 +17,8 @@ def build_exhibition(config, poster, composition, textured_material):
             from .legacy_scene_design import build_exhibition as build
         except ImportError:
             from legacy_scene_design import build_exhibition as build
+    elif template == "autumn_amber_gallery":
+        from studio.amber_gallery import build_exhibition as build
     elif template == "autumn_symphony":
         try:
             from .symphony_scene import build_exhibition as build

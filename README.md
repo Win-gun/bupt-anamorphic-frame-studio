@@ -6,6 +6,10 @@
 
 [三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
 
+## 秋韵 · 琥珀回廊
+
+为「计启秋韵」新增的独立样式，使用紫色陶釉曲面、缎面铜饰和带凸起叶脉的枫叶。海报约占照片参考机位下可见屏宽的 87%。界面可以分别选择琥珀回廊和枫光奏鸣。[正式渲染、工程和对比](examples/amber-gallery/README.md)
+
 ## 新增：Autumn Symphony · 秋韵枫光奏鸣
 
 针对「计启秋韵」原图定制的独立三维样式 `autumn_symphony`：深紫弯折建筑翼面、宽幅悬浮曲面、铜色旋律曲带，以及九片带真实叶脉的曲面枫叶。海报在最佳观察点下放大，原始纹理、文字、Logo完整保留。

@@ -229,7 +229,7 @@ def main():
             )
         )
     )
-    if config["frame"]["template"] == "autumn_symphony":
+    if config["frame"]["template"] in ("autumn_symphony", "autumn_amber_gallery"):
         use_cycles = r.get("quality") == "high" or r.get("animation", False)
     if use_cycles:
         scene.render.engine = "CYCLES"
@@ -335,6 +335,7 @@ def main():
         "embedded_cube_architecture",
         "autumn_resonance_cube",
         "autumn_symphony",
+        "autumn_amber_gallery",
     )
     dynamics = {
         "moving_objects": [

@@ -341,7 +341,8 @@ function App() {
       </div>
     );
   const isAutumn = c.frame.template === "autumn_resonance_cube";
-  const isSymphony = c.frame.template === "autumn_symphony";
+  const isAmberGallery = c.frame.template === "autumn_amber_gallery";
+  const isAutumnStage = isAmberGallery || c.frame.template === "autumn_symphony";
   const isArchitecture = c.frame.template === "embedded_cube_architecture";
   const isLegacy = ["cinema", "deep", "float", "glass"].includes(
     c.frame.template,
@@ -391,6 +392,7 @@ function App() {
           </div>
           <div className="templates">
             {[
+              ["autumn_amber_gallery", "秋韵 · 琥珀回廊", "铜饰曲面 · 陶釉枫叶"],
               ["autumn_symphony", "秋韵 · 枫光奏鸣", "枫叶雕塑 · 旋律曲面"],
               ["autumn_resonance_cube", "秋韵光影舱", "Autumn Resonance Cube"],
               ["aurora_float", "极光悬浮", "柔和空间"],
@@ -409,7 +411,7 @@ function App() {
                   "template " + (c.frame.template === id ? "selected" : "")
                 }
                 onClick={() => {
-                  if (id === "autumn_symphony")
+                  if (id === "autumn_symphony" || id === "autumn_amber_gallery")
                     setC({
                       ...c,
                       frame: {
@@ -417,7 +419,7 @@ function App() {
                         template: id,
                         layout: "auto_fit",
                         position: [0, 0, 0],
-                        scale: 0.88,
+                        scale: id === "autumn_amber_gallery" ? 0.9 : 0.88,
                         virtual_depth_m: 0,
                       },
                       render: {
@@ -465,7 +467,7 @@ function App() {
                   else set("frame", "template", id);
                 }}
               >
-                <span className={"frameicon f" + ({autumn_symphony: 2, autumn_resonance_cube: 3, aurora_float: 0, soft_depth: 1, glass_layers: 2, embedded_cube_architecture: 3, embedded_cube: 4} as Record<string, number>)[id]}>
+                <span className={"frameicon f" + ({autumn_amber_gallery: 3, autumn_symphony: 2, autumn_resonance_cube: 3, aurora_float: 0, soft_depth: 1, glass_layers: 2, embedded_cube_architecture: 3, embedded_cube: 4} as Record<string, number>)[id]}>
                   <i />
                 </span>
                 <span>
@@ -496,9 +498,11 @@ function App() {
               ))}
             </div>
           </details>
-          {isSymphony && (
+          {isAutumnStage && (
             <p className="muted">
-              专为「计启秋韵」设计：立体枫叶、流动曲面与紫橙柔光延展原画意境。海报使用完整原始纹理。快速构图使用 Eevee，高质量输出使用 Cycles。
+              {isAmberGallery
+                ? "拉丝铜饰、紫色陶釉曲面与悬浮枫叶。高质量渲染呈现完整光影。"
+                : "专为「计启秋韵」设计：立体枫叶、流动曲面与紫橙柔光延展原画意境。海报使用完整原始纹理。快速构图使用 Eevee，高质量输出使用 Cycles。"}
             </p>
           )}
           {c.frame.template === "embedded_cube_architecture" && (
@@ -555,7 +559,7 @@ function App() {
               )}
             </details>
           )}
-          {!isLegacy && !isArchitecture && !isAutumn && !isSymphony && (
+          {!isLegacy && !isArchitecture && !isAutumn && !isAutumnStage && (
             <>
               <div className="sectionlabel">
                 <span>空间色彩</span>
@@ -698,7 +702,7 @@ function App() {
               )}
             </>
           )}
-          {professional && !isLegacy && !isArchitecture && !isAutumn && !isSymphony && (
+          {professional && !isLegacy && !isArchitecture && !isAutumn && !isAutumnStage && (
             <details>
               <summary>图片布局 / LAYOUT</summary>
               <label className="field">
@@ -843,7 +847,7 @@ function App() {
               )}
               {!isLegacy && !isAutumn && (
                 <>
-                  {!isArchitecture && !isSymphony && (
+                  {!isArchitecture && !isAutumnStage && (
                     <>
                       {n(
                         "悬浮距离 m",
@@ -868,7 +872,7 @@ function App() {
                       ["shadow_softness", "阴影柔和度"],
                     ] as const
                   )
-                    .filter(([k]) => (!isArchitecture || k !== "glow") && (!isSymphony || ["intensity", "softness", "ambient"].includes(k)))
+                    .filter(([k]) => (!isArchitecture || k !== "glow") && (!isAutumnStage || ["intensity", "softness", "ambient"].includes(k)))
                     .map(([k, label]) =>
                       n(
                         label,
