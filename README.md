@@ -1,10 +1,43 @@
-# Anamorphic Image Display Studio · Aurora Space V3
+# BUPT Anamorphic Frame Studio
 
-上传一张图片，用柔和的三维空间、轻薄悬浮面板与真实投影，生成北邮弧形转角 LED 内容。本地运行，保留原海报文字、Logo 和所有图像，不依赖云端或生成式重绘。
+为北京邮电大学三段式弧形转角 LED 大屏制作裸眼 3D 图片内容。上传一张海报，选择空间模板，工作室会在本机渲染三维场景，并生成 **4368 × 3120** 播放图和预设观看点的模拟图。默认按原图比例构图，标题、Logo 和其他内容随原图一起保留。
 
-![计启秋韵 · Aurora Float 真实三维渲染](examples/v3/aurora-preview.png)
+![计启秋韵 · 琥珀回廊的北邮转角屏模拟效果](examples/amber-gallery/preview.jpg)
 
-[三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [视觉质量报告](examples/v3/visual-review.md) · [完整验收](examples/v3/acceptance.md)
+[播放图示例](examples/amber-gallery/final/atlas.png) · [全尺寸回贴模拟](examples/amber-gallery/final/simulation.png) · [渲染与验证记录](examples/amber-gallery/README.md)
+
+## 本地启动
+
+准备 Python 3.9+、Node.js 20（20.19 起）或 22.12+、Blender 和 FFmpeg（含 `ffprobe`）。项目在 macOS Apple Silicon 上使用 **Blender 3.4.1** 的 Eevee 和 Cycles CPU 完成验证。较新的 Blender 版本尚未完成整套兼容验证。
+
+```sh
+git clone https://github.com/Win-gun/bupt-anamorphic-frame-studio.git
+cd bupt-anamorphic-frame-studio
+./scripts/setup.sh
+./scripts/start.sh
+```
+
+打开 [本地工作室](http://127.0.0.1:8000/)，上传图片并选择空间样式。先用「快速预览」检查构图，再用「高质量预览」检查光影，最后点「正式导出」生成全尺寸画布。启动脚本仅监听本机，支持通过 `PORT` 更改端口。服务优先使用 `BLENDER_BIN` 指定的 Blender，其次查找命令行上的 `blender`，最后使用 macOS 的默认安装路径。
+
+## LED 展开图如何生成
+
+1. **建屏。** 按左平面 **2704 列**、中间圆弧 **416 列**、右平面 **1248 列**建立连续的三维屏幕，三段均高 **3120 行**。展开图的横坐标对应沿屏幕表面的累计距离。
+2. **构图和渲染。** 根据预设观察点算出可见屏幕区域，在画面中按原图比例放置海报。Blender 从同一机位渲染海报、立体结构和照明，输出目标画面。
+3. **逐像素反向取样。** 把播放画布的每个像素中心转换成屏幕上的三维点，再透视投影回目标画面，检查朝向、遮挡和图像边界后，用相邻四点取样得到 RGB。三段使用同一套计算。
+4. **回贴验证。** 把播放图贴回三维屏幕，从原机位重新渲染，在有效屏幕区域内比较结果与目标画面。
+
+| 输出文件 | 用途 |
+| --- | --- |
+| `atlas.png` | LED 播放画布。平铺查看时呈现为适配三段屏幕的预变形图像。 |
+| `scene.png` | Blender 目标画面，用于检查构图和光影。 |
+| `simulation.png` | 展开图贴回三段屏幕后，从预设机位看到的画面。 |
+| `calibration.png`、`report.json` | 分段校准网格和回贴验证结果。 |
+
+**屏幕像素规格已确定。** 外凸方向有现场照片支持，P3、90° 转角和观察点采用参考值，仍待现场实测校准。 [照片与模型核查](examples/screen-photo-fit/README.md) · [反向投影实现](studio/blender_render.py#L155)
+
+## 场景示例
+
+[Aurora Float · 极光悬浮](examples/v3/aurora-preview.png) · [三种配色](examples/v3/palette-contact-sheet.png) · [四种空间模板](examples/v3/architecture-contact-sheet.png) · [V2/V3 对比](examples/v3/v2-v3-comparison.png) · [验收报告](examples/v3/acceptance.md)
 
 ## 秋韵 · 琥珀回廊
 
@@ -54,19 +87,6 @@
 
 界面提供空间深度、墙厚、海报占用和A/B布局；专业模式可调开口占用与舱内位置。建筑固定灰紫/雾蓝/暖灰材质，隐藏不适用的Aurora渐变控件。全局默认风格不变，旧轻型内嵌版本仍可选择。
 
-## 本地启动
-
-需要 Python 3.9+、Node.js 20.19+、FFmpeg/ffprobe。已实际验证 macOS Apple Silicon、Blender **3.4.1 EEVEE / Cycles CPU**；其他 Blender 大版本的 PBR/EEVEE API 尚未兼容验证。
-
-```sh
-git clone https://github.com/Win-gun/bupt-anamorphic-frame-studio.git
-cd bupt-anamorphic-frame-studio
-./scripts/setup.sh
-./scripts/start.sh
-```
-
-打开 http://127.0.0.1:8000 。安装脚本使用锁定依赖，优先使用已安装的 Homebrew Node 20。Blender 默认路径 `/Applications/Blender.app/Contents/MacOS/Blender`，可用 `BLENDER_BIN` 覆盖。仅监听本机。
-
 ## 新视觉系统
 
 | 风格 | 实际空间结构 |
@@ -104,7 +124,7 @@ Auto Fit 自动读取原始比例并在观察相机的实际可见屏幕轮廓�
 - **交互 3D**：载入 Blender 导出的同源 GLB，默认正面三分之四视角，支持旋转、缩放和重置。程序化节点和完整灯光保存在 Blender；GLB 用于几何检查，其材质回退不等同于最终照明。
 - **照片合成**：提供场地照片时，可手动调位置、大小和透明度；明确标注未现场校准。该功能的浏览器测试使用合成测试图。
 
-快速预览1/8采样，高质量预览1/2，正式输出全尺寸。V3 动态缓慢向前、轻微悬浮后稳定停留，可选柔光移动；旧 Legacy 保持原有前进—停留—返回行为。每帧都是真实三维对象和灯光渲染后再执行曲面反投影，未使用二维缩放。
+快速预览使用 1/8 的线性分辨率，高质量预览使用 1/2，正式输出使用全尺寸。V3 动态缓慢向前、轻微悬浮后稳定停留，可选柔光移动；旧 Legacy 保持原有前进—停留—返回行为。每帧都是真实三维对象和灯光渲染后再执行曲面反投影，未使用二维缩放。
 
 渲染界面显示实际阶段、分块/采样或已完成动画帧数与任务用时；百分比为阶段加权估算。全尺寸 Cycles CPU 可能需要数分钟，不能仅因数秒未更新采样就判断卡死。日常构图先用快速预览。
 
